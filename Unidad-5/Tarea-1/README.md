@@ -2,7 +2,7 @@
 
 ## Paso 1: Crear Una tabla con un campo de cada tipo
 
-Primero creamos la tabla, a la cual le iremos añadiendo campos (cada campo a su vez tiene su tipo especifico al lado)
+1 y 2. Primero creamos la tabla, a la cual le iremos añadiendo campos (cada campo a su vez tiene su tipo especifico al lado)
 
 ```sql
 create table tarea1 (
@@ -18,7 +18,7 @@ create table tarea1 (
 
 ## Paso 2: Insertar 50 entradas
 
-Aquí debemos insertar todos nuestros datos en una tabala. Con el siguiente comando, hemos introducido nuestros datos fila por fila. Pondremos de ejemplo, el comando que usamos con la fila 50:
+1. Aquí debemos insertar todos nuestros datos en una tabala. Con el siguiente comando, hemos introducido nuestros datos fila por fila. Pondremos de ejemplo, el comando que usamos con la fila 50:
 
 ``` sql
 insert into tarea1 (id, texto,entero,decimal,fecha,booleano) values ('1','Ejemplo1','25','10.5','2022-05-15','0');
@@ -83,3 +83,65 @@ En el comando se insertan primero los campos de la table y a continuación, se i
 +----+-----------+--------+---------+------------+----------+
 ```
 
+## Paso 3
+
+1. Para obtener todos los datos de nuestra tabla, simpelemente colocamos: 
+
+``` sql
+select * from tarea1;
+```
+De esta manera podremos ver todos nuestros datos de forma ordenada
+
+2. En cambio si queremos ver las entradas en el campo "entero" que sean mayor a cincuenta, colocamos:
+
+```sql
+select * from tarea1 where entero>50;
+```
+
+## Paso 4
+
+1. Para eliminar entradas, debemos hacer lo siguiente:
+
+```sql
+ delete from tarea1 where booleano='1';
+```
+En este caso hemos eliminado las filas en las que el valor booleano es 1, es decir, True.
+
+1. En el caso de que queramos modificar alguna entrada, debemos colocar esto:
+
+```sql
+update tarea1 set entero="Modificado" where entero<30;
+```
+2. Ahora eliminaremmos las entradas donde "entero" sea igual a 50 con el siguiente comando: 
+
+```sql
+delete from tarea1 where entero=50;
+```
+3. Ahora incrementaremos a 10 las entradas del campo "entero" las cuales su booleano sea False:
+
+```sql
+update tarea1 set entero = entero+10 where booleano=0;
+```
+
+4. A continuación eliminaremos las entradas del campo "decimal" que valga menos de 50
+
+```sql
+delete from tarea1 where decimal<50;
+```
+5. Por último actualizaremos el campo "fecha" y pondremos la de hoy:
+
+```sql
+update tarea1 set fecha='2023-12-15' where fecha;
+```
+
+## Estado final de la tabla
+
+```
++----+-----------+--------+---------+------------+----------+
+| id |   texto   | entero | decimal |   fecha    | booleano |
++----+-----------+--------+---------+------------+----------+
+| 9  | Ejemplo9  | 41     | 55.0    | 2023-12-15 | 0        |
+| 29 | Ejemplo29 | 10     | 50.0    | 2023-12-15 | 0        |
+| 49 | Ejemplo49 | 10     | 50.0    | 2023-12-15 | 0        |
++----+-----------+--------+---------+------------+----------+
+```
