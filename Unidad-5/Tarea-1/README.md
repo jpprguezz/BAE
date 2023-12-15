@@ -2,7 +2,7 @@
 
 ## Paso 1: Crear Una tabla con un campo de cada tipo
 
-1 y 2 .Primero creamos la tabla, a la cual le iremos añadiendo campos (cada campo a su vez tiene su tipo especifico al lado)
+Primero creamos la tabla, a la cual le iremos añadiendo campos (cada campo a su vez tiene su tipo especifico al lado)
 
 ```sql
 create table tarea1 (
