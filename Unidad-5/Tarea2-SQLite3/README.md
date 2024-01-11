@@ -467,12 +467,12 @@ UPDATE propietarios set apellido="Gomez" WHERE id="7"
 
 #### Modificar la marca de un vehículo con modelo "Fiesta" a "Renault".
 ```sql
-UPDATE vehiculos set modelo="Renault" WHERE modelo="Fiesta";
+UPDATE vehiculos set marca="Renault" WHERE modelo="Fiesta";
 
 +----+------------+------------+------+----------------+
 | id |   marca    |   modelo   | anio | id_propietario |
 +----+------------+------------+------+----------------+
-| 1  | Ford       | Renault    | 2019 | 1              |
+| 1  | Renault    | Fiesta     | 2019 | 1              |
 | 2  | Toyota     | Corolla    | 2018 | 2              |
 | 3  | Nissan     | Micra      | 2022 | 3              |
 | 4  | Chevrolet  | Spark      | 2017 | 4              |
