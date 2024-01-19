@@ -244,22 +244,22 @@ SELECT id_producto,cantidad FROM ventas WHERE cantidad >= 5;
 ### Mostrar la fecha y la cantidad de ventas para cada producto.
 
 ```sql
-SELECT CURRENT_DATE AS fecha, cantidad FROM ventas;
+SELECT p.id, p.nombre, v.fecha, v.cantidad FROM productos as p, ventas as v WHERE p.id=v.id_producto;
 
-+------------+----------+
-|   fecha    | cantidad |
-+------------+----------+
-| 2024-01-19 | 5        |
-| 2024-01-19 | 3        |
-| 2024-01-19 | 2        |
-| 2024-01-19 | 1        |
-| 2024-01-19 | 10       |
-| 2024-01-19 | 4        |
-| 2024-01-19 | 2        |
-| 2024-01-19 | 7        |
-| 2024-01-19 | 3        |
-| 2024-01-19 | 6        |
-+------------+----------+
++----+---------------+------------+----------+
+| id |    nombre     |   fecha    | cantidad |
++----+---------------+------------+----------+
+| 1  | Arroz         | 2024-01-17 | 5        |
+| 2  | Leche         | 2024-01-17 | 3        |
+| 4  | Manzanas      | 2024-01-17 | 2        |
+| 5  | Pollo         | 2024-01-17 | 1        |
+| 6  | Huevos        | 2024-01-18 | 10       |
+| 8  | Tomates       | 2024-01-18 | 4        |
+| 10 | Cereal        | 2024-01-18 | 2        |
+| 14 | Galletas      | 2024-01-19 | 7        |
+| 16 | Café          | 2024-01-19 | 3        |
+| 18 | Jabón de Baño | 2024-01-20 | 6        |
++----+---------------+------------+----------+
 ```
 ### Encontrar los productos que tienen un precio menor o igual a 2.
 
@@ -283,10 +283,40 @@ SELECT nombre, precio FROM productos WHERE precio <= 2;
 
 ### Calcular la cantidad total de ventas para cada fecha.
 
+```sql
+SELECT fecha, SUM(cantidad) AS totalventas
+FROM ventas
+GROUP BY fecha;
+
++------------+-------------+
+|   fecha    | totalventas |
++------------+-------------+
+| 2024-01-17 | 11          |
+| 2024-01-18 | 16          |
+| 2024-01-19 | 10          |
+| 2024-01-20 | 6           |
++------------+-------------+
+```
 ### Listar los productos cuyo nombre comienza con la letra 'P'.
+
+```sql
+SELECT nombre FROM productos WHERE (nombre like 'P%');
+
++-----------------+
+|     nombre      |
++-----------------+
+| Pan             |
+| Pollo           |
+| Papel Higiénico |
++-----------------+
+```
 
 ### Obtener el producto más vendido en términos de cantidad.
 
+```sql
+
+
+```
 ### Mostrar los productos que fueron vendidos en la fecha '2024-01-18'.
 
 ### Calcular el total de ventas para cada producto.
