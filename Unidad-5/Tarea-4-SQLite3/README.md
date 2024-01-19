@@ -239,7 +239,6 @@ select id_producto,cantidad from ventas where cantidad >= 5;
 | 14          | 7        |
 | 18          | 6        |
 +-------------+----------+
-
 ```
 
 ### Mostrar la fecha y la cantidad de ventas para cada producto.
