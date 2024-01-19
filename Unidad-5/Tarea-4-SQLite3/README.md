@@ -176,14 +176,71 @@ SELECT SUM(cantidad) as vendidos_total FROM ventas;
 ### Encontrar el producto más caro en cada categoría.
 
 ```sql
+SELECT nombre,MAX(precio) FROM productos GROUP BY categoria;
 
++--------------------+-------------+
+|       nombre       | MAX(precio) |
++--------------------+-------------+
+| Arroz              | 2.5         |
+| Café               | 5.0         |
+| Pollo              | 5.5         |
+| Aceite de Oliva    | 4.5         |
+| Sopa enlatada      | 2.3         |
+| Cereal             | 3.5         |
+| Manzanas           | 3.0         |
+| Cepillo de Dientes | 2.0         |
+| Papel Higiénico    | 1.5         |
+| Detergente         | 2.8         |
+| Queso              | 4.0         |
+| Pan                | 1.2         |
+| Galletas           | 1.7         |
+| Tomates            | 2.2         |
++--------------------+-------------+
 ```
 
 ### Listar los productos que no han sido vendidos.
+```sql
+SELECT * FROM productos where id not in (SELECT p.id from productos as p, ventas as v where p.id = v.id_producto);
 
++----+--------------------+-----------+--------+
+| id |       nombre       | categoria | precio |
++----+--------------------+-----------+--------+
+| 3  | Pan                | Panadería | 1.2    |
+| 7  | Yogurt             | Lácteos   | 2.0    |
+| 9  | Queso              | Lácteos   | 4.0    |
+| 11 | Papel Higiénico    | Hogar     | 1.5    |
+| 12 | Cepillo de Dientes | Higiene   | 2.0    |
+| 13 | Detergente         | Limpieza  | 2.8    |
+| 15 | Aceite de Oliva    | Cocina    | 4.5    |
+| 17 | Sopa enlatada      | Conservas | 2.3    |
+| 19 | Botellas de Agua   | Bebidas   | 1.0    |
+| 20 | Cerveza            | Bebidas   | 3.8    |
++----+--------------------+-----------+--------+
+```
 ### Calcular el precio promedio de los productos en la categoría "Snacks".
+```sql
+SELECT AVG(precio) from productos where categoria like 'Snacks';
 
++-------------+
+| AVG(precio) |
++-------------+
+| 1.7         |
++-------------+
+```
 ### Encontrar los productos que han sido vendidos más de 5 veces.
+```sql
+select id_producto,cantidad from ventas where cantidad >= 5;
+
++-------------+----------+
+| id_producto | cantidad |
++-------------+----------+
+| 1           | 5        |
+| 6           | 10       |
+| 14          | 7        |
+| 18          | 6        |
++-------------+----------+
+
+```
 
 ### Mostrar la fecha y la cantidad de ventas para cada producto.
 
