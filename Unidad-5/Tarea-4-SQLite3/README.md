@@ -229,7 +229,7 @@ SELECT AVG(precio) from productos where categoria like 'Snacks';
 ```
 ### Encontrar los productos que han sido vendidos más de 5 veces.
 ```sql
-select id_producto,cantidad from ventas where cantidad >= 5;
+SELECT id_producto,cantidad FROM ventas WHERE cantidad >= 5;
 
 +-------------+----------+
 | id_producto | cantidad |
@@ -243,7 +243,43 @@ select id_producto,cantidad from ventas where cantidad >= 5;
 
 ### Mostrar la fecha y la cantidad de ventas para cada producto.
 
+```sql
+SELECT CURRENT_DATE AS fecha, cantidad FROM ventas;
+
++------------+----------+
+|   fecha    | cantidad |
++------------+----------+
+| 2024-01-19 | 5        |
+| 2024-01-19 | 3        |
+| 2024-01-19 | 2        |
+| 2024-01-19 | 1        |
+| 2024-01-19 | 10       |
+| 2024-01-19 | 4        |
+| 2024-01-19 | 2        |
+| 2024-01-19 | 7        |
+| 2024-01-19 | 3        |
+| 2024-01-19 | 6        |
++------------+----------+
+```
 ### Encontrar los productos que tienen un precio menor o igual a 2.
+
+```sql
+SELECT nombre, precio FROM productos WHERE precio <= 2;
+
++--------------------+--------+
+|       nombre       | precio |
++--------------------+--------+
+| Leche              | 1.8    |
+| Pan                | 1.2    |
+| Huevos             | 1.0    |
+| Yogurt             | 2.0    |
+| Papel Higiénico    | 1.5    |
+| Cepillo de Dientes | 2.0    |
+| Galletas           | 1.7    |
+| Jabón de Baño      | 1.2    |
+| Botellas de Agua   | 1.0    |
++--------------------+--------+
+```
 
 ### Calcular la cantidad total de ventas para cada fecha.
 
