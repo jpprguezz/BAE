@@ -80,8 +80,8 @@ Y luego colocamos el comando .read para insertar la información del fichero sup
 
 ## Paso 3: Responde a las siguientes cuestiones
 
-
-
+### ER
+![Alt text](image.png)
 
 
 
