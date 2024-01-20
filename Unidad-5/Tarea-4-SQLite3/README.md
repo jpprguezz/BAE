@@ -83,7 +83,16 @@ Y luego colocamos el comando .read para insertar la información del fichero sup
 ### ER
 ![Alt text](image.png)
 
+### MR
+![Alt text](image-1.png)
 
+### Normalización 1º - 3ª
+
+1. La tabla si se encuentra en 1ª Forma Normal, debido a que vemos como sus datos estan estructurados de forma correcta, lo que hace que esten en forma atómica.
+
+2. También podemos observar que ha sido pasada a 2ª Forma Normal, debido a que ha estado previamente en 1º Forma Normal y además, no poseer atributos no pertenecientes a la clave principal.
+
+3. Por último, observamos que estas tablas estñán también en 3º Forma Normal, debido a que han estadio anterioremente en 2º Forma Normal y no posee ninguna dependencia transitiva más.
 
 ## Paso 4: Responde a las siguientes cuestiones
 
