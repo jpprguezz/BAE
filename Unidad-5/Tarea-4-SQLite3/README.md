@@ -80,6 +80,11 @@ Y luego colocamos el comando .read para insertar la información del fichero sup
 
 ## Paso 3: Responde a las siguientes cuestiones
 
+
+
+
+
+
 ## Paso 4: Responde a las siguientes cuestiones
 
 
@@ -541,3 +546,4 @@ SELECT * FROM Productos WHERE LENGTH(Nombre) >= 5;
 ```
 
 ### Encontrar los productos que tienen un precio superior al precio máximo en la tabla "productos".
+
