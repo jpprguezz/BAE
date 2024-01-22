@@ -4,12 +4,12 @@
 
 ## Comandos basicos para modificar una BBDD
 
-- CREATE: Crea la tabla 
-- ALTER: Añade o elimina objetos de la tabla
-- DROP: Elimina objetos en la tabla
-- TRUNCATE: Elimina TODOS los datos de la tabla
-- SELECT: Selecciona los datos que quieras de la tablas (indicar datos a seleccionar)
-- INSERT: Ayuda a colocar datos en la tabla (indicar datos a colocar)
+- `CREATE`: Crea la tabla 
+- `ALTER`: Añade o elimina objetos de la tabla
+- `DROP`: Elimina objetos en la tabla
+- `TRUNCATE`: Elimina TODOS los datos de la tabla
+- `SELECT`: Selecciona los datos que quieras de la tablas (indicar datos a seleccionar)
+- `INSERT`: Ayuda a colocar datos en la tabla (indicar datos a colocar)
 
 ### Crear una BBDD con SQLite3
 
