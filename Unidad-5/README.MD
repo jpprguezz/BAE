@@ -62,6 +62,12 @@ Ahora podemos generar nuestra primera tabla. Para ver la tabla, es tan facil com
 | 2  | José   | Peña      | 01-01-2001.         | holap           |
 +----+--------+-----------+---------------------+-----------------+
 ```
+
+Para poder poner seudonimos a las tablas, usamo AS
+
+```sql
+select * from ejemplo as ejem, ejemplo2 as ejem2;
+```
 ## Comandos basicos para BBDD
 
 Para poder acceder a información de la base de datos o modificarla hay ciertos comandos:
