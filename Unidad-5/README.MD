@@ -162,6 +162,7 @@ Una consulta puede dar valor vacio, y para poder evitar eso ponemos select lo_q_
 (FALTAN CONSULTAS)
 
 encontrar productos vendidos en más de una fecha
+select p.id, p.nombre from productos as p, ventas as v where p.id=v.id_productos group by p.id,p.nombre having count (distinct(v.fecha))
 
 
 
