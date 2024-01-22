@@ -121,8 +121,7 @@ SELECT column1, column2, ... FROM table_name ORDER BY column1, column2, ... ASC;
 8. `GROUP BY`: Usado para organizar datos iguales en grupos, basados en columnas. Se usa junto a otras consultas para contar como MIN, MAX, COUNT o SUM:
 
 ```sql
-SELECT column1, column2, ...
-FROM table_name GROUP BY column1, column2, ...
+SELECT column1, column2, ... FROM table_name GROUP BY column1, column2, ...
 ```
 
 9. `COUNT`: Para contar registros:
