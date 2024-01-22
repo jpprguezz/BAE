@@ -66,7 +66,7 @@ Ahora podemos generar nuestra primera tabla. Para ver la tabla, es tan facil com
 Para poder poner seudonimos a las tablas, usamo AS
 
 ```sql
-select * from ejemplo as ejem, ejemplo2 as ejem2;
+SELECT * FROM ejemplo AS ejem, ejemplo2 AS ejem2;
 ```
 ## Comandos basicos para BBDD
 
