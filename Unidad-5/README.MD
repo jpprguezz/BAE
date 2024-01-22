@@ -157,11 +157,11 @@ SELECT AVG(column_name) FROM table_name;
 SELECT column1, column2, ... FROM table1 JOIN table2 ON  table1.column1 = table2.column2
 ```
 
-Una consulta puede dar valor vacio, y para poder evitar eso ponemos select (lo q se quier) from x;
+Una consulta puede dar valor vacio, y para poder evitar eso ponemos select lo_q_se_quiera_from x;
 
 (FALTAN CONSULTAS)
 
-
+encontrar productos vendidos en más de una fecha
 
 
 
