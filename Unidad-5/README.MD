@@ -77,106 +77,85 @@ Para poder acceder a información de la base de datos o modificarla hay ciertos 
 1. `UPDATE`: Sirve para poder cambiar directamente la informaciónd de cualquier lado, después de haber seleccionado con el comando, que se quiere cambiar, por ejemplo    
 
 ```sql
-UPDATE empleados
-SET salario = salario * 1.1
-WHERE cargo = 'Analista';
+UPDATE empleados SET salario = salario * 1.1 WHERE cargo = 'Analista';
 ```
 En esta tabla observamos que en la tabla empleados, se le cambia el salario sumandole 1.1 a los analistas.
 
 2. `DELETE`: Sirve para eliminar información, y al igual que UPDATE, hay que ponerle una condición.
 
 ```sql
-DELETE FROM empleados
-WHERE salario < 30000;
+DELETE FROM empleados WHERE salario < 30000;
 ```
 Con esta conculta, se eliminaria cualqueir registro de la tabla empleados donde el salario fuera menor de 30000.
 
 3. `AND`: Para cuando WHERE lleva más de una condición:
 
 ```sql
-SELECT column1, column2, ...
-FROM table_name
-WHERE condition1 AND condition2 AND condition3 ...;
+SELECT column1, column2, ... FROM table_name WHERE condition1 AND condition2 AND condition3 ...;
 ```
 
 4. `OR`: Cuando WHERE lleva dos o más condiciones, de las que se debe cumplir alguna si o si: 
 
 ```sql
-SELECT column1, column2, ...
-FROM table_name
-WHERE condition1 OR condition2 OR condition3 OR...;
+SELECT column1, column2, ... FROM table_name WHERE condition1 OR condition2 OR condition3 OR...;
 ```
 
 5. `LIMIT`: Para limitar los resultados que te de la condulta que hagas: 
 
 ```sql
-SELECT column1, column2, ...
-FROM table_name
-LIMIT 10
+SELECT column1, column2, ... FROM table_name LIMIT 10
 ```
 
 6. `OFFSET`: Usado para saltar la cantidad indicada de datos. Se suele usar junto a LIMIT:
 
 ```sql
-SELECT column1, column2, ...
-FROM table_name
-LIMIT 10
-OFFSET 50
+SELECT column1, column2, ... FROM table_name LIMIT 10 OFFSET 50
 ```
 
 7. `ORDER BY`: Se usa para ordenar campos de forma ascendente (ASC) o descendente (DESC)
 
 ```sql
-SELECT column1, column2, ...
-FROM table_name
-ORDER BY column1, column2, ... ASC;
+SELECT column1, column2, ... FROM table_name ORDER BY column1, column2, ... ASC;
 ```
 
 8. `GROUP BY`: Usado para organizar datos iguales en grupos, basados en columnas. Se usa junto a otras consultas para contar como MIN, MAX, COUNT o SUM:
 
 ```sql
 SELECT column1, column2, ...
-FROM table_name
-GROUP BY column1, column2, ...
+FROM table_name GROUP BY column1, column2, ...
 ```
 
 9. `COUNT`: Para contar registros:
 
 ```sql
-SELECT COUNT(column_name)
-FROM table_name;
+SELECT COUNT(column_name) FROM table_name;
 ```
 
 10. `MIN` y `MAX`: Selecciona el valor más pequeño o grande de una columna:
 
 ```sql
-SELECT MIN(column_name)
-FROM table_name;
+SELECT MIN(column_name) FROM table_name;
 ```
 ```sql
-SELECT MAX(column_name)
-FROM table_name;
+SELECT MAX(column_name) FROM table_name;
 ```
 
 11. `SUM`: Usado para sumar todos los valores de una columna: 
 
 ```sql
-SELECT SUM(column_name)
-FROM table_name;
+SELECT SUM(column_name) FROM table_name;
 ```
 
 12. `AVG`: Para obtener el promedio de todos los valores de una tabla:
 
 ```sql
-SELECT AVG(column_name)
-FROM table_name;
+SELECT AVG(column_name) FROM table_name;
 ```
 
 13. `JOIN`: Usado para unir datos de una tabla con otra:
 
 ```sql
-SELECT column1, column2, ...
-FROM table1 JOIN table2 ON  table1.column1 = table2.column2
+SELECT column1, column2, ... FROM table1 JOIN table2 ON  table1.column1 = table2.column2
 ```
 
 Una consulta puede dar valor vacio, y para poder evitar eso ponemos select (lo q se quier) from x;
