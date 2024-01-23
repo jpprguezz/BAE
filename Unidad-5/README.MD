@@ -166,11 +166,24 @@ select p.id, p.nombre from productos as p, ventas as v where p.id=v.id_productos
 
 .output nombre fichero 
 
+inserte 
+update
+select *
+delete
+select función
+select order
+select distinc
+select count
+select gropu by
+select like
+select in
+select subconsulta
 
+PARA ENTREGAR LA BASE DE DATOS
 
-
-
-
+.read
+.output
+.dump
 
 
 
