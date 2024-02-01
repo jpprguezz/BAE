@@ -351,7 +351,6 @@ select * from libro where titulo not regexp 'Science';
 
 -- Obtener todos los autores cuyo nombre tiene al menos una letra repetida consecutivamente:
 
-
 -- Obtener todos los autores cuyo nombre empieza con "M" o termina con "n":
 
 -- Obtener todos los autores cuyo nombre no contiene caracteres especiales:
