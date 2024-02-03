@@ -140,23 +140,94 @@ select * from Pedidos where fecha_pedido regexp '2024-02';
 **/
 -- Obtener la cantidad total de productos en todos los pedidos por producto.
 /**
+
 **/
 -- Obtener los clientes que han realizado más de un pedido.
+select Clientes.id, Clientes.nombre from Clientes inner join Pedidos on Clientes.id=Pedidos.id_cliente WHERE Pedidos.cantidad > 1; 
 /**
+┌────┬─────────────────┐
+│ id │     nombre      │
+├────┼─────────────────┤
+│ 1  │ Juan Pérez      │
+│ 3  │ Carlos López    │
+│ 5  │ Luisa Martínez  │
+│ 7  │ Laura García    │
+│ 8  │ Miguel Martín   │
+│ 10 │ David Torres    │
+│ 12 │ Javier López    │
+│ 14 │ Daniel Muñoz    │
+│ 16 │ Alejandro Muñoz │
+│ 17 │ Raquel Herrera  │
+│ 19 │ Marina Díaz     │
+│ 21 │ Beatriz Romero  │
+│ 23 │ Clara Sánchez   │
+│ 25 │ Lucía Díaz      │
+│ 26 │ Mario Serrano   │
+│ 28 │ Roberto Ruiz    │
+└────┴─────────────────┘
 **/
 -- Obtener los productos que tienen un precio registrado.
+select * from Productos where precio is not null;
 /**
+┌────┬───────────────────────────────────┬────────┐
+│ id │              nombre               │ precio │
+├────┼───────────────────────────────────┼────────┤
+│ 1  │ Laptop                            │ 1200.0 │
+│ 2  │ Smartphone                        │ 699.99 │
+│ 3  │ TV LED                            │ 799.5  │
+│ 4  │ Tablet                            │ 299.99 │
+│ 5  │ Auriculares Bluetooth             │ 79.99  │
+│ 6  │ Impresora                         │ 199.99 │
+│ 7  │ Cámara Digital                    │ 499.99 │
+│ 8  │ Reproductor de Audio              │ 149.99 │
+│ 9  │ Altavoces Inalámbricos            │ 129.99 │
+│ 10 │ Reloj Inteligente                 │ 249.99 │
+│ 11 │ Teclado Inalámbrico               │ 59.99  │
+│ 12 │ Ratón Óptico                      │ 29.99  │
+│ 13 │ Monitor LED                       │ 349.99 │
+│ 14 │ Mochila para Portátil             │ 49.99  │
+│ 15 │ Disco Duro Externo                │ 89.99  │
+│ 16 │ Router Wi-Fi                      │ 69.99  │
+│ 17 │ Lámpara LED                       │ 39.99  │
+│ 18 │ Batería Externa                   │ 19.99  │
+│ 19 │ Estuche para Auriculares          │ 14.99  │
+│ 20 │ Tarjeta de Memoria                │ 24.99  │
+│ 21 │ Cargador Inalámbrico              │ 34.99  │
+│ 22 │ Kit de Limpieza para Computadoras │ 9.99   │
+│ 23 │ Funda para Tablet                 │ 19.99  │
+│ 24 │ Soporte para Teléfono             │ 14.99  │
+│ 25 │ Hub USB                           │ 29.99  │
+│ 26 │ Webcam HD                         │ 59.99  │
+│ 27 │ Funda para Laptop                 │ 29.99  │
+│ 28 │ Adaptador HDMI                    │ 12.99  │
+└────┴───────────────────────────────────┴────────┘
 **/
 -- Obtener la fecha del primer pedido realizado:
+select min(fecha_pedido) as fecha_primer_pedido from Pedidos;
 /**
+┌─────────────────────┐
+│ fecha_primer_pedido │
+├─────────────────────┤
+│ 2024-02-01          │
+└─────────────────────┘
 **/
 -- Obtener los productos cuyos nombres comienzan con 'A' o 'B':
+select nombre from Productos where nombre like 'A%' or nombre like 'B%';
 /**
+┌────────────────────────┐
+│         nombre         │
+├────────────────────────┤
+│ Auriculares Bluetooth  │
+│ Altavoces Inalámbricos │
+│ Batería Externa        │
+│ Adaptador HDMI         │
+└────────────────────────┘
 **/
 -- Obtener la cantidad total de productos en todos los pedidos por cliente ordenado por cliente.
 /**
 **/
 -- Obtener los clientes que han realizado más de un pedido en febrero de 2024.
+
 /**
 **/
 -- Obtener los productos con precio entre 100 y 500.
