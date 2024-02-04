@@ -92,7 +92,7 @@ select nombre, email from Clientes where email regexp '@';
 **/
 
 -- Obtener el producto más caro.
-select nombre, max(precio) from Productos;
+ select nombre from Productos order by precio desc limit 1;
 /**
 ┌────────┬─────────────┐
 │ nombre │ max(precio) │
@@ -231,19 +231,77 @@ select nombre from Productos where nombre like 'A%' or nombre like 'B%';
 /**
 **/
 -- Obtener los productos con precio entre 100 y 500.
+select nombre, precio from Productos where precio between 100 and 500;
 /**
+┌────────────────────────┬────────┐
+│         nombre         │ precio │
+├────────────────────────┼────────┤
+│ Tablet                 │ 299.99 │
+│ Impresora              │ 199.99 │
+│ Cámara Digital         │ 499.99 │
+│ Reproductor de Audio   │ 149.99 │
+│ Altavoces Inalámbricos │ 129.99 │
+│ Reloj Inteligente      │ 249.99 │
+│ Monitor LED            │ 349.99 │
+└────────────────────────┴────────┘
 **/
 -- Obtener la cantidad total de productos en todos los pedidos por cliente ordenado por cantidad descendente.
+
 /**
+
 **/
 -- Obtener los clientes que tienen una 'a' en cualquier posición de su nombre.
+select nombre from Clientes where nombre regexp 'a';
 /**
+┌─────────────────┐
+│     nombre      │
+├─────────────────┤
+│ Juan Pérez      │
+│ María Gómez     │
+│ Carlos López    │
+│ Ana Rodríguez   │
+│ Luisa Martínez  │
+│ Laura García    │
+│ Miguel Martín   │
+│ Elena González  │
+│ David Torres    │
+│ Sofía Ruiz      │
+│ Javier López    │
+│ Carmen Vargas   │
+│ Daniel Muñoz    │
+│ Isabel Serrano  │
+│ Alejandro Muñoz │
+│ Raquel Herrera  │
+│ Francisco Mora  │
+│ Marina Díaz     │
+│ Beatriz Romero  │
+│ Carlos Gómez    │
+│ Clara Sánchez   │
+│ Andrés Martínez │
+│ Lucía Díaz      │
+│ Mario Serrano   │
+│ Eva Torres      │
+│ Celia García    │
+└─────────────────┘
 **/
 -- Obtener el precio máximo de los productos.
+select nombre, max(precio) from Productos;
 /**
+select nombre, max(precio) from Productos;
+┌────────┬─────────────┐
+│ nombre │ max(precio) │
+├────────┼─────────────┤
+│ Laptop │ 1200.0      │
+└────────┴─────────────┘
 **/
 -- Obtener los pedidos realizados por el cliente con ID 1 en febrero de 2024.
+select * from Pedidos where id_cliente = 1 and fecha_pedido regexp '2024-02';
 /**
+┌───────────┬────────────┬─────────────┬──────────┬──────────────┐
+│ id_pedido │ id_cliente │ id_producto │ cantidad │ fecha_pedido │
+├───────────┼────────────┼─────────────┼──────────┼──────────────┤
+│ 1         │ 1          │ 1           │ 2        │ 2024-02-01   │
+└───────────┴────────────┴─────────────┴──────────┴──────────────┘
 **/
 -- Obtener la cantidad total de productos en todos los pedidos por producto ordenado por total de productos descendente.
 /**
@@ -252,47 +310,249 @@ select nombre from Productos where nombre like 'A%' or nombre like 'B%';
 /**
 **/
 -- Obtener la fecha del último pedido realizado.
+select * from Pedidos order by fecha_pedido desc limit 1;
 /**
+┌───────────┬────────────┬─────────────┬──────────┬──────────────┐
+│ id_pedido │ id_cliente │ id_producto │ cantidad │ fecha_pedido │
+├───────────┼────────────┼─────────────┼──────────┼──────────────┤
+│ 30        │ 30         │ 30          │ 3        │ 2024-03-01   │
+└───────────┴────────────┴─────────────┴──────────┴──────────────┘
 **/
 -- Obtener los clientes cuyo nombre tiene al menos 5 caracteres.
+select nombre from Clientes where nombre regexp '.....';
 /**
+┌─────────────────┐
+│     nombre      │
+├─────────────────┤
+│ Juan Pérez      │
+│ María Gómez     │
+│ Carlos López    │
+│ Ana Rodríguez   │
+│ Luisa Martínez  │
+│ Pedro Sánchez   │
+│ Laura García    │
+│ Miguel Martín   │
+│ Elena González  │
+│ David Torres    │
+│ Sofía Ruiz      │
+│ Javier López    │
+│ Carmen Vargas   │
+│ Daniel Muñoz    │
+│ Isabel Serrano  │
+│ Alejandro Muñoz │
+│ Raquel Herrera  │
+│ Francisco Mora  │
+│ Marina Díaz     │
+│ Antonio Jiménez │
+│ Beatriz Romero  │
+│ Carlos Gómez    │
+│ Clara Sánchez   │
+│ Andrés Martínez │
+│ Lucía Díaz      │
+│ Mario Serrano   │
+│ Eva Torres      │
+│ Roberto Ruiz    │
+│ Celia García    │
+└─────────────────┘
 **/
 -- Obtener los productos que tienen la letra 'o' en cualquier posición del nombre.
+select nombre from Productos where nombre regexp 'o';
 /**
+┌───────────────────────────────────┐
+│              nombre               │
+├───────────────────────────────────┤
+│ Laptop                            │
+│ Smartphone                        │
+│ Auriculares Bluetooth             │
+│ Impresora                         │
+│ Reproductor de Audio              │
+│ Altavoces Inalámbricos            │
+│ Reloj Inteligente                 │
+│ Teclado Inalámbrico               │
+│ Ratón Óptico                      │
+│ Monitor LED                       │
+│ Mochila para Portátil             │
+│ Disco Duro Externo                │
+│ Router Wi-Fi                      │
+│ Tarjeta de Memoria                │
+│ Cargador Inalámbrico              │
+│ Kit de Limpieza para Computadoras │
+│ Soporte para Teléfono             │
+│ Funda para Laptop                 │
+│ Adaptador HDMI                    │
+└───────────────────────────────────┘
 **/
 -- Obtener la cantidad total de productos en todos los pedidos por cliente ordenado por cliente.
 /**
 **/
 -- Obtener los clientes cuyos nombres no contienen la letra 'i':
+select nombre from Clientes where nombre not regexp 'i';
 /**
+┌─────────────────┐
+│     nombre      │
+├─────────────────┤
+│ Juan Pérez      │
+│ María Gómez     │
+│ Carlos López    │
+│ Ana Rodríguez   │
+│ Pedro Sánchez   │
+│ Laura García    │
+│ Elena González  │
+│ Carmen Vargas   │
+│ Isabel Serrano  │
+│ Alejandro Muñoz │
+│ Raquel Herrera  │
+│ Carlos Gómez    │
+│ Clara Sánchez   │
+│ Andrés Martínez │
+│ Lucía Díaz      │
+│ Eva Torres      │
+└─────────────────┘
 **/
 -- Obtener los pedidos realizados por el cliente con ID 2 en febrero de 2024.
+select * from Pedidos where id_cliente = 2 and fecha_pedido regexp '2024-02';
 /**
+┌───────────┬────────────┬─────────────┬──────────┬──────────────┐
+│ id_pedido │ id_cliente │ id_producto │ cantidad │ fecha_pedido │
+├───────────┼────────────┼─────────────┼──────────┼──────────────┤
+│ 2         │ 2          │ 2           │ 1        │ 2024-02-02   │
+└───────────┴────────────┴─────────────┴──────────┴──────────────┘
 **/
 -- Obtener el precio mínimo de los productos.
+select min(precio) from Productos;
 /**
+┌─────────────┐
+│ min(precio) │
+├─────────────┤
+│ 9.99        │
+└─────────────┘
 **/
 -- Obtener los clientes que han realizado al menos un pedido en febrero de 2024.
+select Clientes.id, Clientes.nombre, Pedidos.fecha_pedido from Clientes inner join Pedidos on Clientes.id=Pedidos.id_cliente WHERE Pedidos.cantidad >= 1 and fecha_pedido regexp '2024-02';
 /**
+┌────┬─────────────────┬──────────────┐
+│ id │     nombre      │ fecha_pedido │
+├────┼─────────────────┼──────────────┤
+│ 1  │ Juan Pérez      │ 2024-02-01   │
+│ 2  │ María Gómez     │ 2024-02-02   │
+│ 3  │ Carlos López    │ 2024-02-03   │
+│ 4  │ Ana Rodríguez   │ 2024-02-04   │
+│ 5  │ Luisa Martínez  │ 2024-02-05   │
+│ 6  │ Pedro Sánchez   │ 2024-02-06   │
+│ 7  │ Laura García    │ 2024-02-07   │
+│ 8  │ Miguel Martín   │ 2024-02-08   │
+│ 9  │ Elena González  │ 2024-02-09   │
+│ 10 │ David Torres    │ 2024-02-10   │
+│ 11 │ Sofía Ruiz      │ 2024-02-11   │
+│ 12 │ Javier López    │ 2024-02-12   │
+│ 13 │ Carmen Vargas   │ 2024-02-13   │
+│ 14 │ Daniel Muñoz    │ 2024-02-14   │
+│ 15 │ Isabel Serrano  │ 2024-02-15   │
+│ 16 │ Alejandro Muñoz │ 2024-02-16   │
+│ 17 │ Raquel Herrera  │ 2024-02-17   │
+│ 18 │ Francisco Mora  │ 2024-02-18   │
+│ 19 │ Marina Díaz     │ 2024-02-19   │
+│ 20 │ Antonio Jiménez │ 2024-02-20   │
+│ 21 │ Beatriz Romero  │ 2024-02-21   │
+│ 22 │ Carlos Gómez    │ 2024-02-22   │
+│ 23 │ Clara Sánchez   │ 2024-02-23   │
+│ 24 │ Andrés Martínez │ 2024-02-24   │
+│ 25 │ Lucía Díaz      │ 2024-02-25   │
+│ 26 │ Mario Serrano   │ 2024-02-26   │
+│ 27 │ Eva Torres      │ 2024-02-27   │
+│ 28 │ Roberto Ruiz    │ 2024-02-28   │
+│ 29 │ Celia García    │ 2024-02-29   │
+└────┴─────────────────┴──────────────┘
 **/
 -- Obtener la fecha del último pedido realizado por el cliente con ID 3.
+select max(fecha_pedido) as ultima_fecha_pedido from Pedidos where id_cliente = 3;
 /**
+┌─────────────────────┐
+│ ultima_fecha_pedido │
+├─────────────────────┤
+│ 2024-02-03          │
+└─────────────────────┘
 **/
 -- Obtener los productos que tienen una 'a' al final del nombre.
+select nombre from Productos where nombre regexp 'a$';
 /**
+┌────────────────────┐
+│       nombre       │
+├────────────────────┤
+│ Impresora          │
+│ Batería Externa    │
+│ Tarjeta de Memoria │
+└────────────────────┘
 **/
 -- Obtener los clientes cuyos nombres tienen al menos 4 vocales (mayúsculas|minúsculas).
+select nombre from Clientes where nombre regexp '[aeiouAEIOU].*[aeiouAEIOU].*[aeiouAEIOU].*[aeiouAEIOU]';
 /**
+┌─────────────────┐
+│     nombre      │
+├─────────────────┤
+│ Ana Rodríguez   │
+│ Luisa Martínez  │
+│ Laura García    │
+│ Miguel Martín   │
+│ Elena González  │
+│ David Torres    │
+│ Sofía Ruiz      │
+│ Javier López    │
+│ Carmen Vargas   │
+│ Daniel Muñoz    │
+│ Isabel Serrano  │
+│ Alejandro Muñoz │
+│ Raquel Herrera  │
+│ Francisco Mora  │
+│ Marina Díaz     │
+│ Antonio Jiménez │
+│ Beatriz Romero  │
+│ Mario Serrano   │
+│ Eva Torres      │
+│ Roberto Ruiz    │
+│ Celia García    │
+└─────────────────┘
 **/
 -- Obtener los productos cuyo precio tenga al menos 4 números sin contrar los decimales.
 /**
 **/
 -- Obtener los clientes cuyos nombres tienen al menos una 'a' seguida de una 'e'.
+select nombre from Clientes where nombre regexp '%a%e%';
 /**
 **/
 -- Obtener los productos cuyos nombres terminan con una consonante.
+select nombre from Productos where nombre regexp '[bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ]$';
 /**
+┌───────────────────────────────────┐
+│              nombre               │
+├───────────────────────────────────┤
+│ Laptop                            │
+│ TV LED                            │
+│ Tablet                            │
+│ Auriculares Bluetooth             │
+│ Cámara Digital                    │
+│ Altavoces Inalámbricos            │
+│ Monitor LED                       │
+│ Mochila para Portátil             │
+│ Lámpara LED                       │
+│ Estuche para Auriculares          │
+│ Kit de Limpieza para Computadoras │
+│ Funda para Tablet                 │
+│ Hub USB                           │
+│ Webcam HD                         │
+│ Funda para Laptop                 │
+└───────────────────────────────────┘
 **/
 -- Obtener los productos cuyos nombres empiezan con una vocal.
+select nombre from Productos where nombre regexp '^[aeiouAEIOU]';
 /**
+┌──────────────────────────┐
+│          nombre          │
+├──────────────────────────┤
+│ Auriculares Bluetooth    │
+│ Impresora                │
+│ Altavoces Inalámbricos   │
+│ Estuche para Auriculares │
+│ Adaptador HDMI           │
+└──────────────────────────┘
 **/
