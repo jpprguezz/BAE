@@ -224,11 +224,66 @@ select nombre from Productos where nombre like 'A%' or nombre like 'B%';
 └────────────────────────┘
 **/
 -- Obtener la cantidad total de productos en todos los pedidos por cliente ordenado por cliente.
+select id_cliente, sum(cantidad) as total_productos from pedidos group by id_cliente order by id_cliente;
 /**
+┌────────────┬─────────────────┐
+│ id_cliente │ total_productos │
+├────────────┼─────────────────┤
+│ 1          │ 2               │
+│ 2          │ 1               │
+│ 3          │ 3               │
+│ 4          │ 1               │
+│ 5          │ 2               │
+│ 6          │ 1               │
+│ 7          │ 3               │
+│ 8          │ 2               │
+│ 9          │ 1               │
+│ 10         │ 2               │
+│ 11         │ 1               │
+│ 12         │ 3               │
+│ 13         │ 1               │
+│ 14         │ 2               │
+│ 15         │ 1               │
+│ 16         │ 3               │
+│ 17         │ 2               │
+│ 18         │ 1               │
+│ 19         │ 2               │
+│ 20         │ 1               │
+│ 21         │ 3               │
+│ 22         │ 1               │
+│ 23         │ 2               │
+│ 24         │ 1               │
+│ 25         │ 3               │
+│ 26         │ 2               │
+│ 27         │ 1               │
+│ 28         │ 2               │
+│ 29         │ 1               │
+│ 30         │ 3               │
+└────────────┴─────────────────┘
 **/
 -- Obtener los clientes que han realizado más de un pedido en febrero de 2024.
-
+select Clientes.nombre, Pedidos.fecha_pedido, Pedidos.cantidad from Clientes inner join Pedidos on Clientes.id=Pedidos.id_cliente where Pedidos.cantidad > 1 and fecha_pedido regexp '2024-02';
 /**
+┌─────────────────┬──────────────┬──────────┐
+│     nombre      │ fecha_pedido │ cantidad │
+├─────────────────┼──────────────┼──────────┤
+│ Juan Pérez      │ 2024-02-01   │ 2        │
+│ Carlos López    │ 2024-02-03   │ 3        │
+│ Luisa Martínez  │ 2024-02-05   │ 2        │
+│ Laura García    │ 2024-02-07   │ 3        │
+│ Miguel Martín   │ 2024-02-08   │ 2        │
+│ David Torres    │ 2024-02-10   │ 2        │
+│ Javier López    │ 2024-02-12   │ 3        │
+│ Daniel Muñoz    │ 2024-02-14   │ 2        │
+│ Alejandro Muñoz │ 2024-02-16   │ 3        │
+│ Raquel Herrera  │ 2024-02-17   │ 2        │
+│ Marina Díaz     │ 2024-02-19   │ 2        │
+│ Beatriz Romero  │ 2024-02-21   │ 3        │
+│ Clara Sánchez   │ 2024-02-23   │ 2        │
+│ Lucía Díaz      │ 2024-02-25   │ 3        │
+│ Mario Serrano   │ 2024-02-26   │ 2        │
+│ Roberto Ruiz    │ 2024-02-28   │ 2        │
+└─────────────────┴──────────────┴──────────┘
 **/
 -- Obtener los productos con precio entre 100 y 500.
 select nombre, precio from Productos where precio between 100 and 500;
@@ -246,9 +301,42 @@ select nombre, precio from Productos where precio between 100 and 500;
 └────────────────────────┴────────┘
 **/
 -- Obtener la cantidad total de productos en todos los pedidos por cliente ordenado por cantidad descendente.
-
+select id_cliente, sum(cantidad) as total from Pedidos group by id_cliente order by total desc;
 /**
-
+┌────────────┬───────┐
+│ id_cliente │ total │
+├────────────┼───────┤
+│ 30         │ 3     │
+│ 25         │ 3     │
+│ 21         │ 3     │
+│ 16         │ 3     │
+│ 12         │ 3     │
+│ 7          │ 3     │
+│ 3          │ 3     │
+│ 28         │ 2     │
+│ 26         │ 2     │
+│ 23         │ 2     │
+│ 19         │ 2     │
+│ 17         │ 2     │
+│ 14         │ 2     │
+│ 10         │ 2     │
+│ 8          │ 2     │
+│ 5          │ 2     │
+│ 1          │ 2     │
+│ 29         │ 1     │
+│ 27         │ 1     │
+│ 24         │ 1     │
+│ 22         │ 1     │
+│ 20         │ 1     │
+│ 18         │ 1     │
+│ 15         │ 1     │
+│ 13         │ 1     │
+│ 11         │ 1     │
+│ 9          │ 1     │
+│ 6          │ 1     │
+│ 4          │ 1     │
+│ 2          │ 1     │
+└────────────┴───────┘
 **/
 -- Obtener los clientes que tienen una 'a' en cualquier posición de su nombre.
 select nombre from Clientes where nombre regexp 'a';
@@ -287,7 +375,6 @@ select nombre from Clientes where nombre regexp 'a';
 -- Obtener el precio máximo de los productos.
 select nombre, max(precio) from Productos;
 /**
-select nombre, max(precio) from Productos;
 ┌────────┬─────────────┐
 │ nombre │ max(precio) │
 ├────────┼─────────────┤
@@ -307,6 +394,7 @@ select * from Pedidos where id_cliente = 1 and fecha_pedido regexp '2024-02';
 /**
 **/
 -- Obtener los productos que no tienen un precio registrado.
+select * from Productos where precio is null;
 /**
 **/
 -- Obtener la fecha del último pedido realizado.
