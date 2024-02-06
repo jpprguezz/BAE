@@ -1,12 +1,28 @@
 -- Listar los coches vendidos con sus modelos y precios, junto con los nombres de los clientes que los compraron.
   -- Cosas que debo de tener en cuenta:
     -- ¿Qué me están pidiendo?. ¿Qué es lo que no me han pedido?
+ select c.marca, c.modelo, c.precio, cl.nombre from coches as c, clientes as cl, ventas as v where c.id_coche=v.id_coche and cl.id_cliente=v.id_cliente;
+/**
+┌────────────┬────────────────┬─────────┬─────────────────┐
+│   marca    │     modelo     │ precio  │     nombre      │
+├────────────┼────────────────┼─────────┼─────────────────┤
+│ Toyota     │ Sedán 2022     │ 25000.0 │ Juan Pérez      │
+│ Honda      │ Hatchback 2021 │ 22000.0 │ María Gómez     │
+│ Ford       │ SUV 2023       │ 30000.0 │ Carlos López    │
+│ Chevrolet  │ Coupé 2022     │ 28000.0 │ Ana Martínez    │
+│ Nissan     │ Camioneta 2023 │ 32000.0 │ Pedro Rodríguez │
+│ Volkswagen │ Compacto 2021  │ 20000.0 │ Laura Sánchez   │
+│ Hyundai    │ Híbrido 2022   │ 27000.0 │ Miguel González │
+│ Mazda      │ Deportivo 2023 │ 35000.0 │ Isabel Díaz     │
+│ Tesla      │ Eléctrico 2021 │ 40000.0 │ Elena Torres    │
+└────────────┴────────────────┴─────────┴─────────────────┘
+**/
 
 -- Encontrar los clientes que han comprado coches con precios superiores al promedio de todos los coches vendidos.
   -- Cosas que debo de tener en cuenta:
     -- Precios superiores.
     -- Obtener la media. AVG(precio)
-select distinct clientes.* from clientes join ventas on clientes.id_cliente = ventas.id_cliente join coches on ventas.id_coche = coches.id_coche where coches.precio > (select avg(precio)from coches);
+select clientes.*, coches.precio as coche_precio from clientes, ventas, coches where clientes.id_cliente = ventas.id_cliente and coches.id_coche = ventas.id_coche and coches.precio > (select avg(precio) from coches);
 /**
 ┌────────────┬─────────────────┬──────┬────────────────┐
 │ id_cliente │     nombre      │ edad │   direccion    │
@@ -33,10 +49,34 @@ select modelo, precio from coches where id_coche not in (select id_coche from ve
 -- Calcular el total gastado por todos los clientes en coches:
   -- Cosas que debo de tener en cuenta:
     -- Me estan pidiendo la suma total de todos los coches vendidos, NO de aquellos que aún no se han vendido.
+select sum(c.precio) as total from coches as c, ventas as v where c.id_coche = v.id_coche;
+/**
+┌──────────┐
+│  total   │
+├──────────┤
+│ 259000.0 │
+└──────────┘
+**/
 
 -- Listar los coches vendidos junto con la fecha de venta y el nombre del cliente, ordenados por fecha de venta de forma descendente:
   -- Cosas que debo de tener en cuenta:
     -- ¿Qué me están pidiendo?. ¿Por qué campo tengo que ordenadar. Es uno o más campos?
+select c.modelo, v.fecha_venta, cl.nombre from coches as c, ventas as v, clientes as cl where c.id_coche = v.id_coche and cl.id_cliente = v.id_cliente order by fecha_venta desc;
+/**
+┌────────────────┬─────────────┬─────────────────┐
+│     modelo     │ fecha_venta │     nombre      │
+├────────────────┼─────────────┼─────────────────┤
+│ Eléctrico 2021 │ 2023-10-05  │ Elena Torres    │
+│ Deportivo 2023 │ 2023-08-25  │ Isabel Díaz     │
+│ Híbrido 2022   │ 2023-07-20  │ Miguel González │
+│ Compacto 2021  │ 2023-06-15  │ Laura Sánchez   │
+│ Camioneta 2023 │ 2023-05-05  │ Pedro Rodríguez │
+│ Coupé 2022     │ 2023-04-10  │ Ana Martínez    │
+│ SUV 2023       │ 2023-03-25  │ Carlos López    │
+│ Hatchback 2021 │ 2023-02-20  │ María Gómez     │
+│ Sedán 2022     │ 2023-01-15  │ Juan Pérez      │
+└────────────────┴─────────────┴─────────────────┘
+**/
 
 -- Encontrar el modelo de coche más caro.
   -- Cosas que debo de tener en cuenta:
@@ -106,6 +146,5 @@ select avg(edad) as promedio_edad from clientes where id_cliente in (select id_c
   -- Cosas que debo de tener en cuenta:
     -- ¿Qué me están pidiendo?. AVG
 
--- Calcular el total de ventas por marca de coche, ordenado de forma descendente por el total de ventas:
-  -- Cosas que debo de tener en cuenta:
+-- Cosas que debo de tener en cuenta:
     -- ¿Qué me están pidiendo?. COUNT| DESC|ASC precio
