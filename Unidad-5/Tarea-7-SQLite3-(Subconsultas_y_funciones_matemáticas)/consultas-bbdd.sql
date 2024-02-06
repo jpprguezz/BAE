@@ -73,6 +73,14 @@ select id_cliente, count(*) as cantidad_comprados from ventas group by id_client
 -- Encontrar los clientes que han comprado coches de la marca 'Toyota':
   -- Cosas que debo de tener en cuenta:
     -- ¿Qué me están pidiendo?. Like | regexp | =. Tabla normalizada ?.
+select nombre from clientes where id_cliente in (select id_cliente from ventas where id_coche in (select id_coche from coches WHERE marca = 'Toyota'));
+/**
+┌────────────┐
+│   nombre   │
+├────────────┤
+│ Juan Pérez │
+└────────────┘
+**/
 
 -- Calcular el promedio de edad de los clientes que han comprado coches de más de 25,000.
   -- Cosas que debo de tener en cuenta:
