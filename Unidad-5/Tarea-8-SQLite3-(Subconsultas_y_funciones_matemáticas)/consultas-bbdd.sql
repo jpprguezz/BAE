@@ -118,7 +118,13 @@ select cl.nombre, cl.direccion, c.marca from clientes as cl, coches as c where c
 └─────────────────┴────────────────┴───────┘
 **/
 -- Consulta para contar el número de coches vendidos por año.
+select substr(fecha_venta, 1, 4) as año_venta, count(id_coche) as coches_por_año from ventas group by año_venta;
 /**
+┌───────────┬────────────────┐
+│ año_venta │ coches_por_año │
+├───────────┼────────────────┤
+│ 2023      │ 18             │
+└───────────┴────────────────┘
 **/
 -- Consulta para obtener el nombre y la edad de los clientes que han comprado coches de más de 30000 euros y llevado a reparar sus coches.
 /**
