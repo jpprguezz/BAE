@@ -98,7 +98,6 @@ select avg(c.precio) from coches as c, ventas as v where v.fecha_venta regexp '2
 ├───────────────┤
 │ 29000.0       │
 └───────────────┘
-
 **/
 -- Consulta para obtener el nombre y la dirección de los clientes que han comprado coches de la marca Ford.
 select cl.nombre, cl.direccion, c.marca from clientes as cl, coches as c where c.marca regexp 'Ford';
