@@ -6306,6 +6306,7 @@ select tr.Name, i_i.InvoiceLineId from tracks as tr join invoice_items as i_i on
 └──────────────────────────────────────────────────────────────┴───────────────┘
 **/
 -- Proporciona una consulta que incluya el nombre de la pista comprada Y el nombre del artista con cada ítem de línea de factura.
+select tr.Name, tr.Composer, i_i.InvoiceLineId from tracks as tr, invoice_items as i_i where tr.TrackId=i_i.TrackId; -- Con Where
 /**
 **/
 -- Proporciona una consulta que muestre el número total de pistas en cada lista de reproducción. El nombre de la lista de reproducción debe estar incluido en la tabla resultante.
