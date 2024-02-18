@@ -194,21 +194,83 @@
     /**
     **/
     -- Los clientes cuyo límite de crédito sea mayor que los pagos que haya realizado. (Sin utilizar INNER JOIN).
+    /**
+    **/
     -- Devuelve el producto que más unidades tiene en stock.
+    /**
+    **/
     -- Devuelve el producto que menos unidades tiene en stock.
+    /**
+    **/
     -- Devuelve el nombre, los apellidos y el email de los empleados que están a cargo de Alberto Soria.
+    /**
+    **/
     -- Devuelve el nombre del cliente con mayor límite de crédito.
+    /**
+    **/
     -- Devuelve el nombre del producto que tenga el precio de venta más caro.
+    /**
+    **/
     -- Devuelve el producto que menos unidades tiene en stock.
+    /**
+    **/
     -- Devuelve el nombre, apellido1 y cargo de los empleados que no representen a ningún cliente.
+    /**
+    **/
     -- Devuelve un listado que muestre solamente los clientes que no han realizado ningún pago.
+    /**
+    **/
     -- Devuelve un listado que muestre solamente los clientes que sí han realizado algún pago.
+    /**
+    **/
     -- Devuelve un listado de los productos que nunca han aparecido en un pedido.
+    /**
+    **/
     -- Devuelve el nombre, apellidos, puesto y teléfono de la oficina de aquellos empleados que no sean representante de ventas de ningún cliente.
+    /**
+    **/
     -- Devuelve las oficinas donde no trabajan ninguno de los empleados que hayan sido los representantes de ventas de algún cliente que haya realizado la compra de algún producto de la gama Frutales.
+    /**
+    **/
     -- Devuelve un listado con los clientes que han realizado algún pedido pero no han realizado ningún pago.
+    /**
+    **/
     -- Devuelve un listado que muestre solamente los clientes que no han realizado ningún pago.
+    /**
+    **/
     -- Devuelve un listado que muestre solamente los clientes que sí han realizado algún pago.
+    /**
+    **/
     -- Devuelve un listado de los productos que nunca han aparecido en un pedido.
+    /**
+    **/
     -- Devuelve un listado de los productos que han aparecido en un pedido alguna vez.
+    /**
+    **/
+
+
+** Consultas variadas en SQL
+
+    -- Devuelve el listado de clientes indicando el nombre del cliente y cuántos pedidos ha realizado. Tenga en cuenta que pueden existir clientes que no han realizado ningún pedido.
+    /**
+    **/
+    -- Devuelve un listado con los nombres de los clientes y el total pagado por cada uno de ellos. Tenga en cuenta que pueden existir clientes que no han realizado ningún pago.
+    /**
+    **/
+    -- Devuelve el nombre de los clientes que hayan hecho pedidos en 2008 ordenados alfabéticamente de menor a mayor.
+    /**
+    **/
+    -- Devuelve el nombre del cliente, el nombre y primer apellido de su representante de ventas y el número de teléfono de la oficina del representante de ventas, de aquellos clientes que no hayan realizado ningún pago.
+    /**
+    **/
+    -- Devuelve el listado de clientes donde aparezca el nombre del cliente, el nombre y primer apellido de su representante de ventas y la ciudad donde está su oficina.
+    /**
+    **/
+    -- Devuelve el nombre, apellidos, puesto y teléfono de la oficina de aquellos empleados que no sean representante de ventas de ningún cliente.
+    /**
+    **/
+    -- Devuelve un listado indicando todas las ciudades donde hay oficinas y el número de empleados que tiene.
+    /**
+    **/
+
     
