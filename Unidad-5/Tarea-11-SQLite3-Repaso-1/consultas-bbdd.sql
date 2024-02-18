@@ -257,16 +257,91 @@ codigo_cliente|nombre_cliente             |nombre_contacto|apellido_contacto|tel
 
 ** Consultas multitabla (Where para unir tablas)
 --Obtén un listado con el nombre de cada cliente y el nombre y apellido de su representante de ventas.
+select cl.nombre_cliente, e.nombre, e.apellido1, e.apellido2 from cliente as  cl, empleado as e where e.puesto="Representante Ventas";
 /**
+nombre_cliente                |nombre         |apellido1 |apellido2|puesto              |
+------------------------------+---------------+----------+---------+--------------------+
+GoldFish Garden               |Walter Santiago|Sanchez   |Lopez    |Representante Ventas|
+Gardening Associates          |Walter Santiago|Sanchez   |Lopez    |Representante Ventas|
+Gerudo Valley                 |Lorena         |Paxton    |         |Representante Ventas|
+Tendo Garden                  |Lorena         |Paxton    |         |Representante Ventas|
+Lasas S.A.                    |Mariano        |López     |Murcia   |Representante Ventas|
+Lasas S.A.                    |Mariano        |López     |Murcia   |Representante Ventas|
+Camunas Jardines S.L.         |Mariano        |López     |Murcia   |Representante Ventas|
+Dardena S.A.                  |Mariano        |López     |Murcia   |Representante Ventas|
+Jardin de Flores              |Julian         |Bellinelli|         |Representante Ventas|
+Flores Marivi                 |Felipe         |Rosas     |Marquez  |Representante Ventas|
+Flowers, S.A                  |Felipe         |Rosas     |Marquez  |Representante Ventas|
+Naturajardin                  |Julian         |Bellinelli|         |Representante Ventas|
+Golf S.A.                     |José Manuel    |Martinez  |De la Osa|Representante Ventas|
+Americh Golf Management SL    |José Manuel    |Martinez  |De la Osa|Representante Ventas|
+Aloha                         |José Manuel    |Martinez  |De la Osa|Representante Ventas|
+El Prat                       |José Manuel    |Martinez  |De la Osa|Representante Ventas|
+Sotogrande                    |José Manuel    |Martinez  |De la Osa|Representante Ventas|
+Vivero Humanes                |Julian         |Bellinelli|         |Representante Ventas|
+Fuenla City                   |Felipe         |Rosas     |Marquez  |Representante Ventas|
+Jardines y Mansiones Cactus SL|Lucio          |Campoamor |Martín   |Representante Ventas|
+Jardinerías Matías SL         |Lucio          |Campoamor |Martín   |Representante Ventas|
+Agrojardin                    |Julian         |Bellinelli|         |Representante Ventas|
+Top Campo                     |Felipe         |Rosas     |Marquez  |Representante Ventas|
+Jardineria Sara               |Felipe         |Rosas     |Marquez  |Representante Ventas|
+Campohermoso                  |Julian         |Bellinelli|         |Representante Ventas|
+france telecom                |Lionel         |Narvaez   |         |Representante Ventas|
+Musée du Louvre               |Lionel         |Narvaez   |         |Representante Ventas|
+Tutifruti S.A                 |Mariko         |Kishi     |         |Representante Ventas|
+El Jardin Viviente S.L        |Mariko         |Kishi     |         |Representante Ventas|
 **/
 --Muestra el nombre de los clientes que hayan realizado pagos junto con el nombre de sus representantes de ventas.
+select cl.nombre_cliente, e.nombre, e.apellido1, e.apellido2, p.total  from cliente as cl, empleado as e, pago as p where cl.codigo_empleado_rep_ventas=e.codigo_empleado and cl.codigo_cliente=p.codigo_cliente;
 /**
+nombre_cliente                |nombre         |apellido1 |apellido2|total|
+------------------------------+---------------+----------+---------+-----+
+GoldFish Garden               |Walter Santiago|Sanchez   |Lopez    | 2000|
+GoldFish Garden               |Walter Santiago|Sanchez   |Lopez    | 2000|
+Gardening Associates          |Walter Santiago|Sanchez   |Lopez    | 5000|
+Gardening Associates          |Walter Santiago|Sanchez   |Lopez    | 5000|
+Gardening Associates          |Walter Santiago|Sanchez   |Lopez    |  926|
+Gerudo Valley                 |Lorena         |Paxton    |         |20000|
+Gerudo Valley                 |Lorena         |Paxton    |         |20000|
+Gerudo Valley                 |Lorena         |Paxton    |         |20000|
+Gerudo Valley                 |Lorena         |Paxton    |         |20000|
+Gerudo Valley                 |Lorena         |Paxton    |         | 1849|
+Tendo Garden                  |Lorena         |Paxton    |         |23794|
+Beragua                       |Emmanuel       |Magaña    |Perez    | 2390|
+Naturagua                     |Emmanuel       |Magaña    |Perez    |  929|
+Camunas Jardines S.L.         |Mariano        |López     |Murcia   | 2246|
+Dardena S.A.                  |Mariano        |López     |Murcia   | 4160|
+Jardin de Flores              |Julian         |Bellinelli|         | 2081|
+Jardin de Flores              |Julian         |Bellinelli|         |10000|
+Flores Marivi                 |Felipe         |Rosas     |Marquez  | 4399|
 **/
 --Muestra el nombre de los clientes que no hayan realizado pagos junto con el nombre de sus representantes de ventas.
+
 /**
 **/
 --Devuelve el nombre de los clientes que han hecho pagos y el nombre de sus representantes junto con la ciudad de la oficina a la que pertenece el representante.
+select distinct cl.nombre_cliente, e.nombre, e.apellido1, e.apellido2, o.ciudad from cliente as cl, empleado as e, pago as p, oficina as o where cl.codigo_empleado_rep_ventas=e.codigo_empleado and cl.codigo_cliente=p.codigo_cliente and e.codigo_oficina=o.codigo_oficina;
 /**
+nombre_cliente                |nombre         |apellido1 |apellido2|ciudad              |
+------------------------------+---------------+----------+---------+--------------------+
+GoldFish Garden               |Walter Santiago|Sanchez   |Lopez    |San Francisco       |
+Gardening Associates          |Walter Santiago|Sanchez   |Lopez    |San Francisco       |
+Gerudo Valley                 |Lorena         |Paxton    |         |Boston              |
+Tendo Garden                  |Lorena         |Paxton    |         |Boston              |
+Beragua                       |Emmanuel       |Magaña    |Perez    |Barcelona           |
+Naturagua                     |Emmanuel       |Magaña    |Perez    |Barcelona           |
+Camunas Jardines S.L.         |Mariano        |López     |Murcia   |Madrid              |
+Dardena S.A.                  |Mariano        |López     |Murcia   |Madrid              |
+Jardin de Flores              |Julian         |Bellinelli|         |Sydney              |
+Flores Marivi                 |Felipe         |Rosas     |Marquez  |Talavera de la Reina|
+Golf S.A.                     |José Manuel    |Martinez  |De la Osa|Barcelona           |
+Sotogrande                    |José Manuel    |Martinez  |De la Osa|Barcelona           |
+Jardines y Mansiones Cactus SL|Lucio          |Campoamor |Martín   |Madrid              |
+Jardinerías Matías SL         |Lucio          |Campoamor |Martín   |Madrid              |
+Agrojardin                    |Julian         |Bellinelli|         |Sydney              |
+Jardineria Sara               |Felipe         |Rosas     |Marquez  |Talavera de la Reina|
+Tutifruti S.A                 |Mariko         |Kishi     |         |Sydney              |
+El Jardin Viviente S.L        |Mariko         |Kishi     |         |Sydney              |
 **/
 --Devuelve el nombre de los clientes que no hayan hecho pagos y el nombre de sus representantes junto con la ciudad de la oficina a la que pertenece el representante.
 /**
