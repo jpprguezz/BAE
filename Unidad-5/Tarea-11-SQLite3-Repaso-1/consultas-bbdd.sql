@@ -85,4 +85,130 @@
     **/
 
 
-    -- Consultas multitabla (inner join)
+** Consultas multitabla (inner join)
+    -- Devuelve un listado que muestre solamente los clientes que no han realizado ningún pago.
+    /**
+    **/
+    -- Devuelve un listado que muestre solamente los clientes que no han realizado ningún pedido.
+    /**
+    **/
+    -- Devuelve un listado que muestre los clientes que no han realizado ningún pago y los que no han realizado ningún pedido.
+    /**
+    **/
+    -- Devuelve un listado que muestre solamente los empleados que no tienen una oficina asociada.
+    /**
+    **/
+    -- Devuelve un listado que muestre solamente los empleados que no tienen un cliente asociado.
+    /**
+    **/
+    -- Devuelve un listado que muestre solamente los empleados que no tienen un cliente asociado junto con los datos de la oficina donde trabajan.
+    /**
+    **/
+    -- Devuelve un listado que muestre los empleados que no tienen una oficina asociada y los que no tienen un cliente asociado.
+    /**
+    **/
+    -- Devuelve un listado de los productos que nunca han aparecido en un pedido.
+    /**
+    **/
+    -- Devuelve un listado de los productos que nunca han aparecido en un pedido. El resultado debe mostrar el nombre, la descripción y la imagen del producto.
+    /**
+    **/
+    -- Devuelve las oficinas donde no trabajan ninguno de los empleados que hayan sido los representantes de ventas de algún cliente que haya realizado la compra de algún producto de la gama Frutales.
+    /**
+    **/
+    -- Devuelve un listado con los clientes que han realizado algún pedido pero no han realizado ningún pago.
+    /**
+    **/
+    -- Devuelve un listado con los datos de los empleados que no tienen clientes asociados y el nombre de su jefe asociado.
+    /**
+    **/
+
+
+** Consultas resumen (count,avg,...)
+    -- ¿Cuántos empleados hay en la compañía?
+    
+    -- ¿Cuántos clientes tiene cada país?
+    /**
+    **/
+    -- ¿Cuál fue el pago medio en 2009?
+    /**
+    **/
+    -- ¿Cuántos pedidos hay en cada estado? Ordena el resultado de forma descendente por el número de pedidos.
+    /**
+    **/
+    -- Calcula el precio de venta del producto más caro y más barato en una misma consulta.
+    /**
+    **/
+    -- Calcula el número de clientes que tiene la empresa.
+    /**
+    **/
+    -- ¿Cuántos clientes existen con domicilio en la ciudad de Madrid?
+    /**
+    **/
+    -- ¿Calcula cuántos clientes tiene cada una de las ciudades que empiezan por M?
+    /**
+    **/
+    -- Devuelve el nombre de los representantes de ventas y el número de clientes al que atiende cada uno.
+    /**
+    **/
+    -- Calcula el número de clientes que no tiene asignado representante de ventas.
+    /**
+    **/
+    -- Calcula la fecha del primer y último pago realizado por cada uno de los clientes. El listado deberá mostrar el nombre y los apellidos de cada cliente.
+    /**
+    **/
+    -- Calcula el número de productos diferentes que hay en cada uno de los pedidos.
+    /**
+    **/
+    -- Calcula la suma de la cantidad total de todos los productos que aparecen en cada uno de los pedidos.
+    /**
+    **/
+    -- Devuelve un listado de los 20 productos más vendidos y el número total de unidades que se han vendido de cada uno. El listado deberá estar ordenado por el número total de unidades vendidas.
+    /**
+    **/
+    -- La facturación que ha tenido la empresa en toda la historia, indicando la base imponible, el IGIC y el total facturado. La base imponible se calcula sumando el coste del producto por el número de unidades vendidas de la tabla detalle_pedido. El IGIC es el 7 % de la base imponible, y el total la suma de los dos campos anteriores.
+    /**
+    **/
+    -- La misma información que en la pregunta anterior, pero agrupada por código de producto.
+    /**
+    **/
+    -- La misma información que en la pregunta anterior, pero agrupada por código de producto filtrada por los códigos que empiecen por OR.
+    /**
+    **/
+    -- Lista las ventas totales de los productos que hayan facturado más de 3000 euros. Se mostrará el nombre, unidades vendidas, total facturado y total facturado con impuestos (7% IGIC).
+    /**
+    **/
+    -- Muestre la suma total de todos los pagos que se realizaron para cada uno de los años que aparecen en la tabla pagos.
+    /**
+    **/
+
+
+** Subconsultas en SQL
+    -- Devuelve el nombre del cliente con mayor límite de crédito.
+    /**
+    **/
+    -- Devuelve el nombre del producto que tenga el precio de venta más caro.
+    /**
+    **/
+    -- Devuelve el nombre del producto del que se han vendido más unidades. (Tenga en cuenta que tendrá que calcular cuál es el número total de unidades que se han vendido de cada producto a partir de los datos de la tabla detalle_pedido)
+    /**
+    **/
+    -- Los clientes cuyo límite de crédito sea mayor que los pagos que haya realizado. (Sin utilizar INNER JOIN).
+    -- Devuelve el producto que más unidades tiene en stock.
+    -- Devuelve el producto que menos unidades tiene en stock.
+    -- Devuelve el nombre, los apellidos y el email de los empleados que están a cargo de Alberto Soria.
+    -- Devuelve el nombre del cliente con mayor límite de crédito.
+    -- Devuelve el nombre del producto que tenga el precio de venta más caro.
+    -- Devuelve el producto que menos unidades tiene en stock.
+    -- Devuelve el nombre, apellido1 y cargo de los empleados que no representen a ningún cliente.
+    -- Devuelve un listado que muestre solamente los clientes que no han realizado ningún pago.
+    -- Devuelve un listado que muestre solamente los clientes que sí han realizado algún pago.
+    -- Devuelve un listado de los productos que nunca han aparecido en un pedido.
+    -- Devuelve el nombre, apellidos, puesto y teléfono de la oficina de aquellos empleados que no sean representante de ventas de ningún cliente.
+    -- Devuelve las oficinas donde no trabajan ninguno de los empleados que hayan sido los representantes de ventas de algún cliente que haya realizado la compra de algún producto de la gama Frutales.
+    -- Devuelve un listado con los clientes que han realizado algún pedido pero no han realizado ningún pago.
+    -- Devuelve un listado que muestre solamente los clientes que no han realizado ningún pago.
+    -- Devuelve un listado que muestre solamente los clientes que sí han realizado algún pago.
+    -- Devuelve un listado de los productos que nunca han aparecido en un pedido.
+    -- Devuelve un listado de los productos que han aparecido en un pedido alguna vez.
+    
