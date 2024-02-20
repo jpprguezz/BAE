@@ -237,43 +237,93 @@ select p.*, co.* from pedido as p, comercial as co where p.id_comercial=co.id or
 │ 10 │ 250.45  │ 2015-06-27 │ 8          │ 2            │ 2  │ Juan    │ Gómez     │ López     │ 0.13      │
 │ 8  │ 1983.43 │ 2017-10-10 │ 4          │ 6            │ 6  │ Manuel  │ Domínguez │ Hernández │ 0.13      │
 └────┴─────────┴────────────┴────────────┴──────────────┴────┴─────────┴───────────┴───────────┴───────────┘
-
 ```
 
 
 Devuelve un listado de todos los clientes que realizaron un pedido durante el año 2017, cuya cantidad esté entre 300 € y 1000 €.
 ```sql
+select cl.nombre, p.fecha, p.total from cliente as cl, pedido as p where cl.id=p.id_cliente and fecha regexp  '2017' and p.total between 300 and 1000;
+
+┌────────┬────────────┬───────┐
+│ nombre │   fecha    │ total │
+├────────┼────────────┼───────┤
+│ Marcos │ 2017-09-10 │ 948.5 │
+└────────┴────────────┴───────┘
 ```
 
 
 Devuelve el nombre y los apellidos de todos los comerciales que ha participado en algún pedido realizado por María Santana Moreno.
 ```sql
+select distinct co.nombre, co.apellido1, co.apellido2 from comercial as co, pedido as p, cliente as cl where co.id=p.id_comercial and p.id_cliente=cl.id and cl.nombre='María' and cl.apellido1='Santana' and cl.apellido2='Moreno';
+
+┌────────┬───────────┬───────────┐
+│ nombre │ apellido1 │ apellido2 │
+├────────┼───────────┼───────────┤
+│ Daniel │ Sáez      │ Vega      │
+└────────┴───────────┴───────────┘
 ```
 
 
 Devuelve el nombre de todos los clientes que han realizado algún pedido con el comercial Daniel Sáez Vega.
 ```sql
+ select distinct cl.nombre from cliente as cl, pedido as p, comercial as co where co.id = p.id_comercial and p.id_cliente = cl.id and co.nombre = 'Daniel' and co.apellido1 = 'Sáez' and co.apellido2 = 'Vega';
+
+┌────────┐
+│ nombre │
+├────────┤
+│ Adela  │
+│ Pilar  │
+│ María  │
+└────────┘
 ```
 
 ## Consultas resumen (Funciones)
 
 Calcula la cantidad total que suman todos los pedidos que aparecen en la tabla pedido.
 ```sql
+ select sum(total) as total_pedidos from pedido;
+
+┌───────────────┐
+│ total_pedidos │
+├───────────────┤
+│ 20992.83      │
+└───────────────┘
 ```
 
 
 Calcula la cantidad media de todos los pedidos que aparecen en la tabla pedido.
 ```sql
+select avg(total) as media_pedidos from pedido;
+
+┌───────────────┐
+│ media_pedidos │
+├───────────────┤
+│ 1312.051875   │
+└───────────────┘
 ```
 
 
 Calcula el número total de comerciales distintos que aparecen en la tabla pedido.
 ```sql
+select count(distinct id_comercial) as total_comerciales from pedido;
+
+┌───────────────────┐
+│ total_comerciales │
+├───────────────────┤
+│ 6                 │
+└───────────────────┘
 ```
 
 
 Calcula el número total de clientes que aparecen en la tabla cliente.
 ```sql
+ select count(distinct id) as total_clientes from cliente;
+
+┌────────────────┐
+│ total_clientes │
+├────────────────┤
+│ 10             │
+└────────────────┘
 ```
 
 
