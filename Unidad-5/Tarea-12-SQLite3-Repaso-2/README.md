@@ -1,7 +1,7 @@
 ## Crear las tablas e insertar sus datos
 
 ```sql
-create table clientes (
+create table cliente (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	nombre TEXT,
      apellido1 TEXT,
