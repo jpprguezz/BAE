@@ -510,26 +510,66 @@ Devuelve la fecha y la cantidad del pedido de menor valor realizado por el clien
 
 Devuelve un listado con los datos de los clientes y los pedidos, de todos los clientes que han realizado un pedido durante el año 2017 con un valor mayor o igual al valor medio de los pedidos realizados durante ese mismo año.
 ```sql
+select cl.id, cl.nombre, cl.apellido1, cl.apellido2, p.id, p.fecha, p.total from cliente as cl, pedido as p where cl.id = p.id_cliente and p.fecha regexp '2017' and p.total >= (select avg(total) from pedido where fecha regexp '2017');
+
+┌────┬────────┬───────────┬───────────┬────┬────────────┬─────────┐
+│ id │ nombre │ apellido1 │ apellido2 │ id │   fecha    │  total  │
+├────┼────────┼───────────┼───────────┼────┼────────────┼─────────┤
+│ 4  │ Adrián │ Suárez    │           │ 8  │ 2017-10-10 │ 1983.43 │
+│ 2  │ Adela  │ Salas     │ Díaz      │ 12 │ 2017-04-25 │ 3045.6  │
+└────┴────────┴───────────┴───────────┴────┴────────────┴─────────┘
 ```
 
 ### Subconsultas con IN y NOT IN
 
 Devuelve un listado de los clientes que no han realizado ningún pedido. (Utilizando IN o NOT IN).
 ```sql
+select * from cliente where id not in (select distinct id_cliente from pedido);
+
+┌────┬───────────┬───────────┬───────────┬─────────┬───────────┐
+│ id │  nombre   │ apellido1 │ apellido2 │ ciudad  │ categoria │
+├────┼───────────┼───────────┼───────────┼─────────┼───────────┤
+│ 9  │ Guillermo │ López     │ Gómez     │ Granada │ 225       │
+│ 10 │ Daniel    │ Santana   │ Loyola    │ Sevilla │ 125       │
+└────┴───────────┴───────────┴───────────┴─────────┴───────────┘
 ```
 
 
 Devuelve un listado de los comerciales que no han realizado ningún pedido. (Utilizando IN o NOT IN).
 ```sql
+select * from comercial where id not in (select distinct id_comercial from pedido);
+
+┌────┬─────────┬───────────┬───────────┬───────────┐
+│ id │ nombre  │ apellido1 │ apellido2 │ categoria │
+├────┼─────────┼───────────┼───────────┼───────────┤
+│ 4  │ Marta   │ Herrera   │ Gil       │ 0.14      │
+│ 8  │ Alfredo │ Ruiz      │ Flores    │ 0.05      │
+└────┴─────────┴───────────┴───────────┴───────────┘
 ```
 
 ### Subconsultas con EXISTS y NOT EXISTS
 
 Devuelve un listado de los clientes que no han realizado ningún pedido. (Utilizando EXISTS o NOT EXISTS).
 ```sql
+select cl.* from cliente as cl where not exists(select 1 from pedido as p where p.id_cliente = cl.id);
+
+┌────┬───────────┬───────────┬───────────┬─────────┬───────────┐
+│ id │  nombre   │ apellido1 │ apellido2 │ ciudad  │ categoria │
+├────┼───────────┼───────────┼───────────┼─────────┼───────────┤
+│ 9  │ Guillermo │ López     │ Gómez     │ Granada │ 225       │
+│ 10 │ Daniel    │ Santana   │ Loyola    │ Sevilla │ 125       │
+└────┴───────────┴───────────┴───────────┴─────────┴───────────┘
 ```
 
 
 Devuelve un listado de los comerciales que no han realizado ningún pedido. (Utilizando EXISTS o NOT EXISTS).
 ```sql
+select co.nombre from comercial as co where not exists (select 1 from pedido as p where p.id_comercial = co.id);
+
+┌─────────┐
+│ nombre  │
+├─────────┤
+│ Marta   │
+│ Alfredo │
+└─────────┘
 ```
