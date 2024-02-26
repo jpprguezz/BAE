@@ -61,9 +61,135 @@ select * from asignatura where cuatrimestre=1 and curso=3 and id_grado=7;
 
 ** Consultas multitabla (Join)
 -- Devuelve un listado con los datos de todas las alumnas que se han matriculado alguna vez en el Grado en Ingeniería Informática (Plan 2015).
+select a.* from alumnos as a join alumno_se_matricula_asignatura as mtr on a.id=mtr.id_alumno join grado as g on mtr.id_curso_escolar=g.id where g.nombre='Grado en Ingeniería Informática(Plan 2015)';
 -- Devuelve un listado con todas las asignaturas ofertadas en el Grado en Ingeniería Informática (Plan 2015).
+select distinct a.* from asignatura as a join grado as g on a.id_grado=g.id where g.nombre='Grado en Ingeniería Informática (Plan 2015)';
 
+┌────┬──────────────────────────────────────────────────────────────┬──────────┬─────────────┬───────┬──────────────┬─────────────┬──────────┐
+│ id │                            nombre                            │ creditos │    tipo     │ curso │ cuatrimestre │ id_profesor │ id_grado │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 1  │ Álgegra lineal y matemática discreta                         │ 6.0      │ básica      │ 1     │ 1            │ 3           │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 2  │ Cálculo                                                      │ 6.0      │ básica      │ 1     │ 1            │ 14          │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 3  │ Física para informática                                      │ 6.0      │ básica      │ 1     │ 1            │ 3           │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 4  │ Introducción a la programación                               │ 6.0      │ básica      │ 1     │ 1            │ 14          │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 5  │ Organización y gestión de empresas                           │ 6.0      │ básica      │ 1     │ 1            │ 3           │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 6  │ Estadística                                                  │ 6.0      │ básica      │ 1     │ 2            │ 14          │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 7  │ Estructura y tecnología de computadores                      │ 6.0      │ básica      │ 1     │ 2            │ 3           │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 8  │ Fundamentos de electrónica                                   │ 6.0      │ básica      │ 1     │ 2            │ 14          │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 9  │ Lógica y algorítmica                                         │ 6.0      │ básica      │ 1     │ 2            │ 3           │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 10 │ Metodología de la programación                               │ 6.0      │ básica      │ 1     │ 2            │ 14          │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 11 │ Arquitectura de Computadores                                 │ 6.0      │ básica      │ 2     │ 1            │ 3           │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 12 │ Estructura de Datos y Algoritmos I                           │ 6.0      │ obligatoria │ 2     │ 1            │ 3           │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 13 │ Ingeniería del Software                                      │ 6.0      │ obligatoria │ 2     │ 1            │ 14          │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 14 │ Sistemas Inteligentes                                        │ 6.0      │ obligatoria │ 2     │ 1            │ 3           │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 15 │ Sistemas Operativos                                          │ 6.0      │ obligatoria │ 2     │ 1            │ 14          │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 16 │ Bases de Datos                                               │ 6.0      │ básica      │ 2     │ 2            │ 14          │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 17 │ Estructura de Datos y Algoritmos II                          │ 6.0      │ obligatoria │ 2     │ 2            │ 14          │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 18 │ Fundamentos de Redes de Computadores                         │ 6.0      │ obligatoria │ 2     │ 2            │ 3           │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 19 │ Planificación y Gestión de Proyectos Informáticos            │ 6.0      │ obligatoria │ 2     │ 2            │ 3           │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 20 │ Programación de Servicios Software                           │ 6.0      │ obligatoria │ 2     │ 2            │ 14          │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 21 │ Desarrollo de interfaces de usuario                          │ 6.0      │ obligatoria │ 3     │ 1            │ 14          │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 22 │ Ingeniería de Requisitos                                     │ 6.0      │ optativa    │ 3     │ 1            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 23 │ Integración de las Tecnologías de la Información en las Orga │ 6.0      │ optativa    │ 3     │ 1            │             │ 4        │
+│    │ nizaciones                                                   │          │             │       │              │             │          │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 24 │ Modelado y Diseño del Software 1                             │ 6.0      │ optativa    │ 3     │ 1            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 25 │ Multiprocesadores                                            │ 6.0      │ optativa    │ 3     │ 1            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 26 │ Seguridad y cumplimiento normativo                           │ 6.0      │ optativa    │ 3     │ 1            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 27 │ Sistema de Información para las Organizaciones               │ 6.0      │ optativa    │ 3     │ 1            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 28 │ Tecnologías web                                              │ 6.0      │ optativa    │ 3     │ 1            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 29 │ Teoría de códigos y criptografía                             │ 6.0      │ optativa    │ 3     │ 1            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 30 │ Administración de bases de datos                             │ 6.0      │ optativa    │ 3     │ 2            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 31 │ Herramientas y Métodos de Ingeniería del Software            │ 6.0      │ optativa    │ 3     │ 2            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 32 │ Informática industrial y robótica                            │ 6.0      │ optativa    │ 3     │ 2            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 33 │ Ingeniería de Sistemas de Información                        │ 6.0      │ optativa    │ 3     │ 2            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 34 │ Modelado y Diseño del Software 2                             │ 6.0      │ optativa    │ 3     │ 2            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 35 │ Negocio Electrónico                                          │ 6.0      │ optativa    │ 3     │ 2            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 36 │ Periféricos e interfaces                                     │ 6.0      │ optativa    │ 3     │ 2            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 37 │ Sistemas de tiempo real                                      │ 6.0      │ optativa    │ 3     │ 2            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 38 │ Tecnologías de acceso a red                                  │ 6.0      │ optativa    │ 3     │ 2            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 39 │ Tratamiento digital de imágenes                              │ 6.0      │ optativa    │ 3     │ 2            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 40 │ Administración de redes y sistemas operativos                │ 6.0      │ optativa    │ 4     │ 1            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 41 │ Almacenes de Datos                                           │ 6.0      │ optativa    │ 4     │ 1            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 42 │ Fiabilidad y Gestión de Riesgos                              │ 6.0      │ optativa    │ 4     │ 1            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 43 │ Líneas de Productos Software                                 │ 6.0      │ optativa    │ 4     │ 1            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 44 │ Procesos de Ingeniería del Software 1                        │ 6.0      │ optativa    │ 4     │ 1            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 45 │ Tecnologías multimedia                                       │ 6.0      │ optativa    │ 4     │ 1            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 46 │ Análisis y planificación de las TI                           │ 6.0      │ optativa    │ 4     │ 2            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 47 │ Desarrollo Rápido de Aplicaciones                            │ 6.0      │ optativa    │ 4     │ 2            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 48 │ Gestión de la Calidad y de la Innovación Tecnológica         │ 6.0      │ optativa    │ 4     │ 2            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 49 │ Inteligencia del Negocio                                     │ 6.0      │ optativa    │ 4     │ 2            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 50 │ Procesos de Ingeniería del Software 2                        │ 6.0      │ optativa    │ 4     │ 2            │             │ 4        │
+├────┼──────────────────────────────────────────────────────────────┼──────────┼─────────────┼───────┼──────────────┼─────────────┼──────────┤
+│ 51 │ Seguridad Informática                                        │ 6.0      │ optativa    │ 4     │ 2            │             │ 4        │
+└────┴──────────────────────────────────────────────────────────────┴──────────┴─────────────┴───────┴──────────────┴─────────────┴──────────┘
 -- Devuelve un listado de los profesores junto con el nombre del departamento al que están vinculados. El listado debe devolver cuatro columnas, primer apellido, segundo apellido, nombre y nombre del departamento. El resultado estará ordenado alfabéticamente de menor a mayor por los apellidos y el nombre.
+select distinct p.apellido1, p.apellido2, p.nombre, d.nombre from persona as p join profesor as pr on p.id=pr.id_profesor join departamento as d on pr.id_departamento=d.id order by p.apellido1, p.apellido2, p.nombre;
+
+┌────────────┬────────────┬───────────┬────────────────────┐
+│ apellido1  │ apellido2  │  nombre   │       nombre       │
+├────────────┼────────────┼───────────┼────────────────────┤
+│ Fahey      │ Considine  │ Antonio   │ Economía y Empresa │
+│ Hamill     │ Kozey      │ Manolo    │ Informática        │
+│ Kohler     │ Schoen     │ Alejandro │ Matemáticas        │
+│ Lemke      │ Rutherford │ Cristina  │ Economía y Empresa │
+│ Monahan    │ Murray     │ Micaela   │ Agronomía          │
+│ Ramirez    │ Gea        │ Zoe       │ Informática        │
+│ Ruecker    │ Upton      │ Guillermo │ Educación          │
+│ Schmidt    │ Fisher     │ David     │ Matemáticas        │
+│ Schowalter │ Muller     │ Francesca │ Química y Física   │
+│ Spencer    │ Lakin      │ Esther    │ Educación          │
+│ Stiedemann │ Morissette │ Alfredo   │ Química y Física   │
+│ Streich    │ Hirthe     │ Carmen    │ Educación          │
+└────────────┴────────────┴───────────┴────────────────────┘
 -- Devuelve un listado con el nombre de las asignaturas, año de inicio y año de fin del curso escolar del alumno con nif 26902806M.
 -- Devuelve un listado con el nombre de todos los departamentos que tienen profesores que imparten alguna asignatura en el Grado en Ingeniería Informática (Plan 2015).
 -- Devuelve un listado con todos los alumnos que se han matriculado en alguna asignatura durante el curso escolar 2018/2019.
@@ -84,6 +210,13 @@ select * from asignatura where cuatrimestre=1 and curso=3 and id_grado=7;
 ** Consultas resúmen (Funciones)
 
 -- Devuelve el número total de alumnas que hay.
+select sum(id) as total_alumnas from persona where tipo='alumno' and sexo='M';
+
+┌───────────────┐
+│ total_alumnas │
+├───────────────┤
+│ 66            │
+└───────────────┘
 -- Calcula cuántos alumnos nacieron en 1999.
 -- Calcula cuántos profesores hay en cada departamento. El resultado sólo debe mostrar dos columnas, una con el nombre del departamento y otra con el número de profesores que hay en ese departamento. El resultado sólo debe incluir los departamentos que tienen profesores asociados y deberá estar ordenado de mayor a menor por el número de profesores.
 -- Devuelve un listado con todos los departamentos y el número de profesores que hay en cada uno de ellos. Tenga en cuenta que pueden existir departamentos que no tienen profesores asociados. Estos departamentos también tienen que aparecer en el listado.
