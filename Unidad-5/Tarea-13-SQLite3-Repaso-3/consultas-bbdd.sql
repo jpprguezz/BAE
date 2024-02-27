@@ -3,6 +3,7 @@
 -- Devuelve un listado con el primer apellido, segundo apellido y el nombre de todos los alumnos. El listado deberá estar ordenado alfabéticamente de menor a mayor por el primer apellido, segundo apellido y nombre.
 select apellido1, apellido2, nombre from persona where tipo='alumno' order by apellido1, apellido2, nombre desc;
 
+<<<<<<< HEAD
 ┌───────────┬───────────┬──────────┐
 │ apellido1 │ apellido2 │  nombre  │
 ├───────────┼───────────┼──────────┤
@@ -19,7 +20,37 @@ select apellido1, apellido2, nombre from persona where tipo='alumno' order by ap
 │ Strosin   │ Turcotte  │ Ismael   │
 │ Sánchez   │ Pérez     │ Salvador │
 └───────────┴───────────┴──────────┘
+
+=======
+┌───────────┬───────────┬──────────┐
+│ apellido1 │ apellido2 │  nombre  │
+├───────────┼───────────┼──────────┤
+│ Domínguez │ Guerrero  │ Antonio  │
+│ Gea       │ Ruiz      │ Sonia    │
+│ Gutiérrez │ López     │ Juan     │
+│ Heller    │ Pagac     │ Pedro    │
+│ Herman    │ Pacocha   │ Daniel   │
+│ Hernández │ Martínez  │ Irene    │
+│ Herzog    │ Tremblay  │ Ramón    │
+│ Koss      │ Bayer     │ José     │
+│ Lakin     │ Yundt     │ Inma     │
+│ Saez      │ Vega      │ Juan     │
+│ Strosin   │ Turcotte  │ Ismael   │
+│ Sánchez   │ Pérez     │ Salvador │
+└───────────┴───────────┴──────────┘
+>>>>>>> e35efbb7d59aa11c5438c4252c0fa228cbdb8b6c
 -- Averigua el nombre y los dos apellidos de los alumnos que no han dado de alta su número de teléfono en la base de datos.
+<<<<<<< HEAD
+select nombre, apellido1, apellido2, telefono from persona where telefono is null and tipo='alumno';
+
+┌────────┬───────────┬───────────┬──────────┐
+│ nombre │ apellido1 │ apellido2 │ telefono │
+├────────┼───────────┼───────────┼──────────┤
+│ Pedro  │ Heller    │ Pagac     │          │
+│ Ismael │ Strosin   │ Turcotte  │          │
+└────────┴───────────┴───────────┴──────────┘
+
+=======
 select nombre, apellido1, apellido2, telefono from persona where tipo='alumno' and telefono is null;
 ┌────────┬───────────┬───────────┬──────────┐
 │ nombre │ apellido1 │ apellido2 │ telefono │
@@ -27,8 +58,13 @@ select nombre, apellido1, apellido2, telefono from persona where tipo='alumno' a
 │ Pedro  │ Heller    │ Pagac     │          │
 │ Ismael │ Strosin   │ Turcotte  │          │
 └────────┴───────────┴───────────┴──────────┘
+>>>>>>> e35efbb7d59aa11c5438c4252c0fa228cbdb8b6c
 -- Devuelve el listado de los alumnos que nacieron en 1999.
+<<<<<<< HEAD
+select * from persona where fecha_nacimiento regexp '1999/' and tipo='alumno';
+=======
 select * from persona where tipo='alumno' and fecha_nacimiento regexp '1999/';
+>>>>>>> e35efbb7d59aa11c5438c4252c0fa228cbdb8b6c
 
 ┌────┬───────────┬─────────┬───────────┬───────────┬─────────┬─────────────────┬───────────┬──────────────────┬──────┬────────┐
 │ id │    nif    │ nombre  │ apellido1 │ apellido2 │ ciudad  │    direccion    │ telefono  │ fecha_nacimiento │ sexo │  tipo  │
@@ -36,6 +72,7 @@ select * from persona where tipo='alumno' and fecha_nacimiento regexp '1999/';
 │ 7  │ 97258166K │ Ismael  │ Strosin   │ Turcotte  │ Almería │ C/ Neptuno      │           │ 1999/05/24       │ H    │ alumno │
 │ 22 │ 41491230N │ Antonio │ Domínguez │ Guerrero  │ Almería │ C/ Cabo de Gata │ 626652498 │ 1999/02/11       │ H    │ alumno │
 └────┴───────────┴─────────┴───────────┴───────────┴─────────┴─────────────────┴───────────┴──────────────────┴──────┴────────┘
+
 -- Devuelve el listado de profesores que no han dado de alta su número de teléfono en la base de datos y además su nif termina en K.
 select * from persona where tipo='profesor' and telefono is null and nif regexp 'K$';
 
@@ -45,6 +82,7 @@ select * from persona where tipo='profesor' and telefono is null and nif regexp 
 │ 16 │ 10485008K │ Antonio   │ Fahey     │ Considine │ Almería │ C/ Sierra de los Filabres │          │ 1982/03/18       │ H    │ profesor │
 │ 17 │ 85869555K │ Guillermo │ Ruecker   │ Upton     │ Almería │ C/ Sierra de Gádor        │          │ 1973/05/05       │ H    │ profesor │
 └────┴───────────┴───────────┴───────────┴───────────┴─────────┴───────────────────────────┴──────────┴──────────────────┴──────┴──────────┘
+
 -- Devuelve el listado de las asignaturas que se imparten en el primer cuatrimestre, en el tercer curso del grado que tiene el identificador 7.
 select * from asignatura where cuatrimestre=1 and curso=3 and id_grado=7;
 
@@ -58,6 +96,8 @@ select * from asignatura where cuatrimestre=1 and curso=3 and id_grado=7;
 │ 76 │ Patología molecular de plantas            │ 4.5      │ obligatoria │ 3     │ 1            │             │ 7        │
 │ 77 │ Técnicas instrumentales básicas           │ 4.5      │ obligatoria │ 3     │ 1            │             │ 7        │
 └────┴───────────────────────────────────────────┴──────────┴─────────────┴───────┴──────────────┴─────────────┴──────────┘
+
+
 
 ** Consultas multitabla (Join)
 -- Devuelve un listado con los datos de todas las alumnas que se han matriculado alguna vez en el Grado en Ingeniería Informática (Plan 2015).
@@ -234,6 +274,7 @@ select sum(id) as total_alumnas from persona where tipo='alumno' and sexo='M';
 -- Devuelve un listado con los profesores que no están asociados a un departamento.
 -- Devuelve un listado con los departamentos que no tienen profesores asociados.
 -- Devuelve un listado con los profesores que tienen un departamento asociado y que no imparten ninguna asignatura.
+select nombre from persona as p join profesor as pr on p.id=p.id_profesor where pr.id_profesor (select distinct(id_profesor from asignaturas as a where a.id_profesor=pr.profesor));
 -- Devuelve un listado con las asignaturas que no tienen un profesor asignado.
 -- Devuelve un listado con todos los departamentos que no han impartido asignaturas en ningún curso escolar.
 
