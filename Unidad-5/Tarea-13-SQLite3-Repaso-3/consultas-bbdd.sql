@@ -3,7 +3,6 @@
 -- Devuelve un listado con el primer apellido, segundo apellido y el nombre de todos los alumnos. El listado deberá estar ordenado alfabéticamente de menor a mayor por el primer apellido, segundo apellido y nombre.
 select apellido1, apellido2, nombre from persona where tipo='alumno' order by apellido1, apellido2, nombre desc;
 
-<<<<<<< HEAD
 ┌───────────┬───────────┬──────────┐
 │ apellido1 │ apellido2 │  nombre  │
 ├───────────┼───────────┼──────────┤
@@ -21,26 +20,7 @@ select apellido1, apellido2, nombre from persona where tipo='alumno' order by ap
 │ Sánchez   │ Pérez     │ Salvador │
 └───────────┴───────────┴──────────┘
 
-=======
-┌───────────┬───────────┬──────────┐
-│ apellido1 │ apellido2 │  nombre  │
-├───────────┼───────────┼──────────┤
-│ Domínguez │ Guerrero  │ Antonio  │
-│ Gea       │ Ruiz      │ Sonia    │
-│ Gutiérrez │ López     │ Juan     │
-│ Heller    │ Pagac     │ Pedro    │
-│ Herman    │ Pacocha   │ Daniel   │
-│ Hernández │ Martínez  │ Irene    │
-│ Herzog    │ Tremblay  │ Ramón    │
-│ Koss      │ Bayer     │ José     │
-│ Lakin     │ Yundt     │ Inma     │
-│ Saez      │ Vega      │ Juan     │
-│ Strosin   │ Turcotte  │ Ismael   │
-│ Sánchez   │ Pérez     │ Salvador │
-└───────────┴───────────┴──────────┘
->>>>>>> e35efbb7d59aa11c5438c4252c0fa228cbdb8b6c
 -- Averigua el nombre y los dos apellidos de los alumnos que no han dado de alta su número de teléfono en la base de datos.
-<<<<<<< HEAD
 select nombre, apellido1, apellido2, telefono from persona where telefono is null and tipo='alumno';
 
 ┌────────┬───────────┬───────────┬──────────┐
@@ -50,21 +30,8 @@ select nombre, apellido1, apellido2, telefono from persona where telefono is nul
 │ Ismael │ Strosin   │ Turcotte  │          │
 └────────┴───────────┴───────────┴──────────┘
 
-=======
-select nombre, apellido1, apellido2, telefono from persona where tipo='alumno' and telefono is null;
-┌────────┬───────────┬───────────┬──────────┐
-│ nombre │ apellido1 │ apellido2 │ telefono │
-├────────┼───────────┼───────────┼──────────┤
-│ Pedro  │ Heller    │ Pagac     │          │
-│ Ismael │ Strosin   │ Turcotte  │          │
-└────────┴───────────┴───────────┴──────────┘
->>>>>>> e35efbb7d59aa11c5438c4252c0fa228cbdb8b6c
 -- Devuelve el listado de los alumnos que nacieron en 1999.
-<<<<<<< HEAD
 select * from persona where fecha_nacimiento regexp '1999/' and tipo='alumno';
-=======
-select * from persona where tipo='alumno' and fecha_nacimiento regexp '1999/';
->>>>>>> e35efbb7d59aa11c5438c4252c0fa228cbdb8b6c
 
 ┌────┬───────────┬─────────┬───────────┬───────────┬─────────┬─────────────────┬───────────┬──────────────────┬──────┬────────┐
 │ id │    nif    │ nombre  │ apellido1 │ apellido2 │ ciudad  │    direccion    │ telefono  │ fecha_nacimiento │ sexo │  tipo  │
