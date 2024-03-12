@@ -22,9 +22,9 @@ INSERT INTO usuarios (nombre, edad, correo) VALUES
 ('Pedro', 28, 'pedro@example.com');
 
 CREATE TABLE IF NOT EXISTS productos (
-id INTEGER PRIMARY KEY AUTO_INCREMENT,
+id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR (100),
-    precio NUMERIC(10, 2),
+    precio FLOAT(10, 2),
     cantidad INTEGER
 );
 
