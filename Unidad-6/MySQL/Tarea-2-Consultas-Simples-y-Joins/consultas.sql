@@ -233,7 +233,7 @@ INSERT INTO ordenes (id_cliente, id_producto, cantidad) VALUES
         -- Mostrar los clientes cuyos nombres comienzan con la letra "M".
         select * from clientes where nombre like 'M%';
 
-        "No se encuentran coincidencias"
+        "No hay resultado"
 
         -- Mostrar las órdenes que contienen más de 2 productos.
         select * from ordenes where cantidad > 2;
@@ -280,6 +280,7 @@ INSERT INTO ordenes (id_cliente, id_producto, cantidad) VALUES
     - Consultas de ejemplo para practicar joins
         -- Seleccionar todos los clientes y sus órdenes, incluso si no tienen órdenes
         select cl.*, o.* from clientes as cl left join ordenes as o on o.id_cliente = cl.id_cliente;
+
         +------------+------------+---------------+----------+------------+-------------+----------+
         | id_cliente | nombre     | direccion     | id_orden | id_cliente | id_producto | cantidad |
         +------------+------------+---------------+----------+------------+-------------+----------+
@@ -306,8 +307,61 @@ INSERT INTO ordenes (id_cliente, id_producto, cantidad) VALUES
         +------------+------------+---------------+----------+------------+-------------+----------+
 
         -- Seleccionar todas las órdenes junto con los productos correspondientes
+        select pr.nombre, o.* from productos as pr left join ordenes as o on o.id_producto=pr.id_producto;
+
+        +-------------+----------+------------+-------------+----------+
+        | nombre      | id_orden | id_cliente | id_producto | cantidad |
+        +-------------+----------+------------+-------------+----------+
+        | Producto 1  |        1 |          1 |           1 |        2 |
+        | Producto 2  |        2 |          2 |           2 |        1 |
+        | Producto 3  |        3 |          3 |           3 |        3 |
+        | Producto 4  |        4 |          4 |           4 |        2 |
+        | Producto 5  |        5 |          5 |           5 |        1 |
+        | Producto 6  |        6 |          6 |           6 |        2 |
+        | Producto 7  |        7 |          7 |           7 |        3 |
+        | Producto 8  |        8 |          8 |           8 |        2 |
+        | Producto 9  |        9 |          9 |           9 |        1 |
+        | Producto 10 |       10 |         10 |          10 |        2 |
+        | Producto 11 |       11 |         11 |          11 |        3 |
+        | Producto 12 |       12 |         12 |          12 |        2 |
+        | Producto 13 |       13 |         13 |          13 |        1 |
+        | Producto 14 |       14 |         14 |          14 |        2 |
+        | Producto 15 |       15 |         15 |          15 |        3 |
+        | Producto 16 |       16 |         16 |          16 |        2 |
+        | Producto 17 |       17 |         17 |          17 |        1 |
+        | Producto 18 |       18 |         18 |          18 |        2 |
+        | Producto 19 |       19 |         19 |          19 |        3 |
+        | Producto 20 |       20 |         20 |          20 |        2 |
+        +-------------+----------+------------+-------------+----------+
+
         -- Mostrar el nombre de los clientes que han realizado órdenes de productos que cuestan más de 50
+        select cl.nombre, pr.* from clientes as cl left join ordenes as o on cl.id_cliente=o.id_cliente join productos as pr on pr.id_producto=o.id_producto where pr.precio > 50;
+
+        +------------+-------------+-------------+--------+
+        | nombre     | id_producto | nombre      | precio |
+        +------------+-------------+-------------+--------+
+        | Cliente 5  |           5 | Producto 5  |  50.99 |
+        | Cliente 6  |           6 | Producto 6  |   60.5 |
+        | Cliente 7  |           7 | Producto 7  |  70.99 |
+        | Cliente 8  |           8 | Producto 8  |   80.5 |
+        | Cliente 9  |           9 | Producto 9  |  90.99 |
+        | Cliente 10 |          10 | Producto 10 |  100.5 |
+        | Cliente 11 |          11 | Producto 11 | 110.99 |
+        | Cliente 12 |          12 | Producto 12 |  120.5 |
+        | Cliente 13 |          13 | Producto 13 | 130.99 |
+        | Cliente 14 |          14 | Producto 14 |  140.5 |
+        | Cliente 15 |          15 | Producto 15 | 150.99 |
+        | Cliente 16 |          16 | Producto 16 |  160.5 |
+        | Cliente 17 |          17 | Producto 17 | 170.99 |
+        | Cliente 18 |          18 | Producto 18 |  180.5 |
+        | Cliente 19 |          19 | Producto 19 | 190.99 |
+        | Cliente 20 |          20 | Producto 20 |  200.5 |
+        +------------+-------------+-------------+--------+
+
         -- Obtener el nombre de los productos que no se han ordenado aún
+        select pr.nombre from productos as pr left join ordenes as o on pr.id_producto=o.id_producto where o.id_producto is null;
+
+        "No hay resultado"
         -- Mostrar el nombre del cliente, el producto y la cantidad para todas las órdenes
         -- Obtener el nombre de los productos junto con los nombres de los clientes que han realizado órdenes de esos productos
         -- Mostrar todas las órdenes con sus clientes y productos, incluso si no hay órdenes
