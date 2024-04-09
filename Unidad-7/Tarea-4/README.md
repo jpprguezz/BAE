@@ -33,109 +33,45 @@ select * from actor where last_name = "Johansson";
 
 - Actores que contengan una O en su nombre.
 ```sql
-select * from actor where first_name like '%O%' or last_name like '%o%';
+select * from actor where first_name regexp 'O';
 +----------+-------------+--------------+---------------------+
 | actor_id | first_name  | last_name    | last_update         |
 +----------+-------------+--------------+---------------------+
 |        1 | PENELOPE    | GUINESS      | 2006-02-15 04:34:33 |
 |        5 | JOHNNY      | LOLLOBRIGIDA | 2006-02-15 04:34:33 |
-|        6 | BETTE       | NICHOLSON    | 2006-02-15 04:34:33 |
-|        7 | GRACE       | MOSTEL       | 2006-02-15 04:34:33 |
-|        8 | MATTHEW     | JOHANSSON    | 2006-02-15 04:34:33 |
 |        9 | JOE         | SWANK        | 2006-02-15 04:34:33 |
 |       11 | ZERO        | CAGE         | 2006-02-15 04:34:33 |
-|       13 | UMA         | WOOD         | 2006-02-15 04:34:33 |
-|       15 | CUBA        | OLIVIER      | 2006-02-15 04:34:33 |
-|       16 | FRED        | COSTNER      | 2006-02-15 04:34:33 |
-|       17 | HELEN       | VOIGHT       | 2006-02-15 04:34:33 |
-|       18 | DAN         | TORN         | 2006-02-15 04:34:33 |
 |       19 | BOB         | FAWCETT      | 2006-02-15 04:34:33 |
-|       21 | KIRSTEN     | PALTROW      | 2006-02-15 04:34:33 |
 |       24 | CAMERON     | STREEP       | 2006-02-15 04:34:33 |
-|       25 | KEVIN       | BLOOM        | 2006-02-15 04:34:33 |
-|       26 | RIP         | CRAWFORD     | 2006-02-15 04:34:33 |
 |       28 | WOODY       | HOFFMAN      | 2006-02-15 04:34:33 |
-|       31 | SISSY       | SOBIESKI     | 2006-02-15 04:34:33 |
-|       34 | AUDREY      | OLIVIER      | 2006-02-15 04:34:33 |
-|       37 | VAL         | BOLGER       | 2006-02-15 04:34:33 |
 |       38 | TOM         | MCKELLEN     | 2006-02-15 04:34:33 |
 |       39 | GOLDIE      | BRODY        | 2006-02-15 04:34:33 |
 |       40 | JOHNNY      | CAGE         | 2006-02-15 04:34:33 |
 |       41 | JODIE       | DEGENERES    | 2006-02-15 04:34:33 |
 |       42 | TOM         | MIRANDA      | 2006-02-15 04:34:33 |
-|       43 | KIRK        | JOVOVICH     | 2006-02-15 04:34:33 |
-|       44 | NICK        | STALLONE     | 2006-02-15 04:34:33 |
-|       46 | PARKER      | GOLDBERG     | 2006-02-15 04:34:33 |
-|       47 | JULIA       | BARRYMORE    | 2006-02-15 04:34:33 |
-|       49 | ANNE        | CRONYN       | 2006-02-15 04:34:33 |
-|       50 | NATALIE     | HOPKINS      | 2006-02-15 04:34:33 |
-|       51 | GARY        | PHOENIX      | 2006-02-15 04:34:33 |
 |       54 | PENELOPE    | PINKETT      | 2006-02-15 04:34:33 |
-|       58 | CHRISTIAN   | AKROYD       | 2006-02-15 04:34:33 |
-|       59 | DUSTIN      | TAUTOU       | 2006-02-15 04:34:33 |
-|       61 | CHRISTIAN   | NEESON       | 2006-02-15 04:34:33 |
-|       62 | JAYNE       | NEESON       | 2006-02-15 04:34:33 |
 |       63 | CAMERON     | WRAY         | 2006-02-15 04:34:33 |
-|       64 | RAY         | JOHANSSON    | 2006-02-15 04:34:33 |
-|       65 | ANGELA      | HUDSON       | 2006-02-15 04:34:33 |
-|       69 | KENNETH     | PALTROW      | 2006-02-15 04:34:33 |
-|       70 | MICHELLE    | MCCONAUGHEY  | 2006-02-15 04:34:33 |
-|       75 | BURT        | POSEY        | 2006-02-15 04:34:33 |
-|       77 | CARY        | MCCONAUGHEY  | 2006-02-15 04:34:33 |
 |       78 | GROUCHO     | SINATRA      | 2006-02-15 04:34:33 |
-|       79 | MAE         | HOFFMAN      | 2006-02-15 04:34:33 |
-|       81 | SCARLETT    | DAMON        | 2006-02-15 04:34:33 |
 |       82 | WOODY       | JOLIE        | 2006-02-15 04:34:33 |
 |       91 | CHRISTOPHER | BERRY        | 2006-02-15 04:34:33 |
-|       92 | KIRSTEN     | AKROYD       | 2006-02-15 04:34:33 |
-|       94 | KENNETH     | TORN         | 2006-02-15 04:34:33 |
-|       99 | JIM         | MOSTEL       | 2006-02-15 04:34:33 |
-|      102 | WALTER      | TORN         | 2006-02-15 04:34:33 |
 |      104 | PENELOPE    | CRONYN       | 2006-02-15 04:34:33 |
-|      105 | SIDNEY      | CROWE        | 2006-02-15 04:34:33 |
 |      106 | GROUCHO     | DUNST        | 2006-02-15 04:34:33 |
-|      108 | WARREN      | NOLTE        | 2006-02-15 04:34:33 |
 |      111 | CAMERON     | ZELLWEGER    | 2006-02-15 04:34:33 |
 |      113 | MORGAN      | HOPKINS      | 2006-02-15 04:34:33 |
 |      114 | MORGAN      | MCDORMAND    | 2006-02-15 04:34:33 |
 |      115 | HARRISON    | BALE         | 2006-02-15 04:34:33 |
 |      120 | PENELOPE    | MONROE       | 2006-02-15 04:34:33 |
-|      122 | SALMA       | NOLTE        | 2006-02-15 04:34:33 |
-|      125 | ALBERT      | NOLTE        | 2006-02-15 04:34:33 |
-|      126 | FRANCES     | TOMEI        | 2006-02-15 04:34:33 |
-|      129 | DARYL       | CRAWFORD     | 2006-02-15 04:34:33 |
-|      132 | ADAM        | HOPPER       | 2006-02-15 04:34:33 |
-|      134 | GENE        | HOPKINS      | 2006-02-15 04:34:33 |
-|      135 | RITA        | REYNOLDS     | 2006-02-15 04:34:33 |
 |      137 | MORGAN      | WILLIAMS     | 2006-02-15 04:34:33 |
-|      139 | EWAN        | GOODING      | 2006-02-15 04:34:33 |
 |      140 | WHOOPI      | HURT         | 2006-02-15 04:34:33 |
-|      144 | ANGELA      | WITHERSPOON  | 2006-02-15 04:34:33 |
-|      146 | ALBERT      | JOHANSSON    | 2006-02-15 04:34:33 |
-|      150 | JAYNE       | NOLTE        | 2006-02-15 04:34:33 |
 |      151 | GEOFFREY    | HESTON       | 2006-02-15 04:34:33 |
-|      154 | MERYL       | GIBSON       | 2006-02-15 04:34:33 |
-|      156 | FAY         | WOOD         | 2006-02-15 04:34:33 |
-|      159 | LAURA       | BRODY        | 2006-02-15 04:34:33 |
-|      161 | HARVEY      | HOPE         | 2006-02-15 04:34:33 |
 |      162 | OPRAH       | KILMER       | 2006-02-15 04:34:33 |
 |      163 | CHRISTOPHER | WEST         | 2006-02-15 04:34:33 |
-|      167 | LAURENCE    | BULLOCK      | 2006-02-15 04:34:33 |
-|      168 | WILL        | WILSON       | 2006-02-15 04:34:33 |
-|      169 | KENNETH     | HOFFMAN      | 2006-02-15 04:34:33 |
-|      170 | MENA        | HOPPER       | 2006-02-15 04:34:33 |
 |      171 | OLYMPIA     | PFEIFFER     | 2006-02-15 04:34:33 |
 |      172 | GROUCHO     | WILLIAMS     | 2006-02-15 04:34:33 |
 |      176 | JON         | CHASE        | 2006-02-15 04:34:33 |
-|      178 | LISA        | MONROE       | 2006-02-15 04:34:33 |
-|      180 | JEFF        | SILVERSTONE  | 2006-02-15 04:34:33 |
-|      182 | DEBBIE      | AKROYD       | 2006-02-15 04:34:33 |
-|      183 | RUSSELL     | CLOSE        | 2006-02-15 04:34:33 |
-|      185 | MICHAEL     | BOLGER       | 2006-02-15 04:34:33 |
 |      188 | ROCK        | DUKAKIS      | 2006-02-15 04:34:33 |
 |      191 | GREGORY     | GOODING      | 2006-02-15 04:34:33 |
 |      192 | JOHN        | SUVARI       | 2006-02-15 04:34:33 |
-|      195 | JAYNE       | SILVERSTONE  | 2006-02-15 04:34:33 |
 |      200 | THORA       | TEMPLE       | 2006-02-15 04:34:33 |
 +----------+-------------+--------------+---------------------+
 ```
@@ -143,7 +79,8 @@ select * from actor where first_name like '%O%' or last_name like '%o%';
 - Actores que contengan una O en su nombre y en una A en suapellido.
 
 ```sql
-select * from actor where first_name like '%O%' and last_name like '%A%';
+select * from actor where first_name regexp 'O' and last_name regexp 'A';
+
 +----------+------------+--------------+---------------------+
 | actor_id | first_name | last_name    | last_update         |
 +----------+------------+--------------+---------------------+
@@ -165,9 +102,90 @@ select * from actor where first_name like '%O%' and last_name like '%A%';
 |      192 | JOHN       | SUVARI       | 2006-02-15 04:34:33 |
 +----------+------------+--------------+---------------------+
 ```
-- Actores que contengan dos O en su nombre y en una A en suapellido.
+- Actores que contengan dos O en su nombre y en una A en su apellido.
+
+```sql
+select * from actor where first_name regexp '.*o.*o.*' and last_name regexp 'a';
++----------+------------+-----------+---------------------+
+| actor_id | first_name | last_name | last_update         |
++----------+------------+-----------+---------------------+
+|       28 | WOODY      | HOFFMAN   | 2006-02-15 04:34:33 |
+|       78 | GROUCHO    | SINATRA   | 2006-02-15 04:34:33 |
+|      172 | GROUCHO    | WILLIAMS  | 2006-02-15 04:34:33 |
++----------+------------+-----------+---------------------+
+```
 - Actores donde su tercera letra sea B.
+```sql
+select * from actor where first_name regexp '..B';
+
++----------+------------+-----------+---------------------+
+| actor_id | first_name | last_name | last_update         |
++----------+------------+-----------+---------------------+
+|       15 | CUBA       | OLIVIER   | 2006-02-15 04:34:33 |
+|       19 | BOB        | FAWCETT   | 2006-02-15 04:34:33 |
+|      118 | CUBA       | ALLEN     | 2006-02-15 04:34:33 |
+|      125 | ALBERT     | NOLTE     | 2006-02-15 04:34:33 |
+|      146 | ALBERT     | JOHANSSON | 2006-02-15 04:34:33 |
+|      182 | DEBBIE     | AKROYD    | 2006-02-15 04:34:33 |
+|      189 | CUBA       | BIRCH     | 2006-02-15 04:34:33 |
++----------+------------+-----------+---------------------+
+```
 - Ciudades que empiezan por a.
+
+```sql
+select * from city where city regexp '^A';
++---------+-------------------------+------------+---------------------+
+| city_id | city                    | country_id | last_update         |
++---------+-------------------------+------------+---------------------+
+|       1 | A Coruña (La Coruña)    |         87 | 2006-02-15 04:45:25 |
+|       2 | Abha                    |         82 | 2006-02-15 04:45:25 |
+|       3 | Abu Dhabi               |        101 | 2006-02-15 04:45:25 |
+|       4 | Acuña                   |         60 | 2006-02-15 04:45:25 |
+|       5 | Adana                   |         97 | 2006-02-15 04:45:25 |
+|       6 | Addis Abeba             |         31 | 2006-02-15 04:45:25 |
+|       7 | Aden                    |        107 | 2006-02-15 04:45:25 |
+|       8 | Adoni                   |         44 | 2006-02-15 04:45:25 |
+|       9 | Ahmadnagar              |         44 | 2006-02-15 04:45:25 |
+|      10 | Akishima                |         50 | 2006-02-15 04:45:25 |
+|      11 | Akron                   |        103 | 2006-02-15 04:45:25 |
+|      12 | al-Ayn                  |        101 | 2006-02-15 04:45:25 |
+|      13 | al-Hawiya               |         82 | 2006-02-15 04:45:25 |
+|      14 | al-Manama               |         11 | 2006-02-15 04:45:25 |
+|      15 | al-Qadarif              |         89 | 2006-02-15 04:45:25 |
+|      16 | al-Qatif                |         82 | 2006-02-15 04:45:25 |
+|      17 | Alessandria             |         49 | 2006-02-15 04:45:25 |
+|      18 | Allappuzha (Alleppey)   |         44 | 2006-02-15 04:45:25 |
+|      19 | Allende                 |         60 | 2006-02-15 04:45:25 |
+|      20 | Almirante Brown         |          6 | 2006-02-15 04:45:25 |
+|      21 | Alvorada                |         15 | 2006-02-15 04:45:25 |
+|      22 | Ambattur                |         44 | 2006-02-15 04:45:25 |
+|      23 | Amersfoort              |         67 | 2006-02-15 04:45:25 |
+|      24 | Amroha                  |         44 | 2006-02-15 04:45:25 |
+|      25 | Angra dos Reis          |         15 | 2006-02-15 04:45:25 |
+|      26 | Anápolis                |         15 | 2006-02-15 04:45:25 |
+|      27 | Antofagasta             |         22 | 2006-02-15 04:45:25 |
+|      28 | Aparecida de Goiânia    |         15 | 2006-02-15 04:45:25 |
+|      29 | Apeldoorn               |         67 | 2006-02-15 04:45:25 |
+|      30 | Araçatuba               |         15 | 2006-02-15 04:45:25 |
+|      31 | Arak                    |         46 | 2006-02-15 04:45:25 |
+|      32 | Arecibo                 |         77 | 2006-02-15 04:45:25 |
+|      33 | Arlington               |        103 | 2006-02-15 04:45:25 |
+|      34 | Ashdod                  |         48 | 2006-02-15 04:45:25 |
+|      35 | Ashgabat                |         98 | 2006-02-15 04:45:25 |
+|      36 | Ashqelon                |         48 | 2006-02-15 04:45:25 |
+|      37 | Asunción                |         73 | 2006-02-15 04:45:25 |
+|      38 | Athenai                 |         39 | 2006-02-15 04:45:25 |
+|      39 | Atšinsk                 |         80 | 2006-02-15 04:45:25 |
+|      40 | Atlixco                 |         60 | 2006-02-15 04:45:25 |
+|      41 | Augusta-Richmond County |        103 | 2006-02-15 04:45:25 |
+|      42 | Aurora                  |        103 | 2006-02-15 04:45:25 |
+|      43 | Avellaneda              |          6 | 2006-02-15 04:45:25 |
++---------+-------------------------+------------+---------------------+
+```
+
+
+
+```
 - Ciudades que acaban por s.
 - Ciudades del country 61.
 - Ciudades del country Spain.

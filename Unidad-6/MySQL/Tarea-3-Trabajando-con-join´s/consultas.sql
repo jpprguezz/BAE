@@ -185,7 +185,7 @@ select cl.* from ordenes as o join detalles_ordenes as d on o.id_orden=d.id_orde
 
 
 --Mostrar el nombre del cliente, el producto y la cantidad para todas las órdenes.
-select cl.nombre_cliente, pr.nombre_producto, d.cantidad from ordenes as o right join clientes as cl on cl.id_cliente=o.id_cliente join productos as pr on pr.id_producto=o.id_orden join detalles_ordenes as d on d.id_orden=o.id_orden;
+select cl.nombre_cliente, pr.nombre_producto, d.cantidad from ordenes as o join clientes as cl on cl.id_cliente=o.id_cliente join productos as pr on pr.id_producto=o.id_orden join detalles_ordenes as d on d.id_orden=o.id_orden;
 
 +----------------+-----------------+----------+
 | nombre_cliente | nombre_producto | cantidad |
@@ -207,8 +207,7 @@ select pr.nombre_producto, cl.nombre_cliente from ordenes as o join productos as
 +-----------------+----------------+
 
 --Mostrar todas las órdenes con sus clientes y productos, incluso si no hay órdenes.
-select o.*, cl.*, pr.* from ordenes as o join clientes as cl on o.id_orden=cl.id_cliente join productos as pr on pr.id_producto=o.id_orden;
-
+select
 +----------+------------+-------------+------------+----------------+----------------+-------------+-----------------+-----------------+
 | id_orden | id_cliente | fecha_orden | id_cliente | nombre_cliente | ciudad_cliente | id_producto | nombre_producto | precio_producto |
 +----------+------------+-------------+------------+----------------+----------------+-------------+-----------------+-----------------+
