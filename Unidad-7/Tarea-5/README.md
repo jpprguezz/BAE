@@ -122,3 +122,70 @@ EXPLAIN SELECT * FROM cliente INNER JOIN pedido ON cliente.codigo_cliente = pedi
 
 No pueden ser optimizadas, debido a que la busqueda que se hace con el LIKE esta entre %, lo que indica que puede haber cualquier caracter detras delante de la busqueda que se esta realizando, lo cual hace que los indices sean poco utiles en este caso.
 ```
+
+- Crea un índice de tipo FULLTEXT sobre las columnas nombre y descripcion de la tabla producto.
+
+```sql
+create fulltext index index_nombre_descripcion on producto (nombre, descripcion);
+```
+
+- Una vez creado el índice del ejercicio anterior realiza las siguientes consultas haciendo uso de la función MATCH, para buscar todos los productos que:
+
+ - Contienen la palabra planta en el nombre o en la descripción.
+
+ ```sql
++-----------------+-----------------------------------+-------------+-------------+-----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------+--------------+------------------+
+| codigo_producto | nombre                            | gama        | dimensiones | proveedor             | descripcion
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                     | cantidad_en_stock | precio_venta | precio_proveedor |
++-----------------+-----------------------------------+-------------+-------------+-----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------+--------------+------------------+
+| AR-004          | Melissa                           | Arom├íticas | 15-20       | Murcia Seasons        | Es una planta perenne (dura varios a├▒os) conocida por el agradable y caracter├¡stico olor a lim├│n que desprenden en verano. Nunca debe faltar en la huerta o jard├¡n por su agradable aroma y por los variados usos que tiene: planta olorosa, condimentaria y medicinal. Su cultivo es muy f├ícil. Le va bien un suelo ligero, con buen drenaje y riego sin exceso. A pleno sol o por lo menos 5 horas de sol por d├¡a. Cada a├▒o, su abonado mineral correspondiente.En oto├▒o, la melisa pierde el agradable olor a lim├│n que desprende en verano sus flores azules y blancas. En este momento se debe cortar a unos 20 cm. del suelo. Brotar├í de forma densa en primavera.
+
+
+
+
+                                                     |               140 |         1.00 |             0.00 |
+| AR-001          | Ajedrea                           | Arom├íticas | 15-20       | Murcia Seasons        | Planta arom├ítica que fresca se utiliza para condimentar carnes y ensaladas, y seca, para pastas, sopas y guisantes
+
+
+
+
+
+
+
+
+
+
+
+                                                     |               140 |         1.00 |             0.00 |
+| AR-008          | Thymus Citriodra (Tomillo lim├│n) | Arom├íticas | 15-20       | Murcia Seasons        | Nombre com├║n o vulgar: Tomillo, Tremoncillo Familia: Labiatae (Labiadas).Origen: Regi├│n mediterr├ínea.Arbustillo bajo, de 15 a 40 cm de altura. Las hojas son muy peque├▒as, de unos 6 mm de longitud; seg├║n la variedad pueden ser verdes, verdes gris├íceas, amarillas, o jaspeadas. Las flores aparecen de mediados de primavera hasta bien entrada la ├®poca estival y se presentan en racimos terminales que habitualmente son de color violeta o p├║rpura aunque tambi├®n pueden ser blancas. Esta planta despide un intenso y t├¡pico aroma, que se incrementa con el roce. El tomillo resulta de gran belleza cuando est├í en flor. El tomillo atrae a avispas y abejas. En jardiner├¡a se usa como manchas, para hacer borduras, para aromatizar el ambiente, llenar huecos, cubrir rocas, para jardines en miniatura, etc. Arranque las flores y hojas secas del tallo y a├▒ad├ílos a un popurri, introd├║zcalos en saquitos de hierbas o en la almohada.Tambi├®n puede usar las ramas secas con flores para a├▒adir aroma y textura a cestos abiertos. |
+ 140 |         1.00 |             0.00 |
+| AR-009          | Thymus Vulgaris                   | Arom├íticas | 15-20       | Murcia Seasons        | Nombre com├║n o vulgar: Tomillo, Tremoncillo Familia: Labiatae (Labiadas). Origen: Regi├│n mediterr├ínea. Arbustillo bajo, de 15 a 40 cm de altura. Las hojas son muy peque├▒as, de unos 6 mm de longitud; seg├║n la variedad pueden ser verdes, verdes gris├íceas, amarillas, o jaspeadas. Las flores aparecen de mediados de primavera hasta bien entrada la ├®poca estival y se presentan en racimos terminales que habitualmente son de color violeta o p├║rpura aunque tambi├®n pueden ser blancas. Esta planta despide un intenso y t├¡pico aroma, que se incrementa con el roce. El tomillo resulta de gran belleza cuando est├í en flor. El tomillo atrae a avispas y abejas.
+ En jardiner├¡a se usa como manchas, para hacer borduras, para aromatizar el ambiente, llenar huecos, cubrir rocas, para jardines en miniatura, etc. Arranque las flores y hojas secas del tallo y a├▒ad├ílos a un popurri, introd├║zcalos en saquitos de hierbas o en la almohada. Tambi├®n puede usar las ramas secas con flores para a├▒adir aroma y textura a cestos abiertos. |               140 |         1.00 |             0.00 |
+| FR-100          | Nectarina                         | Frutales    | 8/10        | Frutales Talavera S.A | Se trata de un ├írbol derivado por mutaci├│n de los melocotoneros comunes, y los ├║nicos caracteres diferenciales son la ausencia de tomentosidad en la piel del fruto. La planta, si se deja crecer libremente, adopta un porte globoso con unas dimensiones medias de 4-6 metros
+
+
+
+
+
+
+
+
+
+                                                     |                50 |        11.00 |             8.00 |
++-----------------+-----------------------------------+-------------+-------------+-----------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------+--------------+------------------+
+ ```
+
+
