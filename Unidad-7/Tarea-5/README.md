@@ -269,8 +269,223 @@ create fulltext index idx_nombre_descripcion on producto (nombre, descripcion);
   - Escriba una vista que se llame listado_pagos_clientes que muestre un listado donde aparezcan todos los clientes y los pagos que ha realizado cada uno de ellos. La vista deberá tener las siguientes columnas: nombre y apellidos del cliente concatenados, teléfono, ciudad, pais, fecha_pago, total del pago, id de la transacción
 
   ```sql
-  create view listado_pagos_clientes as select 
+  create view listado_pagos_clientes as select concat(nombre_contacto, apellido_contacto) as nombre_completo_cliente, telefono, ciudad, pais, fecha_pago, total, id_transaccion from cliente join pago on cliente.codigo_cliente = pago.codigo_cliente;
+
+  +-------------------------+-------------+--------------------------+-----------+------------+----------+----------------+
+  | nombre_completo_cliente | telefono    | ciudad                   | pais      | fecha_pago | total    | id_transaccion |
+  +-------------------------+-------------+--------------------------+-----------+------------+----------+----------------+
+  | Daniel GGoldFish        | 5556901745  | San Francisco            | USA       | 2008-11-10 |  2000.00 | ak-std-000001  |
+  | Daniel GGoldFish        | 5556901745  | San Francisco            | USA       | 2008-12-10 |  2000.00 | ak-std-000002  |
+  | AnneWright              | 5557410345  | Miami                    | USA       | 2009-01-16 |  5000.00 | ak-std-000003  |
+  | AnneWright              | 5557410345  | Miami                    | USA       | 2009-02-16 |  5000.00 | ak-std-000004  |
+  | AnneWright              | 5557410345  | Miami                    | USA       | 2009-02-19 |   926.00 | ak-std-000005  |
+  | LinkFlaute              | 5552323129  | New York                 | USA       | 2007-01-08 | 20000.00 | ak-std-000006  |
+  | LinkFlaute              | 5552323129  | New York                 | USA       | 2007-01-08 | 20000.00 | ak-std-000007  |
+  | LinkFlaute              | 5552323129  | New York                 | USA       | 2007-01-08 | 20000.00 | ak-std-000008  |
+  | LinkFlaute              | 5552323129  | New York                 | USA       | 2007-01-08 | 20000.00 | ak-std-000009  |
+  | LinkFlaute              | 5552323129  | New York                 | USA       | 2007-01-08 |  1849.00 | ak-std-000010  |
+  | AkaneTendo              | 55591233210 | Miami                    | USA       | 2006-01-18 | 23794.00 | ak-std-000011  |
+  | JoseBermejo             | 654987321   | Madrid                   | Spain     | 2009-01-13 |  2390.00 | ak-std-000012  |
+  | GuillermoRengifo        | 689234750   | Madrid                   | Spain     | 2009-01-06 |   929.00 | ak-std-000013  |
+  | PedroCamunas            | 34914873241 | San Lorenzo del Escorial | Spain     | 2008-08-04 |  2246.00 | ak-std-000014  |
+  | JuanRodriguez           | 34912453217 | Madrid                   | Spain     | 2008-07-15 |  4160.00 | ak-std-000015  |
+  | JavierVillar            | 654865643   | Madrid                   | Spain     | 2009-01-15 |  2081.00 | ak-std-000016  |
+  | JavierVillar            | 654865643   | Madrid                   | Spain     | 2009-02-15 | 10000.00 | ak-std-000035  |
+  | MariaRodriguez          | 666555444   | Fuenlabrada              | Spain     | 2009-02-16 |  4399.00 | ak-std-000017  |
+  | LuisMartinez            | 916458762   | Santa cruz de Tenerife   | Spain     | 2009-03-06 |   232.00 | ak-std-000018  |
+  | MariaSantillana         | 915576622   | Sotogrande               | Spain     | 2009-03-26 |   272.00 | ak-std-000019  |
+  | Eva Mar├¡aS├ínchez      | 916877445   | Madrid                   | Spain     | 2008-03-18 | 18846.00 | ak-std-000020  |
+  | Mat├¡asSan Mart├¡n      | 916544147   | Madrid                   | Spain     | 2009-02-08 | 10972.00 | ak-std-000021  |
+  | BenitoLopez             | 675432926   | Getafe                   | Spain     | 2009-01-13 |  8489.00 | ak-std-000022  |
+  | SaraMarquez             | 675124537   | Fuenlabrada              | Spain     | 2009-01-16 |  7863.00 | ak-std-000024  |
+  | JacobJones              | 2 9261-2433 | Sydney                   | Australia | 2007-10-06 |  3321.00 | ak-std-000025  |
+  | JustinSmith             | 2 8005-7161 | Sydney                   | Australia | 2006-05-26 |  1171.00 | ak-std-000026  |
+  +-------------------------+-------------+--------------------------+-----------+------------+----------+----------------+
   ```
+
+  - Escriba una vista que se llame listado_pedidos_clientes que muestre un listado donde aparezcan todos los clientes y los pedidos que ha realizado cada uno de ellos. La vista deberá tener las siguientes columnas: código del cliente, nombre y apellidos del cliente concatendados, teléfono, ciudad, pais, código del pedido, fecha del pedido, fecha esperada, fecha de entrega y la cantidad total del pedido, que será la suma del producto de todas las cantidades por el precio de cada unidad, que aparecen en cada línea de pedido.
+
+  ```sql
+  create view listado_pedidos_clientes as select cl.codigo_cliente, concat(cl.nombre_contacto, cl.apellido_contacto) as nombre_cliente, cl.telefono, cl.ciudad, cl.pais, pe.codigo_pedido, pe.fecha_pedido, pe.fecha_esperada, pe.fecha_entrega, sum(detp.cantidad * detp.precio_unidad) as cantidad_total_pedido from cliente as cl join pedido as pe on cl.codigo_cliente = pe.codigo_cliente join detalle_pedido as detp on pe.codigo_pedido=detp.codigo_pedido group by cl.codigo_cliente, pe.codigo_pedido;
+
+  +----------------+--------------------+-------------+--------------------------+-----------+---------------+--------------+----------------+---------------+-----------------------+
+  | codigo_cliente | nombre_cliente     | telefono    | ciudad                   | pais      | codigo_pedido | fecha_pedido | fecha_esperada |  fecha_entrega | cantidad_total_pedido |
+  +----------------+--------------------+-------------+--------------------------+-----------+---------------+--------------+----------------+--------------- +-----------------------+
+  |              5 | AkaneTendo         | 55591233210 | Miami                    | USA       |             1 | 2006-01-17   | 2006-01-19     |  2006-01-19    |               1567.00 |
+  |              5 | AkaneTendo         | 55591233210 | Miami                    | USA       |             2 | 2007-10-23   | 2007-10-28     |  2007-10-26    |               7113.00 |
+  |              5 | AkaneTendo         | 55591233210 | Miami                    | USA       |             3 | 2008-06-20   | 2008-06-25     |  NULL          |              10850.00 |
+  |              5 | AkaneTendo         | 55591233210 | Miami                    | USA       |             4 | 2009-01-20   | 2009-01-26     |  NULL          |               2624.00 |
+  |              1 | Daniel GGoldFish   | 5556901745  | San Francisco            | USA       |             8 | 2008-11-09   | 2008-11-14     |  2008-11-14    |               1065.00 |
+  |              1 | Daniel GGoldFish   | 5556901745  | San Francisco            | USA       |             9 | 2008-12-22   | 2008-12-27     |  2008-12-28    |               2535.00 |
+  |              3 | AnneWright         | 5557410345  | Miami                    | USA       |            10 | 2009-01-15   | 2009-01-20     |  NULL          |               2920.00 |
+  |              1 | Daniel GGoldFish   | 5556901745  | San Francisco            | USA       |            11 | 2009-01-20   | 2009-01-27     |  NULL          |                820.00 |
+  |              1 | Daniel GGoldFish   | 5556901745  | San Francisco            | USA       |            12 | 2009-01-22   | 2009-01-27     |  NULL          |                290.00 |
+  |              7 | JoseBermejo        | 654987321   | Madrid                   | Spain     |            13 | 2009-01-12   | 2009-01-14     |  2009-01-15    |                738.00 |
+  |              7 | JoseBermejo        | 654987321   | Madrid                   | Spain     |            14 | 2009-01-02   | 2009-01-02     |  NULL          |                829.00 |
+  |              7 | JoseBermejo        | 654987321   | Madrid                   | Spain     |            15 | 2009-01-09   | 2009-01-12     |  2009-01-11    |                214.00 |
+  |              7 | JoseBermejo        | 654987321   | Madrid                   | Spain     |            16 | 2009-01-06   | 2009-01-07     |  2009-01-15    |                234.00 |
+  |              7 | JoseBermejo        | 654987321   | Madrid                   | Spain     |            17 | 2009-01-08   | 2009-01-09     |  2009-01-11    |                375.00 |
+  |              9 | GuillermoRengifo   | 689234750   | Madrid                   | Spain     |            18 | 2009-01-05   | 2009-01-06     |  2009-01-07    |                116.00 |
+  |              9 | GuillermoRengifo   | 689234750   | Madrid                   | Spain     |            19 | 2009-01-18   | 2009-02-12     |  NULL          |                333.00 |
+  |              9 | GuillermoRengifo   | 689234750   | Madrid                   | Spain     |            20 | 2009-01-20   | 2009-02-15     |  NULL          |                292.00 |
+  |              9 | GuillermoRengifo   | 689234750   | Madrid                   | Spain     |            21 | 2009-01-09   | 2009-01-09     |  2009-01-09    |                182.00 |
+  |              9 | GuillermoRengifo   | 689234750   | Madrid                   | Spain     |            22 | 2009-01-11   | 2009-01-11     |  2009-01-13    |                  6.00 |
+  |              5 | AkaneTendo         | 55591233210 | Miami                    | USA       |            23 | 2008-12-30   | 2009-01-10     |  NULL          |               1640.00 |
+  |             14 | JuanRodriguez      | 34912453217 | Madrid                   | Spain     |            24 | 2008-07-14   | 2008-07-31     |  2008-07-25    |                287.00 |
+  |              1 | Daniel GGoldFish   | 5556901745  | San Francisco            | USA       |            25 | 2009-02-02   | 2009-02-08     |  NULL          |               1455.00 |
+  |              3 | AnneWright         | 5557410345  | Miami                    | USA       |            26 | 2009-02-06   | 2009-02-12     |  NULL          |                675.00 |
+  |              3 | AnneWright         | 5557410345  | Miami                    | USA       |            27 | 2009-02-07   | 2009-02-13     |  NULL          |                504.00 |
+  |              3 | AnneWright         | 5557410345  | Miami                    | USA       |            28 | 2009-02-10   | 2009-02-17     |  2009-02-20    |               2052.00 |
+  |             14 | JuanRodriguez      | 34912453217 | Madrid                   | Spain     |            29 | 2008-08-01   | 2008-09-01     |  2008-09-01    |               1324.00 |
+  |             13 | PedroCamunas       | 34914873241 | San Lorenzo del Escorial | Spain     |            30 | 2008-08-03   | 2008-09-03     |  2008-08-31    |                711.00 |
+  |             13 | PedroCamunas       | 34914873241 | San Lorenzo del Escorial | Spain     |            31 | 2008-09-04   | 2008-09-30     |  2008-10-04    |                244.00 |
+  |              4 | LinkFlaute         | 5552323129  | New York                 | USA       |            32 | 2007-01-07   | 2007-01-19     |  2007-01-27    |               3089.00 |
+  |              4 | LinkFlaute         | 5552323129  | New York                 | USA       |            33 | 2007-05-20   | 2007-05-28     |  NULL          |              73226.00 |
+  |              4 | LinkFlaute         | 5552323129  | New York                 | USA       |            34 | 2007-06-20   | 2008-06-28     |  2008-06-28    |               1532.00 |
+  |              4 | LinkFlaute         | 5552323129  | New York                 | USA       |            35 | 2008-03-10   | 2009-03-20     | NULL
+         |               1718.00 |
+  |             14 | JuanRodriguez      | 34912453217 | Madrid                   | Spain     |            36 | 2008-10-15   | 2008-12-15     |  2008-12-10    |                311.00 |
+  |              4 | LinkFlaute         | 5552323129  | New York                 | USA       |            37 | 2008-11-03   | 2009-11-13     |  NULL          |               2284.00 |
+  |             19 | LuisMartinez       | 916458762   | Santa cruz de Tenerife   | Spain     |            38 | 2009-03-05   | 2009-03-06     |  2009-03-07    |                 98.00 |
+  |             19 | LuisMartinez       | 916458762   | Santa cruz de Tenerife   | Spain     |            39 | 2009-03-06   | 2009-03-07     |  2009-03-09    |                108.00 |
+  |             19 | LuisMartinez       | 916458762   | Santa cruz de Tenerife   | Spain     |            40 | 2009-03-09   | 2009-03-10     |  2009-03-13    |                 12.00 |
+  |             19 | LuisMartinez       | 916458762   | Santa cruz de Tenerife   | Spain     |            41 | 2009-03-12   | 2009-03-13     |  2009-03-13    |                 10.00 |
+  |             19 | LuisMartinez       | 916458762   | Santa cruz de Tenerife   | Spain     |            42 | 2009-03-22   | 2009-03-23     |  2009-03-27    |                  4.00 |
+  |             23 | MariaSantillana    | 915576622   | Sotogrande               | Spain     |            43 | 2009-03-25   | 2009-03-26     |  2009-03-28    |                  9.00 |
+  |             23 | MariaSantillana    | 915576622   | Sotogrande               | Spain     |            44 | 2009-03-26   | 2009-03-27     |  2009-03-30    |                  5.00 |
+  |             23 | MariaSantillana    | 915576622   | Sotogrande               | Spain     |            45 | 2009-04-01   | 2009-03-04     |  2009-03-07    |                 10.00 |
+  |             23 | MariaSantillana    | 915576622   | Sotogrande               | Spain     |            46 | 2009-04-03   | 2009-03-04     |  2009-03-05    |                 84.00 |
+  |             23 | MariaSantillana    | 915576622   | Sotogrande               | Spain     |            47 | 2009-04-15   | 2009-03-17     |  2009-03-17    |                164.00 |
+  |             26 | Eva Mar├¡aS├ínchez | 916877445   | Madrid                   | Spain     |            48 | 2008-03-17   | 2008-03-30     |  2008-03-29    |               6398.00 |
+  |             26 | Eva Mar├¡aS├ínchez | 916877445   | Madrid                   | Spain     |            49 | 2008-07-12   | 2008-07-22     |  2008-07-30    |                625.00 |
+  |             26 | Eva Mar├¡aS├ínchez | 916877445   | Madrid                   | Spain     |            50 | 2008-03-17   | 2008-08-09     |  NULL          |               3506.00 |
+  |             26 | Eva Mar├¡aS├ínchez | 916877445   | Madrid                   | Spain     |            51 | 2008-10-01   | 2008-10-14     |  2008-10-14    |               7750.00 |
+  |             26 | Eva Mar├¡aS├ínchez | 916877445   | Madrid                   | Spain     |            52 | 2008-12-07   | 2008-12-21     |  NULL          |                700.00 |
+  |             13 | PedroCamunas       | 34914873241 | San Lorenzo del Escorial | Spain     |            53 | 2008-10-15   | 2008-11-15     |  2008-11-09    |                141.00 |
+  |             14 | JuanRodriguez      | 34912453217 | Madrid                   | Spain     |            54 | 2009-01-11   | 2009-02-11     |  NULL          |                669.00 |
+  |             14 | JuanRodriguez      | 34912453217 | Madrid                   | Spain     |            55 | 2008-12-10   | 2009-01-10     |  2009-01-11    |               1569.00 |
+  |             13 | PedroCamunas       | 34914873241 | San Lorenzo del Escorial | Spain     |            56 | 2008-12-19   | 2009-01-20     |  NULL          |                377.00 |
+  |             13 | PedroCamunas       | 34914873241 | San Lorenzo del Escorial | Spain     |            57 | 2009-01-05   | 2009-02-05     |  NULL          |                773.00 |
+  |              3 | AnneWright         | 5557410345  | Miami                    | USA       |            58 | 2009-01-24   | 2009-01-31     |  2009-01-30    |               4775.00 |
+  |              1 | Daniel GGoldFish   | 5556901745  | San Francisco            | USA       |            59 | 2008-11-09   | 2008-11-14     |  2008-11-14    |                700.00 |
+  |              1 | Daniel GGoldFish   | 5556901745  | San Francisco            | USA       |            60 | 2008-12-22   | 2008-12-27     |  2008-12-28    |                700.00 |
+  |              3 | AnneWright         | 5557410345  | Miami                    | USA       |            61 | 2009-01-15   | 2009-01-20     |  NULL          |                700.00 |
+  |              1 | Daniel GGoldFish   | 5556901745  | San Francisco            | USA       |            62 | 2009-01-20   | 2009-01-27     |  NULL          |                700.00 |
+  |              1 | Daniel GGoldFish   | 5556901745  | San Francisco            | USA       |            63 | 2009-01-22   | 2009-01-27     |  NULL          |                700.00 |
+  |              1 | Daniel GGoldFish   | 5556901745  | San Francisco            | USA       |            64 | 2009-01-24   | 2009-01-31     |  2009-01-30    |                700.00 |
+  |              1 | Daniel GGoldFish   | 5556901745  | San Francisco            | USA       |            65 | 2009-02-02   | 2009-02-08     |  NULL          |                700.00 |
+  |              3 | AnneWright         | 5557410345  | Miami                    | USA       |            66 | 2009-02-06   | 2009-02-12     |  NULL          |                700.00 |
+  |              3 | AnneWright         | 5557410345  | Miami                    | USA       |            67 | 2009-02-07   | 2009-02-13     |  NULL          |                700.00 |
+  |              3 | AnneWright         | 5557410345  | Miami                    | USA       |            68 | 2009-02-10   | 2009-02-17     |  2009-02-20    |                700.00 |
+  |             15 | JavierVillar       | 654865643   | Madrid                   | Spain     |            74 | 2009-01-14   | 2009-01-22     |  NULL          |               3562.00 |
+  |             15 | JavierVillar       | 654865643   | Madrid                   | Spain     |            75 | 2009-01-11   | 2009-01-13     |  2009-01-13    |               1048.00 |
+  |             15 | JavierVillar       | 654865643   | Madrid                   | Spain     |            76 | 2008-11-15   | 2008-11-23     |  2008-11-23    |               2223.00 |
+  |             15 | JavierVillar       | 654865643   | Madrid                   | Spain     |            77 | 2009-01-03   | 2009-01-08     |  NULL          |                588.00 |
+  |             15 | JavierVillar       | 654865643   | Madrid                   | Spain     |            78 | 2008-12-15   | 2008-12-17     |  2008-12-17    |               4660.00 |
+  |             28 | BenitoLopez        | 675432926   | Getafe                   | Spain     |            79 | 2009-01-12   | 2009-01-13     |  2009-01-13    |                300.00 |
+  |             28 | BenitoLopez        | 675432926   | Getafe                   | Spain     |            80 | 2009-01-25   | 2009-01-26     |  NULL          |               5773.00 |
+  |             28 | BenitoLopez        | 675432926   | Getafe                   | Spain     |            81 | 2009-01-18   | 2009-01-24     |  NULL          |                120.00 |
+  |             28 | BenitoLopez        | 675432926   | Getafe                   | Spain     |            82 | 2009-01-20   | 2009-01-29     |  2009-01-29    |               2176.00 |
+  |             28 | BenitoLopez        | 675432926   | Getafe                   | Spain     |            83 | 2009-01-24   | 2009-01-28     |  NULL          |                120.00 |
+  |             35 | JacobJones         | 2 9261-2433 | Sydney                   | Australia |            89 | 2007-10-05   | 2007-12-13     |  2007-12-10    |                710.00 |
+  |             27 | Mat├¡asSan Mart├¡n | 916544147   | Madrid                   | Spain     |            90 | 2009-02-07   | 2008-02-17     |  NULL          |                 41.00 |
+  |             27 | Mat├¡asSan Mart├¡n | 916544147   | Madrid                   | Spain     |            91 | 2009-03-18   | 2009-03-29     |  2009-03-27    |               1384.00 |
+  |             27 | Mat├¡asSan Mart├¡n | 916544147   | Madrid                   | Spain     |            92 | 2009-04-19   | 2009-04-30     |  2009-05-03    |               2906.00 |
+  |             27 | Mat├¡asSan Mart├¡n | 916544147   | Madrid                   | Spain     |            93 | 2009-05-03   | 2009-05-30     |  2009-05-17    |                882.00 |
+  |             27 | Mat├¡asSan Mart├¡n | 916544147   | Madrid                   | Spain     |            94 | 2009-10-18   | 2009-11-01     |  NULL          |               5759.00 |
+  |             35 | JacobJones         | 2 9261-2433 | Sydney                   | Australia |            95 | 2008-01-04   | 2008-01-19     |  2008-01-19    |                605.00 |
+  |             35 | JacobJones         | 2 9261-2433 | Sydney                   | Australia |            96 | 2008-03-20   | 2008-04-12     |  2008-04-13    |                660.00 |
+  |             35 | JacobJones         | 2 9261-2433 | Sydney                   | Australia |            97 | 2008-10-08   | 2008-11-25     |  2008-11-25    |                322.00 |
+  |             35 | JacobJones         | 2 9261-2433 | Sydney                   | Australia |            98 | 2009-01-08   | 2009-02-13     |  NULL          |               1024.00 |
+  |             16 | MariaRodriguez     | 666555444   | Fuenlabrada              | Spain     |            99 | 2009-02-15   | 2009-02-27     |  NULL          |               2070.00 |
+  |             16 | MariaRodriguez     | 666555444   | Fuenlabrada              | Spain     |           100 | 2009-01-10   | 2009-01-15     |  2009-01-15    |                800.00 |
+  |             16 | MariaRodriguez     | 666555444   | Fuenlabrada              | Spain     |           101 | 2009-03-07   | 2009-03-27     |  NULL          |                209.00 |
+  |             16 | MariaRodriguez     | 666555444   | Fuenlabrada              | Spain     |           102 | 2008-12-28   | 2009-01-08     |  2009-01-08    |                660.00 |
+  |             30 | SaraMarquez        | 675124537   | Fuenlabrada              | Spain     |           103 | 2009-01-15   | 2009-01-20     |  2009-01-24    |                304.00 |
+  |             30 | SaraMarquez        | 675124537   | Fuenlabrada              | Spain     |           104 | 2009-03-02   | 2009-03-06     |  2009-03-06    |               1760.00 |
+  |             30 | SaraMarquez        | 675124537   | Fuenlabrada              | Spain     |           105 | 2009-02-14   | 2009-02-20     |  NULL          |               1506.00 |
+  |             30 | SaraMarquez        | 675124537   | Fuenlabrada              | Spain     |           106 | 2009-05-13   | 2009-05-15     |  2009-05-20    |               1077.00 |
+  |             30 | SaraMarquez        | 675124537   | Fuenlabrada              | Spain     |           107 | 2009-04-06   | 2009-04-10     |  2009-04-10    |               3216.00 |
+  |             16 | MariaRodriguez     | 666555444   | Fuenlabrada              | Spain     |           108 | 2009-04-09   | 2009-04-15     |  2009-04-15    |                660.00 |
+  |             38 | JustinSmith        | 2 8005-7161 | Sydney                   | Australia |           109 | 2006-05-25   | 2006-07-28     |  2006-07-28    |                553.00 |
+  |             38 | JustinSmith        | 2 8005-7161 | Sydney                   | Australia |           110 | 2007-03-19   | 2007-04-24     |  2007-04-24    |                149.00 |
+  |             36 | AntonioRomero      | 654352981   | Madrid                   | Spain     |           111 | 2008-03-05   | 2008-03-30     |  2008-03-30    |                700.00 |
+  |             36 | AntonioRomero      | 654352981   | Madrid                   | Spain     |           112 | 2009-03-05   | 2009-04-06     |  2009-05-07    |                700.00 |
+  |             36 | AntonioRomero      | 654352981   | Madrid                   | Spain     |           113 | 2008-10-28   | 2008-11-09     |  2009-01-09    |                700.00 |
+  |             36 | AntonioRomero      | 654352981   | Madrid                   | Spain     |           114 | 2009-01-15   | 2009-01-29     |  2009-01-31    |                700.00 |
+  |             36 | AntonioRomero      | 654352981   | Madrid                   | Spain     |           115 | 2008-11-29   | 2009-01-26     |  2009-02-27    |                700.00 |
+  |             38 | JustinSmith        | 2 8005-7161 | Sydney                   | Australia |           116 | 2008-06-28   | 2008-08-01     |  2008-08-01    |                264.00 |
+  |             38 | JustinSmith        | 2 8005-7161 | Sydney                   | Australia |           117 | 2008-08-25   | 2008-10-01     |  NULL          |                154.00 |
+  |             16 | MariaRodriguez     | 666555444   | Fuenlabrada              | Spain     |           118 | 2009-02-15   | 2009-02-27     |  NULL          |                700.00 |
+  |             16 | MariaRodriguez     | 666555444   | Fuenlabrada              | Spain     |           119 | 2009-01-10   | 2009-01-15     |  2009-01-15    |                700.00 |
+  |             16 | MariaRodriguez     | 666555444   | Fuenlabrada              | Spain     |           120 | 2009-03-07   | 2009-03-27     |  NULL          |                700.00 |
+  |             16 | MariaRodriguez     | 666555444   | Fuenlabrada              | Spain     |           121 | 2008-12-28   | 2009-01-08     |  2009-01-08    |                700.00 |
+  |             16 | MariaRodriguez     | 666555444   | Fuenlabrada              | Spain     |           122 | 2009-04-09   | 2009-04-15     |  2009-04-15    |                700.00 |
+  |             30 | SaraMarquez        | 675124537   | Fuenlabrada              | Spain     |           123 | 2009-01-15   | 2009-01-20     |  2009-01-24    |                700.00 |
+  |             30 | SaraMarquez        | 675124537   | Fuenlabrada              | Spain     |           124 | 2009-03-02   | 2009-03-06     |  2009-03-06    |                700.00 |
+  |             30 | SaraMarquez        | 675124537   | Fuenlabrada              | Spain     |           125 | 2009-02-14   | 2009-02-20     |  NULL          |                700.00 |
+  |             30 | SaraMarquez        | 675124537   | Fuenlabrada              | Spain     |           126 | 2009-05-13   | 2009-05-15     |  2009-05-20    |                700.00 |
+  |             30 | SaraMarquez        | 675124537   | Fuenlabrada              | Spain     |           127 | 2009-04-06   | 2009-04-10     |  2009-04-10    |                700.00 |
+  |             38 | JustinSmith        | 2 8005-7161 | Sydney                   | Australia |           128 | 2008-11-10   | 2008-12-10     |  2008-12-29    |                 51.00 |
+  +----------------+--------------------+-------------+--------------------------+-----------+---------------+--------------+----------------+--------------- +-----------------------+
+  ```
+
+
+  - Utilice las vistas que ha creado en los pasos anteriores para devolver un listado de los clientes que todavía no han recibido su pedido.
+  ```sql
+  select * from cliente where codigo_cliente not in (select codigo_cliente from listado_pedidos_clientes);
+
+  +----------------+-----------------------------+-----------------+-------------------+----------------+----------------+----------------------------  +------------------+----------------------+-----------+----------------+---------------+----------------------------+----------------+
+  | codigo_cliente | nombre_cliente              | nombre_contacto | apellido_contacto | telefono       | fax            | linea_direccion1
+  | linea_direccion2 | ciudad               | region    | pais           | codigo_postal | codigo_empleado_rep_ventas | limite_credito |
+  +----------------+-----------------------------+-----------------+-------------------+----------------+----------------+----------------------------  +------------------+----------------------+-----------+----------------+---------------+----------------------------+----------------+
+  |              6 | Lasas S.A.                  | Antonio         | Lasas             | 34916540145    | 34914851312    | C/Leganes 15
+  | NULL             | Fuenlabrada          | Madrid    | Spain          | 28945         |                          8 |      154310.00 |
+  |              8 | Club Golf Puerta del hierro | Paco            | Lopez             | 62456810       | 919535678      | C/sinesio delgado
+  | Madrid           | Madrid               | Madrid    | Spain          | 28930         |                         11 |       40000.00 |
+  |             10 | DaraDistribuciones          | David           | Serrano           | 675598001      | 916421756      | C/azores
+  | Fuenlabrada      | Madrid               | Madrid    | Spain          | 28946         |                         11 |       50000.00 |
+  |             11 | Madrile├▒a de riegos        | Jose            | Taca├▒o           | 655983045      | 916689215      | C/Laga├▒as
+  | Fuenlabrada      | Madrid               | Madrid    | Spain          | 28943         |                         11 |       20000.00 |
+  |             12 | Lasas S.A.                  | Antonio         | Lasas             | 34916540145    | 34914851312    | C/Leganes 15
+  | NULL             | Fuenlabrada          | Madrid    | Spain          | 28945         |                          8 |      154310.00 |
+  |             17 | Flowers, S.A                | Beatriz         | Fernandez         | 698754159      | 978453216      | C/Luis Salquillo4
+  | NULL             | Montornes del valles | Barcelona | Spain          | 24586         |                          5 |        3500.00 |
+  |             18 | Naturajardin                | Victoria        | Cruz              | 612343529      | 916548735      | Plaza Magall├│n 15
+  | NULL             | Madrid               | Madrid    | Spain          | 28011         |                         30 |        5050.00 |
+  |             20 | Americh Golf Management SL  | Mario           | Suarez            | 964493072      | 964493063      | C/Letardo
+  | NULL             | Barcelona            | Catalu├▒a | Spain          | 12320         |                         12 |       20000.00 |
+  |             21 | Aloha                       | Cristian        | Rodrigez          | 916485852      | 914489898      | C/Roman 3
+  | NULL             | Canarias             | Canarias  | Spain          | 35488         |                         12 |       50000.00 |
+  |             22 | El Prat                     | Francisco       | Camacho           | 916882323      | 916493211      | Avenida Tibidabo
+  | NULL             | Barcelona            | Catalu├▒a | Spain          | 12320         |                         12 |       30000.00 |
+  |             24 | Vivero Humanes              | Federico        | Gomez             | 654987690      | 916040875      | C/Miguel Echegaray 54      |   NULL             | Humanes              | Madrid    | Spain          | 28970         |                         30 |        7430.00 |
+  |             25 | Fuenla City                 | Tony            | Mu├▒oz Mena       | 675842139      | 915483754      | C/Callo 52
+  | NULL             | Fuenlabrada          | Madrid    | Spain          | 28574         |                          5 |        4500.00 |
+  |             29 | Top Campo                   | Joseluis        | Sanchez           | 685746512      | 974315924      | C/Ibiza 32
+  | NULL             | Humanes              | Madrid    | Spain          | 28574         |                          5 |        5500.00 |
+  |             31 | Campohermoso                | Luis            | Jimenez           | 645925376      | 916159116      | C/Peru 78
+  | NULL             | Fuenlabrada          | Madrid    | Spain          | 28945         |                         30 |        3250.00 |
+  |             32 | france telecom              | Fra├â┬ºois      | Toulou            | (33)5120578961 | (33)5120578961 | 6 place d Alleray 15├â┬¿me |   NULL             | Paris                | NULL      | France         | 75010         |                         16 |       10000.00 |
+  |             33 | Mus├®e du Louvre            | Pierre          | Delacroux         | (33)0140205050 | (33)0140205442 | Quai du Louvre
+  | NULL             | Paris                | NULL      | France         | 75058         |                         16 |       30000.00 |
+  |             37 | The Magic Garden            | Richard         | Mcain             | 926523468      | 9364875882     | Lihgting Park
+  | NULL             | London               | London    | United Kingdom | 65930         |                         18 |       10000.00 |
+  +----------------+-----------------------------+-----------------+-------------------+----------------+----------------+----------------------------  +------------------+----------------------+-----------+----------------+---------------+----------------------------+----------------+
+  ```
+
+  - Utilice las vistas que ha creado en los pasos anteriores para calcular el número de pedidos que se ha realizado cada uno de los clientes.
+
+  - Utilice las vistas que ha creado en los pasos anteriores para calcular el valor del pedido máximo y mínimo que ha realizado cada cliente.
+
+  - Modifique el nombre de las vista listado_pagos_clientes y asígnele el nombre listado_de_pagos. Una vez que haya modificado el nombre de la vista ejecute una consulta utilizando el nuevo nombre de la vista para comprobar que sigue funcionando correctamente.
+
+  - Elimine las vistas que ha creado en los pasos anteriores.
+
+  ```sql
+  DROP VIEW listado_de_pagos;
+  DROP VIEW listado_pedidos_clientes;
+  ``` 
 
 
 
