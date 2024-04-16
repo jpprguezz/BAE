@@ -329,14 +329,9 @@ create fulltext index idx_nombre_descripcion on producto (nombre, descripcion);
 
   - Escriba una vista que se llame listado_pedidos_clientes que muestre un listado donde aparezcan todos los clientes y los pedidos que ha realizado cada uno de ellos. La vista deberá tener las siguientes columnas: código del cliente, nombre y apellidos del cliente concatendados, teléfono, ciudad, pais, código del pedido, fecha del pedido, fecha esperada, fecha de entrega y la cantidad total del pedido, que será la suma del producto de todas las cantidades por el precio de cada unidad, que aparecen en cada línea de pedido.
 
-<<<<<<< HEAD
    ```sql
    create view listado_pedidos_clientes 
    ```
-=======
-  ```sql
-  create view listado_pedidos_clientes as select cl.codigo_cliente, concat(cl.nombre_contacto, cl.apellido_contacto) as nombre_cliente, cl.telefono, cl.ciudad, cl.pais, pe.codigo_pedido, pe.fecha_pedido, pe.fecha_esperada, pe.fecha_entrega, sum(detp.cantidad * detp.precio_unidad) as cantidad_total_pedido from cliente as cl join pedido as pe on cl.codigo_cliente = pe.codigo_cliente join detalle_pedido as detp on pe.codigo_pedido=detp.codigo_pedido group by cl.codigo_cliente, pe.codigo_pedido;
->>>>>>> 87ca1b7895767d25a3d19db64f3752a8b2fb253b
 
   +----------------+--------------------+-------------+--------------------------+-----------+---------------+--------------+----------------+---------------+-----------------------+
   | codigo_cliente | nombre_cliente     | telefono    | ciudad                   | pais      | codigo_pedido | fecha_pedido | fecha_esperada |  fecha_entrega | cantidad_total_pedido |
