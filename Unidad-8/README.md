@@ -102,10 +102,49 @@ INSERT INTO Products (ProductName, Price) VALUES ('Producto 6', 27.20);
         - Función para calcular el precio total de un conjunto de productos.
 
         ```sql
-        DELIMITER $$
-        CREATE PROCEDURE calcular_precio_total (IN Price INT, IN SumPrice INT)
+        DELIMITER //
+
+        CREATE FUNCTION PrecioTotalProductos() RETURNS FLOAT DETERMINISTIC
         BEGIN
-        SELECT MAX(Price)
-        END
-        $$
+            DECLARE Resultado FLOAT;
+            SELECT SUM(Price) FROM Products INTO Resultado;
+            RETURN Resultado;
+        END;
+        //
+        DELIMITER ;
+        ```
+
+        ```sql
+        select PrecioTotalProductos();
+
+        +------------------------+
+        | PrecioTotalProductos() |
+        +------------------------+
+        |                 105.27 |
+        +------------------------+
+        ```
+
+        - Función para contar el número de usuarios.
+
+        ```sql
+        DELIMITER //
+
+        CREATE FUNCTION TotalUsuarios() RETURNS INT DETERMINISTIC
+        BEGIN
+            DECLARE Resultado INT;
+            SELECT COUNT(UserID) FROM Users INTO Resultado;
+            RETURN Resultado;
+        END;
+        //
+        DELIMITER ;
+        ```
+
+        ```sql
+        select TotalUsuarios();
+        
+        +-----------------+
+        | TotalUsuarios() |
+        +-----------------+
+        |               7 |
+        +-----------------+
         ```
