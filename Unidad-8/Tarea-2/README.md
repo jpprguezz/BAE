@@ -60,8 +60,8 @@ source D:\mysql\jardineria.sql;
     +----------------------------------+
     ```
 - Función calcular_suma_pagos_cliente
-    Parámetros de entrada: codigo_cliente (INT)
-    Parámetros de salida: La suma total de todos los pagos del cliente (FLOAT)
+    - Parámetros de entrada: codigo_cliente (INT)
+    - Parámetros de salida: La suma total de todos los pagos del cliente (FLOAT)
     ```sql
     DELIMITER //
     CREATE FUNCTION calcular_suma_pagos_cliente(codigo_cliente INT) RETURNS FLOAT DETERMINISTIC
@@ -80,6 +80,7 @@ source D:\mysql\jardineria.sql;
     |                         197940 |
     +--------------------------------+
     ```
+    
 - Procedimiento calcular_pagos_pendientes
 
 
