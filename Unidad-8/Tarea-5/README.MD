@@ -86,3 +86,55 @@ BEGIN
 END //
 DELIMITER ;
 ```
+
+3. Escribe un procedimiento almacenado que seleccione empleados cuyos IDs estén en un rango específico, por ejemplo, entre 2 y 3.
+
+```sql
+DELIMITER //
+CREATE PROCEDURE letra_a(IN valor DECIMAL(5,2))
+BEGIN
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE emp_id INT;
+    DECLARE emp_nombre VARCHAR(100);
+    DECLARE emp_salario DECIMAL(10, 2);
+    DECLARE cur CURSOR FOR SELECT id, nombre, salario FROM empleados;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+    OPEN cur;
+    read_loop: LOOP
+        FETCH cur INTO emp_id, emp_nombre, emp_salario;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+        SELECT * FROM empleados where id between 2 and 3;
+    END LOOP;
+    CLOSE cur;
+END //
+DELIMITER ;
+```
+
+4. Escribe un procedimiento almacenado que elimine todos los empleados cuyo salario esté entre 2000 y 2500.
+
+```sql
+DELIMITER //
+CREATE PROCEDURE elimnar_empleados(IN valor DECIMAL(5,2))
+BEGIN
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE emp_id INT;
+    DECLARE emp_nombre VARCHAR(100);
+    DECLARE emp_salario DECIMAL(10, 2);
+    DECLARE cur CURSOR FOR SELECT id, nombre, salario FROM empleados;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+    OPEN cur;
+    read_loop: LOOP
+        FETCH cur INTO emp_id, emp_nombre, emp_salario;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+        DELETE FROM empleados WHERE salario BETWEEN 2000 AND 2500;
+    END LOOP;
+    CLOSE cur;
+END //
+DELIMITER ;
+```
+
+
