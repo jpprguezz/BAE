@@ -21,9 +21,8 @@ BEGIN
     DECLARE rand_salary DECIMAL(10, 2);
 
     WHILE counter < iterations DO
-        SET rand_user = CONCAT('Empleado', RAND());
-        SET rand_salary = FLOOR(RAND() * (10000 - 2000 + 1)) + 2000;
-        INSERT INTO empleados(nombre, salario) VALUES (rand_user, rand_salary);
+        INSERT INTO empleados (nombre, salario)
+        VALUES (CONCAT('Empleado', RAND()), FLOOR(RAND() * (10000 - 2000 + 1)) + 2000);
         SET counter = counter + 1;
     END WHILE;
 END//
@@ -70,9 +69,8 @@ BEGIN
     DECLARE rand_salary DECIMAL(10, 2);
 
     WHILE counter < iterations DO
-        SET rand_user = UUID();
-        SET rand_salary = FLOOR(RAND() * (10000 - 2000 + 1)) + 2000;
-        INSERT INTO empleados(nombre, salario) VALUES (rand_user, rand_salary);
+        INSERT INTO empleados (nombre, salario)
+        VALUES (UUID(), FLOOR(RAND() * (10000 - 2000 + 1)) + 2000)
         SET counter = counter + 1;
     END WHILE;
 END//
