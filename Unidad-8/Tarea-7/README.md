@@ -181,20 +181,6 @@ END//
 
 DELIMITER ;
 ```
-- Crea cada uno de las funciones anteriores para una persona en específico.
-  El parámetro de entrada debe de ser un identificar de la persona.
-```sql
-DELIMITER //
-
-CREATE FUNCTION pension(Salario_Base FLOAT(10,2)) RETURNS FLOAT DETERMINISTIC
-BEGIN
-    DECLARE Pension FLOAT(10,2);
-    SET Pension = Salario_Base * 0.04;
-    RETURN Pension;
-END//
-
-DELIMITER ;
-```
 
 
 
