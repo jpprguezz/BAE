@@ -128,9 +128,10 @@ call insercion_alumnos(10);
 ```
 
 ```sql
+DELIMITER //
+
 CREATE PROCEDURE insercion_alumnos_2(IN iterations INT)
 BEGIN
-    
     DECLARE counter INT DEFAULT 0;
     DECLARE rand_id INTEGER;
     DECLARE rand_nombre VARCHAR(100);
@@ -143,7 +144,7 @@ BEGIN
         SET rand_nombre = CONCAT('alumno', counter);
         SET rand_apellido1 = CONCAT('apellido1', counter);
         SET rand_apellido2 = CONCAT('apellido2', counter);
-        SET rand_nota = ROUND(RAND() * (12 - (-10) + (-10)), 1);
+        SET rand_nota = ROUND((RAND() * (12 - (-10)) + (-10)), 1);
 
         INSERT INTO alumnos (id, nombre, apellido1, apellido2, nota) 
         VALUES (rand_id, rand_nombre, rand_apellido1, rand_apellido2, rand_nota);
@@ -153,5 +154,32 @@ BEGIN
 END//
 
 DELIMITER ;
+
+call insercion_alumnos_2(10);
+
++------+---------+------------+------------+------+
+| id   | nombre  | apellido1  | apellido2  | nota |
++------+---------+------------+------------+------+
+|  143 | alumno0 | apellido10 | apellido20 | 0.00 |
+|  153 | alumno5 | apellido15 | apellido25 | 6.30 |
+|  232 | alumno1 | apellido11 | apellido21 | 0.00 |
+|  272 | alumno7 | apellido17 | apellido27 | 4.80 |
+|  738 | alumno9 | apellido19 | apellido29 | 3.20 |
+|  839 | alumno3 | apellido13 | apellido23 | 0.00 |
+|  979 | alumno6 | apellido16 | apellido26 | 0.00 |
+| 1060 | alumno8 | apellido18 | apellido28 | 9.40 |
+| 1103 | alumno2 | apellido12 | apellido22 | 3.50 |
+| 1155 | alumno7 | apellido17 | apellido27 | 0.00 |
+| 1367 | alumno5 | apellido15 | apellido25 | 3.00 |
+| 1413 | alumno2 | apellido12 | apellido22 | 7.10 |
+| 1467 | alumno1 | apellido11 | apellido21 | 9.90 |
+| 1619 | alumno3 | apellido13 | apellido23 | 5.00 |
+| 1669 | alumno9 | apellido19 | apellido29 | 1.10 |
+| 1751 | alumno8 | apellido18 | apellido28 | 7.20 |
+| 1827 | alumno0 | apellido10 | apellido20 | 9.30 |
+| 1928 | alumno6 | apellido16 | apellido26 | 8.60 |
+| 1987 | alumno4 | apellido14 | apellido24 | 0.00 |
+| 1999 | alumno4 | apellido14 | apellido24 | 3.90 |
++------+---------+------------+------------+------+
 ```
 
