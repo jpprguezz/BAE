@@ -142,7 +142,7 @@ END CATCH;
 ```
 
 
-## Cursores
+## 1. Cursores
 
 En base de datos un Cursor es un mecanismo el cual nos permite procesar fila por fila el resultado de una consulta.
 
@@ -212,7 +212,7 @@ END//
 DELIMITER ;
 ```
 
-# Funciones
+# 2. Funciones
 
 Características de la función
 Después de la definición del tipo de dato que devolverá la función con la palabra reservada RETURNS, tenemos que indicar las características de la función. Las opciones disponibles son las siguientes:
@@ -291,7 +291,7 @@ END
 //-- se cierra el delimitador
 ```
 
-# Procedimientos 
+# 3. Procedimientos 
 
 Un procedimiento almacenado es un conjunto de instrucciones SQL que se almacena asociado a una base de datos. Es un objeto que se crea con la sentencia CREATE PROCEDURE y se invoca con la sentencia CALL. Un procedimiento puede tener cero o muchos parámetros de entrada y cero o muchos parámetros de salida.
 
@@ -382,7 +382,7 @@ SELECT @total; -- fin del delimitador
 SET @@session.max_sp_recursion_depth = 10; 
 ```
 
-## Triggers
+## 4. Triggers
 
 Un trigger o disparador es una regla que se asocia a una tabla. Mediante esta regla, se ejecutan una serie de instrucciones cuando se producen ciertos eventos sobre una tabla. Los eventos son: INSERT, UPDATE o DELETE.
 
