@@ -1,5 +1,127 @@
 # Apuntes para examen
 
+# Cosas que se me dan mal (mysql)
+
+- Consultas resumen
+```sql
+-- 21. Calcula la cantidad media de todos las solicitudes que aparecen en la tabla solicitud.
+SELECT AVG(cantidad) AS cantidad_media FROM solicitud;
+
+-- 22. Calcula el número total de vendedores distintos que aparecen en la tabla solicitud.
+SELECT COUNT(DISTINCT id_vendedor) AS total_vendedores_distintos FROM solicitud;
+
+-- 23. Calcula el número total de compradores que aparecen en la tabla comprador.
+SELECT COUNT(*) AS total_compradores FROM comprador;
+
+-- 24. Calcula cuál es la mayor cantidad que aparece en la tabla solicitud.
+SELECT MAX(cantidad) AS mayor_cantidad FROM solicitud;
+
+-- 25. Calcula cuál es el valor máximo de categoría para cada una de las ciudades que aparece en la tabla comprador.
+SELECT ciudad, MAX(categoria) AS max_categoria FROM comprador GROUP BY ciudad;
+
+-- 26. Calcula cuál es el máximo valor de las solicitudes realizadas durante el mismo día para cada uno de los compradores.
+-- Se pide que se calcule cuál es el solicitud de máximo valor para cada uno de los días en los que un comprador ha realizado un solicitud. 
+-- Muestra el identificador del comprador, nombre, apellidos, la fecha y el valor de la cantidad.
+SELECT s.id_comprador, c.nombre, c.apellidos, s.fecha, MAX(s.cantidad) AS max_cantidad
+FROM solicitud s
+JOIN comprador c ON s.id_comprador = c.id
+GROUP BY s.id_comprador, c.nombre, c.apellidos, s.fecha;
+
+-- 27. Calcula cuál es el máximo valor de las solicitudes realizadas durante el mismo día para cada uno de los compradores, 
+-- teniendo en cuenta que sólo queremos mostrar aquellas solicitudes que superen la cantidad de 2000 €.
+SELECT s.id_comprador, c.nombre, c.apellidos, s.fecha, MAX(s.cantidad) AS max_cantidad
+FROM solicitud s
+JOIN comprador c ON s.id_comprador = c.id
+WHERE s.cantidad > 2000
+GROUP BY s.id_comprador, c.nombre, c.apellidos, s.fecha;
+
+-- 28. Calcula el máximo valor de las solicitudes realizadas para cada uno de los vendedores durante la fecha 2016-08-17. 
+-- Muestra el identificador del vendedor, nombre, apellidos y total.
+SELECT s.id_vendedor, v.nombre, v.apellidos, MAX(s.cantidad) AS max_cantidad
+FROM solicitud s
+JOIN vendedor v ON s.id_vendedor = v.id
+WHERE s.fecha = '2016-08-17'
+GROUP BY s.id_vendedor, v.nombre, v.apellidos;
+
+-- 29. Devuelve un listado con el identificador de comprador, nombre y apellidos y el número total de solicitudes que ha realizado cada uno de compradores.
+-- Tenga en cuenta que pueden existir compradores que no han realizado ningún solicitud. 
+-- Estos compradores también deben aparecer en el listado indicando que el número de solicitudes realizadas es 0.
+SELECT c.id, c.nombre, c.apellidos, COUNT(s.id) AS total_solicitudes
+FROM comprador c
+LEFT JOIN solicitud s ON c.id = s.id_comprador
+GROUP BY c.id, c.nombre, c.apellidos;
+
+-- 30. Devuelve un listado con el identificador de comprador, nombre y apellidos y el número total de solicitudes que ha realizado cada uno de compradores durante el año 2020.
+SELECT c.id, c.nombre, c.apellidos, COUNT(s.id) AS total_solicitudes_2020
+FROM comprador c
+LEFT JOIN solicitud s ON c.id = s.id_comprador AND YEAR(s.fecha) = 2020
+GROUP BY c.id, c.nombre, c.apellidos;
+
+-- 31. Devuelve cuál ha sido el solicitud de máximo valor que se ha realizado cada año.
+SELECT YEAR(fecha) AS año, MAX(cantidad) AS max_cantidad
+FROM solicitud
+GROUP BY YEAR(fecha);
+``` 
+
+- Subconsultas
+
+```sql
+--- Con operadores básicos de comparación
+
+-- 32. Devuelve un listado con todos las solicitudes que ha realizado Adela Salas Díaz.
+SELECT * 
+FROM solicitud 
+WHERE id_comprador = (SELECT id FROM comprador WHERE nombre = 'Adela' AND apellidos = 'Salas Díaz');
+
+-- 33. Devuelve la fecha y la cantidad del solicitud de menor valor realizado por el cliente Pepe Ruiz Santana.
+SELECT fecha, cantidad 
+FROM solicitud 
+WHERE id_comprador = (SELECT id FROM comprador WHERE nombre = 'Pepe' AND apellidos = 'Ruiz Santana') 
+ORDER BY cantidad ASC 
+LIMIT 1;
+
+-- 34. Devuelve el número de solicitudes en los que ha participado el vendedor Daniel Sáez Vega. (Sin utilizar INNER JOIN)
+SELECT COUNT(*) AS total_solicitudes 
+FROM solicitud 
+WHERE id_vendedor = (SELECT id FROM vendedor WHERE nombre = 'Daniel' AND apellidos = 'Sáez Vega');
+
+-- 35. Devuelve los datos del comprador que realizó el solicitud más caro en el año 2021. (Sin utilizar INNER JOIN)
+SELECT * 
+FROM comprador 
+WHERE id = (SELECT id_comprador FROM solicitud WHERE YEAR(fecha) = 2021 ORDER BY cantidad DESC LIMIT 1);
+
+-- 36. Devuelve un listado con los datos de los compradores y las solicitudes, de todos los compradores que han realizado un solicitud durante el año 2020 
+-- con un valor mayor o igual al valor medio de las solicitudes realizadas durante ese mismo año.
+SELECT * 
+FROM comprador 
+WHERE id IN (
+    SELECT id_comprador 
+    FROM solicitud 
+    WHERE YEAR(fecha) = 2020 
+      AND cantidad >= (SELECT AVG(cantidad) FROM solicitud WHERE YEAR(fecha) = 2020)
+);
+
+-- 37. Devuelve un listado de los compradores que no han realizado ningún solicitud. (Utilizando IN o NOT IN).
+SELECT * 
+FROM comprador 
+WHERE id NOT IN (SELECT id_comprador FROM solicitud);
+
+-- 38. Devuelve un listado de los vendedores que no han realizado ningún solicitud. (Utilizando IN o NOT IN).
+SELECT * 
+FROM vendedor 
+WHERE id NOT IN (SELECT id_vendedor FROM solicitud);
+
+-- 39. Devuelve un listado de los compradores que no han realizado ningún solicitud. (Utilizando EXISTS o NOT EXISTS).
+SELECT * 
+FROM comprador c 
+WHERE NOT EXISTS (SELECT 1 FROM solicitud s WHERE s.id_comprador = c.id);
+
+-- 40. Devuelve un listado de los vendedores que no han realizado ningún solicitud. (Utilizando EXISTS o NOT EXISTS).
+SELECT * 
+FROM vendedor v 
+WHERE NOT EXISTS (SELECT 1 FROM solicitud s WHERE s.id_vendedor = v.id);
+```
+
 ## Aleatoriedad 
 
 - `RAND ()`: Devuelve un valor de punto flotante aleatorio entre 0 y 1. Se puede usar para generar valores aleatorios en general.
@@ -382,7 +504,7 @@ SELECT @total; -- fin del delimitador
 SET @@session.max_sp_recursion_depth = 10; 
 ```
 
-## 4. Triggers
+## 4.Triggers
 
 Un trigger o disparador es una regla que se asocia a una tabla. Mediante esta regla, se ejecutan una serie de instrucciones cuando se producen ciertos eventos sobre una tabla. Los eventos son: INSERT, UPDATE o DELETE.
 
@@ -410,7 +532,63 @@ CREATE TRIGGER actor_trigger_au AFTER UPDATE ON actor
 ;
 ``` 
 
-# 5. Ejercicios
+## 5. Index y Vistas
+
+- __Índices__:
+    - __Crear un índice (Forma 1)__: `CREATE [FULLTEXT|UNIQUE|PRIMARY] INDEX index_name ON table_name(column1, ..., columnN);`
+    ```sql
+    CREATE INDEX idx_username ON users(username);
+    ```
+    - __Crear un índice (Forma 2)__: `ALTER TABLE table_name ADD INDEX index_name (column1, ..., columnN);`
+    ```sql
+    ALTER TABLE users ADD INDEX idx_username (username);
+    ```
+    - __Ver índices de una tabla__: `SHOW INDEX FROM table_name;` o `DESCRIBE table_name;`
+    ```sql
+    SHOW INDEX FROM users;
+    DESCRIBE users;
+    ```
+    - __Eliminar un índice (Forma 1)__: `DROP INDEX index_name ON table_name;`
+    ```sql
+    DROP INDEX idx_username ON users;
+    ```
+    - __Eliminar un índice (Forma 2)__: `ALTER TABLE table_name DROP INDEX index_name;`
+    ```sql
+    ALTER TABLE users DROP INDEX idx_username;
+    ```
+
+- __Vistas__:
+    - __Crear una vista__: `CREATE VIEW view_name AS SELECT ...;`
+    ```sql
+    CREATE VIEW tickets AS
+    (SELECT v.clave, v.fecha, a.nombre producto, a.precio, concat(e.nombre, ' ', e.apellido_paterno) empleado 
+    FROM venta v
+    JOIN empleado e
+    ON v.id_empleado = e.id_empleado
+    JOIN articulo a
+    ON v.id_articulo = a.id_articulo);
+    ```
+    - __Eliminar una vista__: `DROP VIEW IF EXISTS view_name;`
+    ```sql
+    DROP VIEW IF EXISTS tickets;
+    ```
+
+- __Otros relacionados__:
+    - __Analizar tabla__: `ANALYZE TABLE table_name;`
+    - __Optimizar tabla__: `OPTIMIZE TABLE table_name;`
+
+- __Explain__:
+```sql
+EXPLAIN SELECT * FROM cliente;
+
++----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------+
+| id | select_type | table   | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra |
++----+-------------+---------+------------+------+---------------+------+---------+------+------+----------+-------+
+|  1 | SIMPLE      | cliente | NULL       | ALL  | NULL          | NULL | NULL    | NULL |   36 |   100.00 | NULL  |
++----+-------------+-
+```
+
+# 6. Ejercicios
 
 ## Ejercicio 1: Creación de Base de Datos y Tablas
 1. Crea una base de datos llamada `donacion`.
@@ -802,8 +980,196 @@ mysql> select * from persona;
 
 ```
 
+-- Realiza las siguientes vistas (Crea, muestra,consulta, y elimmina cada una de ellas)
+
+	-- 1. Crea una vista que devuelva los clientes cuyo apellido incluya la sílaba “le” ordenados por su identificador.
+```sql
+CREATE VIEW apellido_le as 
+select * from Cliente where primerApellido regexp 'le' order by idCLiente;
+
+mysql> select * from apellido_le;
+
++-----------+---------+--------+----------------+-----------------+----------------------+-----------+---------------+
+| idCliente | pais    | nombre | primerApellido | segundoApellido | direccion            | telefono  | observaciones |
++-----------+---------+--------+----------------+-----------------+----------------------+-----------+---------------+
+| 12345     | España  | Felipe | Iglesias       | López           | Avda Los Castros, 44 | 942344444 | Buen cliente  |
++-----------+---------+--------+----------------+-----------------+----------------------+-----------+---------------+
+
+DROP VIEW apellido_le;
+Query OK, 0 rows affected (0,02 sec)
+```
+
+	-- 2. Crea una vista que devuelva los clientes, ordenados por su primer apellido, que tengan alguna observación anotada.
+```sql
+CREATE VIEW clientes_observacion as
+select * from Cliente where observaciones is not NULL order by primerApellido;
+
+mysql> select * from clientes_observacion;
++-----------+----------+--------+----------------+-----------------+----------------------+-----------+------------------+
+| idCliente | pais     | nombre | primerApellido | segundoApellido | direccion            | telefono  | observaciones    |
++-----------+----------+--------+----------------+-----------------+----------------------+-----------+------------------+
+| 12345     | España   | Felipe | Iglesias       | López           | Avda Los Castros, 44 | 942344444 | Buen cliente     |
+| 43215     | Alemania | Hans   | Schmidt        | Müller          | Hauptstrasse 123     | 65890234  | Cliente exigente |
++-----------+----------+--------+----------------+-----------------+----------------------+-----------+------------------+
+
+DROP VIEW cliente_observacion;
+Query OK, 0 rows affected (0,02 sec)
+```
+	-- 3. Crea una vista que devuelva los servicios cuyo precio supere los 5€ ordenados por su código de servicio.
+```sql
+CREATE VIEW precio_mayor_5 as
+select * from Servicio where precio > 5 order by idServicio;
+
+mysql> select * from precio_mayor_5;
++------------+----------------+-----------------+--------+------+------------+
+| idServicio | nombreServicio | descripcion     | precio | iva  | fecha      |
++------------+----------------+-----------------+--------+------+------------+
+|          1 | Comedor        | 1 menu del día  |  10.00 | 7.00 | 2023-01-01 |
++------------+----------------+-----------------+--------+------+------------+
+
+mysql> drop view precio_mayor_5;
+Query OK, 0 rows affected (0,02 sec)
+```
+
+	-- 4. Crea una vista que devuelva los clientes que han utilizado el servicio de comedor.
+```sql
+CREATE VIEW cliente_comedor as 
+select distinct(c.idCliente), nombre, primerApellido from Cliente as c join ReservaHabitac as rh on c.idCliente=rh.cliente join Gasto as g on rh.idReserva=g.idReserva join Servicio as s on s.idServicio=g.idServicio where s.nombreServicio ='Comedor';
+mysql> select * from cliente_comedor;
++-----------+--------+----------------+
+| idCliente | nombre | primerApellido |
++-----------+--------+----------------+
+| 12345     | Felipe | Iglesias       |
++-----------+--------+----------------+
+
+
+mysql> drop view cliente_comedor;
+Query OK, 0 rows affected (0,02 sec)
+```
+
+	-- 5. Crea una vista que devuelva las características de cada habitación reservada.
+```sql
+CREATE VIEW carac_habitac as 
+select rh.numHabitacion, th.categoria, th.camas, th.exterior, th.terraza, th.salon from TipoHabitacion as th join Habitacion as h on th.categoria=h.tipoHabitacion join ReservaHabitac as rh on rh.numHabitacion=h.numHabitacion;
+mysql> select * from carac_habitac;
++---------------+-----------+-------+----------+---------+-------+
+| numHabitacion | categoria | camas | exterior | terraza | salon |
++---------------+-----------+-------+----------+---------+-------+
+|           101 |         1 |     1 | Si       | No      | No    |
+|           102 |         1 |     1 | Si       | No      | No    |
+|           103 |         1 |     1 | Si       | No      | No    |
+|           104 |         2 |     2 | Si       | No      | No    |
+|           105 |         2 |     2 | Si       | No      | No    |
+|           106 |         3 |     3 | Si       | No      | No    |
+|           107 |         4 |     1 | Si       | No      | Si    |
++---------------+-----------+-------+----------+---------+-------+
+drop view carac_habitac;
+```
+
+	-- 6. Crea una vista con los servicios que nunca han sido contratados.
+```sql
+CREATE VIEW servicio_no_usado as
+select idServicio, nombreServicio from Servicio where idServicio not in (select idServicio from Gasto);
+
+mysql> select * from servicio_no_usado;
++------------+----------------+
+| idServicio | nombreServicio |
++------------+----------------+
+|          3 | Lavandería     |
++------------+----------------+
+
+drop view servicio_no_usado;
+```
+
+	-- 7. Crea una vista que devuelva el nº de clientes por nacionalidad.
+```sql
+Create view clientes_nacio as
+select count(idCliente), pais from Cliente group by pais;
+
+select * from clientes_nacio;
++------------------+----------+
+| count(idCliente) | pais     |
++------------------+----------+
+|                1 | Alemania |
+|                2 | España   |
+|                1 | Francia  |
+|                1 | Italia   |
++------------------+----------+
+
+drop view clientes_nacio;
+```
+
+	-- 8. Crea una vista que devuelva el nº de habitaciones por categoría de habitación.
+```sql
+CREATE VIEW 
+select count(tipoHabitacion), numHabitacion from Habitacion group by tipoHabitacion;
+```
+	-- 9. Crea una vista que devuelva el nº de servicios que se ofrecen por tipo de servicio.
+select count
+	-- 10. Crear una vista que muestre todos los datos del cliente excepto las observaciones.
+	-- 11. Crear una vista que muestre el id, nombre y primer apellido de todos los clientes y el gasto total que han realizado en el hotel en sus diferentes estancias.
+
+-- Realiza las siguientes índices (Crea cada uno de los indices, y analiza el coportamiento antes de crear el indice con las consultas que se proponen)
+
+	-- 1. Crea un índice sobre el atributo pais de la tabla cliente, con objeto de agilizar las búsquedas.
+	-- Consulta de análisis: SELECT * FROM Cliente WHERE pais = 'España';
+```sql
+create index idx_pais on Cliente(pais);
+
+mysql> explain SELECT * FROM Cliente WHERE pais = 'España';
++----+-------------+---------+------------+------+---------------+----------+---------+-------+------+----------+-----------------------+
+| id | select_type | table   | partitions | type | possible_keys | key      | key_len | ref   | rows | filtered | Extra                 |
++----+-------------+---------+------------+------+---------------+----------+---------+-------+------+----------+-----------------------+
+|  1 | SIMPLE      | Cliente | NULL       | ref  | idx_pais      | idx_pais | 80      | const |    2 |   100.00 | Using index condition |
++----+-------------+---------+------------+------+---------------+----------+---------+-------+------+----------+-----------------------+
+```
+
+-- A partir del índice recorre las filas y busca el indicado haciendo la consulta mucho más eficiente.
+
+	-- 2. Crea un índice sobre el atributo numHabitacion de la tabla ReservaHabitac, con objeto de agilizar las búsquedas.
+	-- Consulta de análisis: SELECT * FROM ReservaHabitac WHERE numHabitacion = 101;
+```sql
+--Antes del índice:
++----+-------------+----------------+------------+------+---------------+---------------+---------+-------+------+----------+-------+
+| id | select_type | table          | partitions | type | possible_keys | key           | key_len | ref   | rows | filtered | Extra |
++----+-------------+----------------+------------+------+---------------+---------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | ReservaHabitac | NULL       | ref  | numHabitacion | numHabitacion | 4       | const |    1 |   100.00 | NULL  |
++----+-------------+----------------+------------+------+---------------+---------------+---------+-------+------+----------+-------+
+
+-- COn el índice:
+CREATE INDEX idx_numHabitac on ReservaHabitac(numHabitacion);
+mysql> explain SELECT * FROM ReservaHabitac WHERE numHabitacion = 101;
++----+-------------+----------------+------------+------+----------------+----------------+---------+-------+------+----------+-------+
+| id | select_type | table          | partitions | type | possible_keys  | key            | key_len | ref   | rows | filtered | Extra |
++----+-------------+----------------+------------+------+----------------+----------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | ReservaHabitac | NULL       | ref  | idx_numHabitac | idx_numHabitac | 4       | const |    1 |   100.00 | NULL  |
++----+-------------+----------------+------------+------+----------------+----------------+---------+-------+------+----------+-------+
+```
+
+--ahora se basa en el índice para encontrar el número de la habitación
+
+	-- 3. Crea un índice sobre el atributo nombreServicio de la tabla Servicio, con objeto de agilizar las búsquedas.
+CREATE INDEX idx_nombreServicio on Servicio(nombreServicio);
+--utilizando el índice no debe recorrer todas las filas para encontrarlo, sino que se basa en el índice.
+```sql
+mysql> explain SELECT * FROM Servicio WHERE nombreServicio = 'Comedor';
++----+-------------+----------+------------+------+--------------------+--------------------+---------+-------+------+----------+-----------------------+
+| id | select_type | table    | partitions | type | possible_keys      | key                | key_len | ref   | rows | filtered | Extra                 |
++----+-------------+----------+------------+------+--------------------+--------------------+---------+-------+------+----------+-----------------------+
+|  1 | SIMPLE      | Servicio | NULL       | ref  | idx_nombreServicio | idx_nombreServicio | 40      | const |    1 |   100.00 | Using index condition |
++----+-------------+----------+------------+------+--------------------+--------------------+---------+-------+------+----------+-----------------------+
+```
+
+
+	-- Consulta de análisis: SELECT * FROM Servicio WHERE nombreServicio = 'Comedor';
+	-- Nota: Utiliza el comando apropiado para verificar el comportamiento
+
+
 ## Consideraciones adicionales
 - Asegúrate de probar cada uno de los procedimientos, funciones y triggers con ejemplos prácticos.
 
 - Verifica que los datos se inserten, actualicen y eliminen correctamente en las tablas correspondientes.
 - Mantén la integridad de los datos en todas las operaciones.
+
+
+
