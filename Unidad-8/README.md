@@ -1164,6 +1164,189 @@ mysql> explain SELECT * FROM Servicio WHERE nombreServicio = 'Comedor';
 	-- Consulta de análisis: SELECT * FROM Servicio WHERE nombreServicio = 'Comedor';
 	-- Nota: Utiliza el comando apropiado para verificar el comportamiento
 
+-- 1. Crea un procedimiento que permita añadir datos aleatorios, en la tabla productos o clientes.
+```sql
+DROP PROCEDURE IF EXISTS insertar_producto;
+DELIMITER //
+CREATE PROCEDURE insertar_producto(in iterations INT)
+BEGIN
+    DECLARE counter INT DEFAULT 0;
+    DECLARE p_nombre VARCHAR(100);
+    DECLARE p_precio DECIMAL(10, 2);
+    DECLARE p_stock INT;
+
+    WHILE counter < iterations DO
+    SET p_nombre = CONCAT('Product', ROUND(RAND() * 1000000));
+    SET p_precio = ROUND(RAND() * (1000 - 10) + 10, 2); 
+    SET p_stock = FLOOR(RAND() * (100 - 10 + 1)) + 1;
+
+        INSERT INTO productos(nombre, precio, stock) VALUES (p_nombre, p_precio, p_stock);
+
+        SET counter = counter + 1;
+    END WHILE;
+END //
+DELIMITER ;
+```
+
+
+mysql> call insertar_producto(15);
+Query OK, 1 row affected (0,20 sec)
+
+mysql> select * from productos;
++----+---------------+--------+-------+
+| id | nombre        | precio | stock |
++----+---------------+--------+-------+
+|  1 | Product678592 | 807.74 |    91 |
+|  2 | Product548664 | 766.05 |    16 |
+|  3 | Product571149 | 345.04 |    90 |
+|  4 | Product878024 | 459.61 |    58 |
+|  5 | Product820892 | 202.51 |    47 |
+|  6 | Product964685 | 301.65 |    53 |
+|  7 | Product10757  | 323.89 |    51 |
+|  8 | Product814044 | 416.97 |    56 |
+|  9 | Product833105 | 332.46 |    12 |
+| 10 | Product669170 | 958.48 |    72 |
+| 11 | Product39785  | 852.04 |    13 |
+| 12 | Product115181 | 184.06 |    49 |
+| 13 | Product140325 | 109.94 |     8 |
+| 14 | Product116113 | 335.89 |    28 |
+| 15 | Product500277 | 612.61 |    50 |
++----+---------------+--------+-------+
+15 rows in set (0,00 sec)
+
+
+--2. Crea un procedimiento que permita actualizar el número de elementos  de un producto, teniendo como parámetros de entrada el id del producto,  y la cantidad de elementos a restar del producto.
+```sql
+DROP PROCEDURE IF EXISTS actualizar_stock;
+DELIMITER //
+CREATE PROCEDURE actualizar_stock(in input_codigo VARCHAR(30), in input_stock INT)
+BEGIN
+    UPDATE productos set stock = stock - input_stock where id = input_codigo;
+END //
+DELIMITER ;
+```
+
+mysql> call actualizar_stock(3, 10);
+Query OK, 1 row affected (0,01 sec)
+
+mysql> select * from productos where id = 3;
+
+-- el stock que antes era 90, es ahora 80.
++----+---------------+--------+-------+
+| id | nombre        | precio | stock |
++----+---------------+--------+-------+
+|  3 | Product571149 | 345.04 |    80 |
++----+---------------+--------+-------+
+1 row in set (0,00 sec)
+
+
+-- 3. Crea un trigger que actualice la tabla de productos cuando se realice una venta, restando de un producto (id_producto) el número de elementos que se debe de restar (cantidad).
+```sql
+DROP TRIGGER IF EXISTS disminuir_stock;
+DELIMITER //
+CREATE TRIGGER disminuir_stock
+AFTER INSERT ON ventas
+FOR EACH ROW
+BEGIN
+    UPDATE productos SET stock = stock - NEW.cantidad WHERE id = id;
+END //
+DELIMITER ;
+
+
+
+--  Se comprueba la cantidad actual de stock antes de la venta
+mysql> SELECT * FROM productos where id = 1;
++----+---------------+--------+-------+
+| id | nombre        | precio | stock |
++----+---------------+--------+-------+
+|  1 | Product678592 | 807.74 |    91 |
++----+---------------+--------+-------+
+1 row in set (0,00 sec)
+
+
+INSERT INTO ventas (cliente_id, producto_id, cantidad, fecha) VALUES (1, 1, 50, '2024-05-13');
+--se ha restado al stock los 50 productos que se han vendido.
+
+mysql> SELECT * FROM productos where id = 1;
++----+---------------+--------+-------+
+| id | nombre        | precio | stock |
++----+---------------+--------+-------+
+|  1 | Product678592 | 807.74 |    41 |
++----+---------------+--------+-------+
+1 row in set (0,00 sec)
+```
+
+-- 4. Crea una función que calcule el total de las ventas de un cliente.
+```sql
+DROP FUNCTION IF EXISTS total_ventas;
+DELIMITER //
+CREATE FUNCTION total_ventas(input_id INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE total_ventas INT;
+    SELECT count(*) from ventas where cliente_id = input_id into total_ventas;
+    RETURN total_ventas;
+END //
+DELIMITER ;
+
+--veo que el cliente con id 1 aparece 2 veces en la tabla de ventas
+mysql> select * from ventas;
++----+------------+-------------+----------+------------+
+| id | cliente_id | producto_id | cantidad | fecha      |
++----+------------+-------------+----------+------------+
+|  4 |          1 |           1 |        2 | 2024-05-01 |
+|  5 |          2 |           2 |        1 | 2024-05-02 |
+|  6 |          3 |           3 |        1 | 2024-05-03 |
+|  7 |          1 |           1 |       50 | 2024-05-13 |
++----+------------+-------------+----------+------------+
+4 rows in set (0,00 sec)
+
+--Llamo a la función, y efectivamente, son 2
+
+mysql> select total_ventas(1);
++-----------------+
+| total_ventas(1) |
++-----------------+
+|               2 |
++-----------------+
+1 row in set (0,01 sec)
+```
+
+-- 5. Crea una función que calcule la cantidad de productos en stock de un producto (producto_id).
+```sql
+DROP FUNCTION IF EXISTS total_cantidad;
+DELIMITER //
+CREATE FUNCTION total_cantidad(input_producto_id INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE total_cantidad INT;
+    SELECT stock from productos where id = input_producto_id into total_cantidad;
+    RETURN total_cantidad;
+END //
+DELIMITER ;
+```
+--compruebo la cantidad total de productos
+mysql> select * from productos where id = 8;
++----+---------------+--------+-------+
+| id | nombre        | precio | stock |
++----+---------------+--------+-------+
+|  8 | Product814044 | 416.97 |     6 |
++----+---------------+--------+-------+
+1 row in set (0,00 sec)
+
+--llamo a la función
+mysql> select total_cantidad(8);
++-------------------+
+| total_cantidad(8) |
++-------------------+
+|                 6 |
++-------------------+
+1 row in set (0,00 sec)
+
+
+
 
 ## Consideraciones adicionales
 - Asegúrate de probar cada uno de los procedimientos, funciones y triggers con ejemplos prácticos.
