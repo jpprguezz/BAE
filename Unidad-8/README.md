@@ -1186,7 +1186,6 @@ BEGIN
     END WHILE;
 END //
 DELIMITER ;
-```
 
 
 mysql> call insertar_producto(15);
@@ -1213,6 +1212,7 @@ mysql> select * from productos;
 | 15 | Product500277 | 612.61 |    50 |
 +----+---------------+--------+-------+
 15 rows in set (0,00 sec)
+```
 
 
 --2. Crea un procedimiento que permita actualizar el número de elementos  de un producto, teniendo como parámetros de entrada el id del producto,  y la cantidad de elementos a restar del producto.
@@ -1224,7 +1224,7 @@ BEGIN
     UPDATE productos set stock = stock - input_stock where id = input_codigo;
 END //
 DELIMITER ;
-```
+
 
 mysql> call actualizar_stock(3, 10);
 Query OK, 1 row affected (0,01 sec)
@@ -1238,7 +1238,7 @@ mysql> select * from productos where id = 3;
 |  3 | Product571149 | 345.04 |    80 |
 +----+---------------+--------+-------+
 1 row in set (0,00 sec)
-
+```
 
 -- 3. Crea un trigger que actualice la tabla de productos cuando se realice una venta, restando de un producto (id_producto) el número de elementos que se debe de restar (cantidad).
 ```sql
@@ -1326,7 +1326,7 @@ BEGIN
     RETURN total_cantidad;
 END //
 DELIMITER ;
-```
+
 --compruebo la cantidad total de productos
 mysql> select * from productos where id = 8;
 +----+---------------+--------+-------+
@@ -1336,6 +1336,7 @@ mysql> select * from productos where id = 8;
 +----+---------------+--------+-------+
 1 row in set (0,00 sec)
 
+
 --llamo a la función
 mysql> select total_cantidad(8);
 +-------------------+
@@ -1344,7 +1345,7 @@ mysql> select total_cantidad(8);
 |                 6 |
 +-------------------+
 1 row in set (0,00 sec)
-
+```
 
 
 
